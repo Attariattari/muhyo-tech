@@ -1,0 +1,61 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+export default function Loading() {
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0f1c]">
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px]" />
+
+      <div className="relative flex flex-col items-center gap-12 max-w-xs w-full">
+        {/* Orbital Ring Logo Area */}
+        <div className="relative">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[-20px] border border-accent/20 rounded-full border-dashed"
+          />
+          <div className="relative w-24 h-24 flex items-center justify-center glass rounded-full border border-accent/30 shadow-[0_0_50px_rgba(var(--accent-rgb),0.2)] overflow-hidden">
+            <span className="text-4xl font-black text-white tracking-tighter animate-shimmer">
+              M<span className="text-accent">.</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Triple-Layer Futuristic Progress */}
+        <div className="w-full space-y-4">
+          <div className="relative h-1 w-full bg-white/5 overflow-hidden rounded-full">
+            {/* Primary Motion Bar */}
+            <div className="absolute top-0 left-0 h-full w-full bg-accent animate-progress-wide shadow-[0_0_15px_var(--accent)]" />
+
+            {/* Secondary Tracer */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: "200%" }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+            />
+          </div>
+
+          <div className="flex justify-between items-center px-1">
+            <span className="text-small font-black uppercase tracking-[0.4em] text-white/40 animate-pulse">
+              Initializing Experience
+            </span>
+            <span className="text-[10px] font-bold font-mono text-accent">
+              SECURE_LINK_V4
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-20 pointer-events-none" />
+    </div>
+  );
+}
