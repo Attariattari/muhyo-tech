@@ -11,14 +11,17 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Muhyo Tech - Professional Portfolio",
   description: "Senior Full-Stack Developer & UI Designer Portfolio.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function MainLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
