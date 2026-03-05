@@ -1,15 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Layout,
-  Palette,
-  Server,
-  ArrowRight,
-  MousePointerClick,
-} from "lucide-react";
+import { Layout, Palette, Server, ArrowRight } from "lucide-react";
 import { SectionWrapper, Card } from "./ui";
-import Link from "next/link";
 
 const icons = {
   1: Layout,
@@ -64,18 +57,15 @@ const ServiceCard = ({ service, index }) => {
           </div>
         </div>
 
-        <Link
-          href={`/services/${service.slug || service.id}`}
-          className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:opacity-80 transition-opacity"
-        >
+        <button className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:opacity-80 transition-opacity">
           Learn More <ArrowRight className="w-4 h-4" />
-        </Link>
+        </button>
       </Card>
     </motion.div>
   );
 };
 
-export default function Services({ data, showViewAll = false }) {
+export default function Services({ data }) {
   if (!data) return null;
 
   return (
@@ -89,27 +79,6 @@ export default function Services({ data, showViewAll = false }) {
           <ServiceCard key={service.id} service={service} index={index} />
         ))}
       </div>
-
-      {showViewAll && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 flex justify-center"
-        >
-          <Link
-            href="/services"
-            className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              View All Services <MousePointerClick className="w-4 h-4" />
-            </span>
-            <div className="absolute top-0 -right-full w-full h-full bg-foreground/10 group-hover:right-0 transition-all duration-300" />
-            <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-5 h-5" />
-          </Link>
-        </motion.div>
-      )}
     </SectionWrapper>
   );
 }

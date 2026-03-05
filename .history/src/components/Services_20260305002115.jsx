@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import {
   Layout,
@@ -65,7 +63,7 @@ const ServiceCard = ({ service, index }) => {
         </div>
 
         <Link
-          href={`/services/${service.slug || service.id}`}
+          href={`/services/${service.id}`}
           className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:opacity-80 transition-opacity"
         >
           Learn More <ArrowRight className="w-4 h-4" />

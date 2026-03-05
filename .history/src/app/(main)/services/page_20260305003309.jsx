@@ -170,10 +170,7 @@ export default function ServicesPage() {
 
       {/* Call to Action */}
       <SectionWrapper className="pb-32">
-        <Card className="p-12 md:p-20 text-center relative overflow-hidden border-accent/20">
-          <div className="absolute top-0 right-0 w-64 h-64 rounded-full -mr-32 -mt-32" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full -ml-32 -mb-32" />
-
+        <div className="p-12 md:p-20 text-center relative overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -204,7 +201,7 @@ export default function ServicesPage() {
               </Link>
             </div>
           </motion.div>
-        </Card>
+        </div>
       </SectionWrapper>
     </div>
   );

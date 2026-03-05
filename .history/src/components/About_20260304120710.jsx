@@ -44,22 +44,22 @@ export default function About({ data }) {
   const features = [
     {
       icon: Award,
-      title: "Top Quality Work",
-      desc: "I make sure every detail looks perfect on any screen.",
+      title: "Built for Excellence",
+      desc: "Pixel-perfect implementation of complex designs.",
       color: "text-amber-500",
       bg: "bg-amber-500/10",
     },
     {
       icon: Zap,
-      title: "Super Fast Speed",
-      desc: "Websites that load instantly and feel smooth to use.",
+      title: "Optimized Speed",
+      desc: "Ultra-fast response times and smooth interactions.",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
     },
     {
       icon: Code2,
-      title: "Smart & Future Proof",
-      desc: "Websites that are easy to update as your business grows.",
+      title: "Scalable Logic",
+      desc: "Code that grows with your business needs effortlessly.",
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
     },
@@ -81,7 +81,11 @@ export default function About({ data }) {
   };
 
   return (
-    <SectionWrapper id="about" title="Built with Care" subtitle="My About">
+    <SectionWrapper
+      id="about"
+      title="Architecture of Quality"
+      subtitle="The Journey So Far"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Left Side: Profile Image with Premium Effects */}
         <motion.div
@@ -172,7 +176,7 @@ export default function About({ data }) {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-[0.2em] mb-8 w-fit shadow-inner"
           >
             <Target className="w-3.5 h-3.5" />
-            <span>Results You Can See</span>
+            <span>Defined by Results</span>
           </motion.div>
 
           <motion.h3

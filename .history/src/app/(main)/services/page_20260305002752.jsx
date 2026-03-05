@@ -79,8 +79,8 @@ export default function ServicesPage() {
     <div className=" min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96  rounded-full -z-10" />
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96  rounded-full -z-10" />
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -171,8 +171,8 @@ export default function ServicesPage() {
       {/* Call to Action */}
       <SectionWrapper className="pb-32">
         <Card className="p-12 md:p-20 text-center relative overflow-hidden border-accent/20">
-          <div className="absolute top-0 right-0 w-64 h-64 rounded-full -mr-32 -mt-32" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full -ml-32 -mb-32" />
+          <div className="absolute top-0 right-0 w-64 h-64  rounded-full blur-[100px] -mr-32 -mt-32" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] -ml-32 -mb-32" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

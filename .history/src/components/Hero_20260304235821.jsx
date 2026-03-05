@@ -151,11 +151,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-muted-foreground text-base md:text-lg max-w-xl mb-10 leading-relaxed font-medium opacity-80"
             >
-              I specialize in building high-quality, modern websites that look
-              amazing and work perfectly on every device. By using the latest
-              technology, I ensure your site is fast, secure, and easy for your
-              visitors to use. My goal is to help your business grow with a
-              powerful online presence that makes a great first impression.
+              I build fast, beautiful, and easy-to-use websites. I use the
+              latest tools to create the best experience for you and your
+              visitors.
             </motion.p>
 
             {/* Strategic CTA Section */}

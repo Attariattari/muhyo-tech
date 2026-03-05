@@ -81,7 +81,11 @@ export default function About({ data }) {
   };
 
   return (
-    <SectionWrapper id="about" title="Built with Care" subtitle="My About">
+    <SectionWrapper
+      id="about"
+      title="Built with Care"
+      subtitle="My Professional Path"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Left Side: Profile Image with Premium Effects */}
         <motion.div

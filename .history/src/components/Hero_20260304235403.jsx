@@ -151,11 +151,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-muted-foreground text-base md:text-lg max-w-xl mb-10 leading-relaxed font-medium opacity-80"
             >
-              I specialize in building high-quality, modern websites that look
-              amazing and work perfectly on every device. By using the latest
-              technology, I ensure your site is fast, secure, and easy for your
-              visitors to use. My goal is to help your business grow with a
-              powerful online presence that makes a great first impression.
+              Senior Software Engineer specializing in building
+              high-performance, visually arresting interfaces. Dedicated to
+              pushing the boundaries of Next.js and Modern Web Standards.
             </motion.p>
 
             {/* Strategic CTA Section */}
@@ -171,7 +169,7 @@ export default function Hero() {
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-accent to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
                 <button className="relative w-full px-12 py-5 bg-foreground text-background font-black uppercase text-xs tracking-[0.3em] rounded-2xl transition-all flex items-center justify-center gap-3">
-                  See My Work
+                  Explore Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
@@ -180,7 +178,7 @@ export default function Hero() {
                 href="/contact"
                 className="w-full sm:w-auto px-10 py-5 rounded-2xl border border-border bg-card/20 text-foreground font-black uppercase text-xs tracking-[0.3em] hover:bg-card/50 transition-all backdrop-blur-sm"
               >
-                Let's Talk
+                Inquire Now
               </Link>
             </motion.div>
           </div>

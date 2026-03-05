@@ -76,11 +76,11 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className=" min-h-screen pt-20">
+    <div className="bg-background min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96  rounded-full -z-10" />
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96  rounded-full -z-10" />
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -170,9 +170,9 @@ export default function ServicesPage() {
 
       {/* Call to Action */}
       <SectionWrapper className="pb-32">
-        <Card className="p-12 md:p-20 text-center relative overflow-hidden border-accent/20">
-          <div className="absolute top-0 right-0 w-64 h-64 rounded-full -mr-32 -mt-32" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full -ml-32 -mb-32" />
+        <Card className="p-12 md:p-20 text-center relative overflow-hidden bg-foreground">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -mr-32 -mt-32" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] -ml-32 -mb-32" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -180,11 +180,11 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             className="relative z-10"
           >
-            <h2 className="text-3xl md:text-5xl font-black text-foreground mb-6 uppercase tracking-tighter">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter">
               Ready to build <br />
               something professional?
             </h2>
-            <p className="text-muted-foreground mb-10 max-w-xl mx-auto text-lg italic">
+            <p className="text-white/60 mb-10 max-w-xl mx-auto text-lg italic">
               "Let's work together to create a website that actually helps your
               business grow."
             </p>
@@ -197,7 +197,7 @@ export default function ServicesPage() {
               <Link href="/projects">
                 <Button
                   variant="outline"
-                  className="w-full sm:w-auto px-12 py-5 text-base"
+                  className="w-full sm:w-auto px-12 py-5 text-base border-white text-white hover:bg-white/10"
                 >
                   View My Work
                 </Button>

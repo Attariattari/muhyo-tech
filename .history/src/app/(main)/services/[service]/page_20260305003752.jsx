@@ -26,18 +26,18 @@ const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-border/50 py-4">
+    <div className="border-b border-white/5 py-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between text-left group"
       >
-        <span className="text-lg font-bold text-foreground/80 group-hover:text-accent transition-colors">
+        <span className="text-lg font-bold text-white/80 group-hover:text-accent transition-colors">
           {question}
         </span>
         {isOpen ? (
           <Minus className="w-5 h-5 text-accent" />
         ) : (
-          <Plus className="w-5 h-5 text-muted-foreground/40 group-hover:text-accent transition-colors" />
+          <Plus className="w-5 h-5 text-white/40 group-hover:text-accent transition-colors" />
         )}
       </button>
       <motion.div
@@ -78,7 +78,7 @@ export default function ServiceDetailPage() {
   }
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 selection:bg-accent selection:text-white">
+    <div className="bg-zinc-950 min-h-screen pt-32 pb-24 selection:bg-accent selection:text-white">
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-[120px]" />
@@ -116,23 +116,23 @@ export default function ServiceDetailPage() {
                 <div className="h-px flex-1 bg-gradient-to-r from-accent/30 to-transparent" />
               </div>
 
-              <h1 className="text-5xl md:text-8xl font-black text-foreground mb-10 uppercase tracking-tighter leading-[0.9] italic">
+              <h1 className="text-5xl md:text-8xl font-black text-white mb-10 uppercase tracking-tighter leading-[0.9] italic">
                 {service.title}
               </h1>
 
               <div className="relative mb-20 group">
                 <div className="absolute -left-6 top-0 bottom-0 w-1 bg-accent/40 group-hover:bg-accent transition-colors" />
-                <p className="text-2xl md:text-3xl text-muted-foreground font-medium leading-tight italic max-w-2xl">
+                <p className="text-2xl md:text-3xl text-zinc-400 font-medium leading-tight italic max-w-2xl">
                   "{service.description}"
                 </p>
               </div>
 
               {/* Problem Solved Section */}
-              <div className="mb-24 p-8 rounded-3xl bg-foreground/[0.02] border border-border/50 backdrop-blur-sm">
+              <div className="mb-24 p-8 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-sm">
                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-6 flex items-center gap-3">
                   <Zap className="w-4 h-4 fill-accent" /> THE CHALLENGE WE SOLVE
                 </h3>
-                <p className="text-xl text-foreground/80 leading-relaxed font-light">
+                <p className="text-xl text-zinc-300 leading-relaxed font-light">
                   {service.problemSolved}
                 </p>
               </div>
@@ -150,15 +150,15 @@ export default function ServiceDetailPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
                       viewport={{ once: true }}
-                      className="p-8 rounded-3xl bg-secondary/5 border border-border/50 hover:border-accent/40 transition-all group"
+                      className="p-8 rounded-3xl bg-secondary/5 border border-border/10 hover:border-accent/40 transition-all group"
                     >
-                      <div className="text-4xl font-black text-foreground/5 mb-6 group-hover:text-accent/20 transition-colors">
+                      <div className="text-4xl font-black text-white/10 mb-6 group-hover:text-accent/20 transition-colors">
                         0{i + 1}
                       </div>
-                      <h4 className="text-xl font-bold text-foreground mb-4 italic uppercase tracking-tighter">
+                      <h4 className="text-xl font-bold text-white mb-4 italic uppercase tracking-tighter">
                         {step.title}
                       </h4>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
+                      <p className="text-zinc-400 text-sm leading-relaxed">
                         {step.description}
                       </p>
                     </motion.div>
@@ -175,12 +175,12 @@ export default function ServiceDetailPage() {
                   {service.features.map((feature, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-6 p-6 rounded-2xl bg-foreground/[0.01] border border-border/50 hover:bg-foreground/[0.03] transition-colors"
+                      className="flex items-center gap-6 p-6 rounded-2xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] transition-colors"
                     >
                       <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
                         <CheckCircle2 className="w-5 h-5 text-accent" />
                       </div>
-                      <span className="text-lg font-bold text-foreground/90 tracking-tight">
+                      <span className="text-lg font-bold text-zinc-200 tracking-tight">
                         {feature}
                       </span>
                     </div>
@@ -197,7 +197,7 @@ export default function ServiceDetailPage() {
                   {service.techStack.map((tech, i) => (
                     <span
                       key={i}
-                      className="px-6 py-3 rounded-full bg-secondary/5 border border-border/50 text-muted-foreground text-xs font-bold uppercase tracking-widest hover:border-accent/60 hover:text-foreground transition-all cursor-default"
+                      className="px-6 py-3 rounded-full bg-zinc-900 border border-white/10 text-zinc-400 text-xs font-bold uppercase tracking-widest hover:border-accent/60 hover:text-white transition-all cursor-default"
                     >
                       {tech}
                     </span>
@@ -235,13 +235,13 @@ export default function ServiceDetailPage() {
                 {/* Glow Effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-tr from-accent to-blue-600 rounded-[2.5rem] opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
 
-                <Card className="p-10 border border-border/50 relative overflow-hidden bg-card rounded-[2.5rem]">
+                <Card className="p-10 border border-white/10 relative overflow-hidden bg-zinc-900 rounded-[2.5rem]">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -mr-16 -mt-16" />
 
-                  <h3 className="text-3xl font-black text-foreground mb-6 uppercase tracking-tighter leading-none italic">
+                  <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-none italic">
                     Initiate <br /> Development
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-10 leading-relaxed font-light">
+                  <p className="text-zinc-400 text-sm mb-10 leading-relaxed font-light">
                     Ready to engineer your next success? Let's discuss how{" "}
                     <span className="text-accent font-bold">
                       {service.title}
@@ -251,25 +251,25 @@ export default function ServiceDetailPage() {
 
                   <div className="space-y-4">
                     <Link href="/contact" className="block">
-                      <Button className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] bg-accent hover:bg-accent/90 text-white rounded-2xl shadow-lg shadow-accent/20 border-none">
+                      <Button className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] bg-accent hover:bg-accent/90 text-white rounded-2xl shadow-lg shadow-accent/20">
                         Request Proposal
                       </Button>
                     </Link>
                     <Button
                       variant="outline"
-                      className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] text-foreground border-border/50 hover:bg-foreground/5 rounded-2xl transition-all"
+                      className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] text-white border-white/10 hover:bg-white/5 rounded-2xl transition-all"
                     >
                       Discovery Call
                     </Button>
                   </div>
 
-                  <div className="mt-10 pt-10 border-t border-border/50 flex flex-col gap-6">
+                  <div className="mt-10 pt-10 border-t border-white/5 flex flex-col gap-6">
                     <div className="flex items-center gap-4">
                       <div className="flex -space-x-3">
                         {[1, 2, 3, 4].map((i) => (
                           <div
                             key={i}
-                            className="w-10 h-10 rounded-full border-2 border-background bg-secondary/20 overflow-hidden flex items-center justify-center"
+                            className="w-10 h-10 rounded-full border-2 border-zinc-900 bg-zinc-800 overflow-hidden flex items-center justify-center"
                           >
                             <img
                               src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`}
@@ -280,7 +280,7 @@ export default function ServiceDetailPage() {
                         ))}
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs font-black text-foreground uppercase tracking-wider">
+                        <span className="text-xs font-black text-white uppercase tracking-wider">
                           50+ Active Clients
                         </span>
                         <div className="flex gap-0.5 mt-1">
@@ -294,13 +294,13 @@ export default function ServiceDetailPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-4 p-4 rounded-2xl bg-foreground/[0.03] border border-border/50">
+                    <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
                       <Shield className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-[10px] font-black text-foreground uppercase tracking-widest mb-1">
+                        <p className="text-[10px] font-black text-white uppercase tracking-widest mb-1">
                           Guaranteed Quality
                         </p>
-                        <p className="text-[10px] text-muted-foreground leading-normal">
+                        <p className="text-[10px] text-zinc-500 leading-normal">
                           Full confidentiality and legal protection on all
                           intellectual property.
                         </p>
@@ -322,7 +322,7 @@ export default function ServiceDetailPage() {
                   Looking for a custom bundle or agency-style partnership?{" "}
                   <Link
                     href="/contact"
-                    className="text-accent underline hover:text-foreground transition-colors"
+                    className="text-accent underline hover:text-white transition-colors"
                   >
                     Inquire directly.
                   </Link>

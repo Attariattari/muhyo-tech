@@ -49,23 +49,23 @@ export default function Hero() {
   const features = [
     {
       icon: <Layers className="w-5 h-5" />,
-      label: "Great Design",
-      description: "Built to grow",
+      label: "UI Architecture",
+      description: "Scalable systems",
     },
     {
       icon: <Terminal className="w-5 h-5" />,
-      label: "Clean Code",
-      description: "Easy to manage",
+      label: "Engineered Code",
+      description: "Clean logic",
     },
     {
       icon: <Shield className="w-5 h-5" />,
-      label: "Safe & Secure",
-      description: "Stable setup",
+      label: "Secure Systems",
+      description: "Hardened infra",
     },
     {
       icon: <Zap className="w-5 h-5" />,
-      label: "Fast Load",
-      description: "Smooth experience",
+      label: "Blazing Speed",
+      description: "Optimized flows",
     },
   ];
 
@@ -112,7 +112,7 @@ export default function Hero() {
                 <div className="relative inline-flex rounded-full h-2 w-2 bg-accent"></div>
               </div>
               <span className="text-[10px] sm:text-xs font-black text-accent uppercase tracking-[0.25em]">
-                Ready for Your Next Project
+                Available for Premium Engagements
               </span>
             </motion.div>
 
@@ -137,9 +137,9 @@ export default function Hero() {
               className="relative mb-8"
             >
               <h1 className="text-3xl md:text-5xl font-black text-foreground leading-[1.1] tracking-tighter">
-                BUILDING AMAZING{" "}
+                ARCHITECTING{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto] italic">
-                  WEBSITES
+                  DIGITAL ELITE
                 </span>
               </h1>
             </motion.div>
@@ -151,11 +151,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-muted-foreground text-base md:text-lg max-w-xl mb-10 leading-relaxed font-medium opacity-80"
             >
-              I specialize in building high-quality, modern websites that look
-              amazing and work perfectly on every device. By using the latest
-              technology, I ensure your site is fast, secure, and easy for your
-              visitors to use. My goal is to help your business grow with a
-              powerful online presence that makes a great first impression.
+              Senior Software Engineer specializing in building
+              high-performance, visually arresting interfaces. Dedicated to
+              pushing the boundaries of Next.js and Modern Web Standards.
             </motion.p>
 
             {/* Strategic CTA Section */}
@@ -171,7 +169,7 @@ export default function Hero() {
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-accent to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
                 <button className="relative w-full px-12 py-5 bg-foreground text-background font-black uppercase text-xs tracking-[0.3em] rounded-2xl transition-all flex items-center justify-center gap-3">
-                  See My Work
+                  Explore Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
@@ -180,7 +178,7 @@ export default function Hero() {
                 href="/contact"
                 className="w-full sm:w-auto px-10 py-5 rounded-2xl border border-border bg-card/20 text-foreground font-black uppercase text-xs tracking-[0.3em] hover:bg-card/50 transition-all backdrop-blur-sm"
               >
-                Let's Talk
+                Inquire Now
               </Link>
             </motion.div>
           </div>
