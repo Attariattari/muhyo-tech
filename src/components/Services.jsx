@@ -7,6 +7,9 @@ import {
   Server,
   ArrowRight,
   MousePointerClick,
+  Smartphone,
+  Cloud,
+  TrendingUp,
 } from "lucide-react";
 import { SectionWrapper, Card } from "./ui";
 import Link from "next/link";
@@ -15,6 +18,9 @@ const icons = {
   1: Layout,
   2: Palette,
   3: Server,
+  4: Smartphone,
+  5: Cloud,
+  6: TrendingUp,
 };
 
 const ServiceCard = ({ service, index }) => {
@@ -27,14 +33,24 @@ const ServiceCard = ({ service, index }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
-      <Card className="h-full border border-border/20 group hover:border-accent/40 transition-all flex flex-col p-10">
-        <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-8 group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500">
-          <Icon className="w-8 h-8" />
+      <Card className="h-full border border-border/20 group hover:border-accent/40 transition-all flex flex-col p-6 overflow-hidden">
+        {/* Banner Image */}
+        <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-8">
+          <img
+            src={service.banner}
+            alt={service.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+          <div className="absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-accent/90 backdrop-blur-sm flex items-center justify-center text-accent-foreground shadow-lg">
+            <Icon className="w-6 h-6" />
+          </div>
         </div>
-        <h3 className="text-2xl font-bold text-foreground mb-4">
+
+        <h3 className="text-xl font-bold text-foreground mb-4">
           {service.title}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
+        <p className="text-muted-foreground text-xs leading-relaxed mb-6 flex-grow">
           {service.description}
         </p>
 

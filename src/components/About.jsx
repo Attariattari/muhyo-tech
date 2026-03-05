@@ -98,7 +98,7 @@ export default function About({ data }) {
             <div className="relative z-10 p-2 glass rounded-[2.5rem] overflow-hidden group-hover:border-accent/30 transition-all duration-500">
               <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden">
                 <Image
-                  src="/about-portrait.png"
+                  src="https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png"
                   alt="Professional Portfolio"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

@@ -77,6 +77,7 @@ export const portfolioData = {
                 "MongoDB/PostgreSQL",
                 "Framer Motion",
             ],
+            banner: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop",
             faq: [{
                     question: "How long does a typical project take?",
                     answer: "A standard web project usually takes 4-8 weeks depending on complexity.",
@@ -130,6 +131,7 @@ export const portfolioData = {
                 "Spline (3D)",
                 "Principle",
             ],
+            banner: "https://res.cloudinary.com/dg5gwixf1/image/upload/v1772738795/ChatGPT_Image_Mar_5_2026_12_26_08_PM_hdvfoz.png",
             faq: [{
                     question: "Can you redesign my existing website?",
                     answer: "Absolutely! We specialize in revamping outdated interfaces to modern, high-converting designs.",
@@ -186,6 +188,7 @@ export const portfolioData = {
                 "Docker",
                 "AWS/Vercel",
             ],
+            banner: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
             faq: [{
                     question: "Can you integrate with my existing database?",
                     answer: "Yes, we have experience working with various legacy and modern databases.",
@@ -240,6 +243,7 @@ export const portfolioData = {
                 "GraphQL",
                 "Redux/Zustand",
             ],
+            banner: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop",
             faq: [{
                     question: "Do you build for both iOS and Android?",
                     answer: "Yes, we use cross-platform technologies to build for both systems simultaneously, saving time and cost.",
@@ -295,6 +299,7 @@ export const portfolioData = {
                 "Terraform",
                 "Prometheus/Grafana",
             ],
+            banner: "https://res.cloudinary.com/dg5gwixf1/image/upload/v1772738946/ChatGPT_Image_Mar_5_2026_12_28_47_PM_mrbwr1.png",
             faq: [{
                     question: "Which cloud provider do you recommend?",
                     answer: "We recommend AWS for its comprehensive toolset, but we also support Azure and Google Cloud based on your needs.",
@@ -349,6 +354,7 @@ export const portfolioData = {
                 "Screaming Frog",
                 "Hotjar",
             ],
+            banner: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
             faq: [{
                     question: "How long until I see results from SEO?",
                     answer: "SEO is a long-term strategy; typically, you'll see significant growth within 3-6 months.",

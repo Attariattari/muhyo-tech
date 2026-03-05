@@ -78,198 +78,247 @@ export default function ServiceDetailPage() {
   }
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 selection:bg-accent selection:text-white">
-      {/* Background Decorative Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        {/* Back Link */}
+    <div className="min-h-screen text-foreground selection:bg-accent selection:text-white">
+      {/* Immersive Hero Section */}
+      <section className="relative h-[70vh] min-h-[500px] w-full overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="mb-12"
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
         >
-          <Link
-            href="/services"
-            className="group inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground hover:text-accent transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Return to Core Services
-          </Link>
+          <img
+            src={service.banner}
+            alt={service.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Main Content Column */}
-          <div className="lg:col-span-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-end pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <Link
+              href="/services"
+              className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent mb-6 bg-accent/10 px-4 py-2 rounded-full border border-accent/20 backdrop-blur-md hover:bg-accent hover:text-white transition-all"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <span className="px-4 py-1.5 rounded-full bg-accent/10 text-accent text-[9px] font-black uppercase tracking-widest border border-accent/20">
-                  Global Standard
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-accent/30 to-transparent" />
-              </div>
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Core Services
+            </Link>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tighter leading-[0.9] uppercase italic text-shadow-xl">
+              {service.title}
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-medium leading-tight">
+              {service.description}
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-              <h1 className="text-5xl md:text-8xl font-black text-foreground mb-10 uppercase tracking-tighter leading-[0.9] italic">
-                {service.title}
-              </h1>
-
-              <div className="relative mb-20 group">
-                <div className="absolute -left-6 top-0 bottom-0 w-1 bg-accent/40 group-hover:bg-accent transition-colors" />
-                <p className="text-2xl md:text-3xl text-muted-foreground font-medium leading-tight italic max-w-2xl">
-                  "{service.description}"
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          {/* Main Content */}
+          <div className="lg:col-span-8 space-y-24">
+            {/* Challenge & Solution */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative p-10 rounded-[3rem] bg-card/30 border border-border/50 backdrop-blur-xl overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] -mr-32 -mt-32" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center text-white shadow-lg shadow-accent/20">
+                    <Zap className="w-5 h-5 fill-white" />
+                  </div>
+                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-accent">
+                    Our Goal
+                  </h3>
+                </div>
+                <h4 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight leading-tight italic">
+                  Making hard things <br />
+                  <span className="text-accent underline decoration-accent/30 underline-offset-8">
+                    simple and easy to use.
+                  </span>
+                </h4>
+                <p className="text-xl text-foreground/80 leading-relaxed font-light italic">
+                  "{service.problemSolved}"
                 </p>
               </div>
+            </motion.div>
 
-              {/* Problem Solved Section */}
-              <div className="mb-24 p-8 rounded-3xl bg-foreground/[0.02] border border-border/50 backdrop-blur-sm">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-6 flex items-center gap-3">
-                  <Zap className="w-4 h-4 fill-accent" /> THE CHALLENGE WE SOLVE
-                </h3>
-                <p className="text-xl text-foreground/80 leading-relaxed font-light">
-                  {service.problemSolved}
-                </p>
+            {/* Execution Roadmap */}
+            <section>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">
+                    The Plan
+                  </h3>
+                  <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic">
+                    How We Work
+                  </h2>
+                </div>
+                <div className="h-px flex-1 bg-gradient-to-r from-accent/30 to-transparent hidden md:block mb-4 ml-8" />
               </div>
 
-              {/* Development Process */}
-              <section className="mb-24">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-12 flex items-center gap-3">
-                  <Workflow className="w-4 h-4" /> THE EXECUTION BLUEPRINT
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {service.process.map((step, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className="p-8 rounded-[2.5rem] bg-secondary/5 border border-border/40 hover:border-accent/40 transition-all duration-500 group relative overflow-hidden"
+                  >
+                    <div className="absolute -right-4 -top-4 text-8xl font-black text-foreground/[0.03] group-hover:text-accent/[0.05] transition-colors">
+                      0{i + 1}
+                    </div>
+                    <div className="w-12 h-12 rounded-2xl bg-foreground/[0.03] flex items-center justify-center text-foreground/40 font-black mb-6 group-hover:bg-accent group-hover:text-white transition-all">
+                      {i + 1}
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground mb-4 uppercase tracking-tighter italic">
+                      {step.title}
+                    </h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            {/* Capabilities Grid */}
+            <section className="bg-foreground/[0.02] -mx-6 px-6 py-24 rounded-[4rem] border-y border-border/30">
+              <div className="max-w-4xl">
+                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-accent mb-6">
+                  Main Features
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {service.process.map((step, i) => (
+                <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic mb-16">
+                  What We Offer
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {service.features.map((feature, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
                       viewport={{ once: true }}
-                      className="p-8 rounded-3xl bg-secondary/5 border border-border/50 hover:border-accent/40 transition-all group"
+                      className="flex items-center gap-6 p-6 rounded-2xl bg-card border border-border/50 hover:shadow-xl hover:shadow-accent/5 transition-all group"
                     >
-                      <div className="text-4xl font-black text-foreground/5 mb-6 group-hover:text-accent/20 transition-colors">
-                        0{i + 1}
-                      </div>
-                      <h4 className="text-xl font-bold text-foreground mb-4 italic uppercase tracking-tighter">
-                        {step.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {step.description}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Key Features Grid */}
-              <section className="mb-24">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-12 flex items-center gap-3">
-                  <Layers className="w-4 h-4" /> CORE CAPABILITIES
-                </h3>
-                <div className="grid grid-cols-1 gap-4">
-                  {service.features.map((feature, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-6 p-6 rounded-2xl bg-foreground/[0.01] border border-border/50 hover:bg-foreground/[0.03] transition-colors"
-                    >
-                      <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="w-5 h-5 text-accent" />
+                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent group-hover:rotate-12 transition-all duration-300">
+                        <CheckCircle2 className="w-6 h-6 text-accent group-hover:text-white" />
                       </div>
                       <span className="text-lg font-bold text-foreground/90 tracking-tight">
                         {feature}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </section>
+              </div>
+            </section>
 
-              {/* Tech Stack */}
-              <section className="mb-24">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-8 flex items-center gap-3">
-                  <Cpu className="w-4 h-4" /> THE TECH ECOSYSTEM
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {service.techStack.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-6 py-3 rounded-full bg-secondary/5 border border-border/50 text-muted-foreground text-xs font-bold uppercase tracking-widest hover:border-accent/60 hover:text-foreground transition-all cursor-default"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </section>
+            {/* Tech Stack Horizontal Scroll/Flex */}
+            <section>
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-accent mb-8">
+                Tools We Use
+              </h3>
+              <div className="flex flex-wrap gap-4">
+                {service.techStack.map((tech, i) => (
+                  <motion.span
+                    key={i}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="px-8 py-4 rounded-2xl bg-secondary/5 border border-border/50 text-foreground text-sm font-bold uppercase tracking-widest hover:border-accent hover:bg-accent/5 transition-all cursor-default flex items-center gap-3"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </section>
 
-              {/* FAQs */}
-              <section>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-8 flex items-center gap-3">
-                  <MessageSquare className="w-4 h-4" /> FREQUENTLY ASKED
-                </h3>
-                <div className="space-y-2">
-                  {service.faq.map((item, i) => (
-                    <FAQItem
-                      key={i}
-                      question={item.question}
-                      answer={item.answer}
-                    />
-                  ))}
+            {/* FAQs */}
+            <section className="pt-12 border-t border-border/30">
+              <div className="flex items-center gap-4 mb-12">
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary">
+                  <HelpCircle className="w-6 h-6" />
                 </div>
-              </section>
-            </motion.div>
+                <h2 className="text-3xl font-black uppercase tracking-tighter italic">
+                  Common Questions
+                </h2>
+              </div>
+              <div className="space-y-4">
+                {service.faq.map((item, i) => (
+                  <FAQItem
+                    key={i}
+                    question={item.question}
+                    answer={item.answer}
+                  />
+                ))}
+              </div>
+            </section>
           </div>
 
-          {/* Sidebar Column */}
+          {/* Sidebar */}
           <div className="lg:col-span-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="sticky top-32"
-            >
-              <div className="relative group">
-                {/* Glow Effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-tr from-accent to-blue-600 rounded-[2.5rem] opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
-
-                <Card className="p-10 border border-border/50 relative overflow-hidden bg-card rounded-[2.5rem]">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -mr-16 -mt-16" />
+            <div className="sticky top-32 space-y-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="relative group"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-tr from-accent via-blue-500 to-indigo-600 rounded-[3rem] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity" />
+                <Card className="p-10 border border-border/50 bg-card/80 backdrop-blur-xl rounded-[3rem] shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-[60px] -mr-20 -mt-20" />
 
                   <h3 className="text-3xl font-black text-foreground mb-6 uppercase tracking-tighter leading-none italic">
-                    Initiate <br /> Development
+                    Ready to <br /> <span className="text-accent">Start?</span>
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-10 leading-relaxed font-light">
-                    Ready to engineer your next success? Let's discuss how{" "}
-                    <span className="text-accent font-bold">
-                      {service.title}
-                    </span>{" "}
-                    can evolve your business operations.
+                  <p className="text-muted-foreground text-base mb-10 leading-relaxed font-medium">
+                    Let's work together to build a great project that helps your
+                    business grow.
                   </p>
 
                   <div className="space-y-4">
                     <Link href="/contact" className="block">
-                      <Button className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] bg-accent hover:bg-accent/90 text-white rounded-2xl shadow-lg shadow-accent/20 border-none">
-                        Request Proposal
+                      <Button className="w-full  cursor-pointer h-16 text-sm font-black uppercase tracking-[0.2em] bg-accent hover:bg-accent/90 text-white rounded-2xl shadow-xl shadow-accent/20 group/btn overflow-hidden relative">
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          Get Started Now{" "}
+                          <Zap className="w-4 h-4 fill-white animate-pulse" />
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                       </Button>
                     </Link>
-                    <Button
-                      variant="outline"
-                      className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] text-foreground border-border/50 hover:bg-foreground/5 rounded-2xl transition-all"
+                    <Link
+                      href={`https://wa.me/923224458481?text=${encodeURIComponent(`Hello! I'm interested in your ${service.title} services. Let's discuss this.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
                     >
-                      Discovery Call
-                    </Button>
+                      <Button
+                        variant="outline"
+                        className="w-full cursor-pointer h-16 text-sm font-black uppercase tracking-[0.2em] text-foreground border-border/50 hover:bg-foreground/5 rounded-2xl transition-all"
+                      >
+                        Quick WhatsApp
+                      </Button>
+                    </Link>
                   </div>
 
-                  <div className="mt-10 pt-10 border-t border-border/50 flex flex-col gap-6">
-                    <div className="flex items-center gap-4">
+                  <div className="mt-12 pt-10 border-t border-border/50">
+                    <div className="flex items-center gap-4 mb-6">
                       <div className="flex -space-x-3">
                         {[1, 2, 3, 4].map((i) => (
                           <div
                             key={i}
-                            className="w-10 h-10 rounded-full border-2 border-background bg-secondary/20 overflow-hidden flex items-center justify-center"
+                            className="w-10 h-10 rounded-full border-2 border-card bg-secondary/20 overflow-hidden"
                           >
                             <img
                               src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`}
@@ -279,56 +328,54 @@ export default function ServiceDetailPage() {
                           </div>
                         ))}
                       </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs font-black text-foreground uppercase tracking-wider">
-                          50+ Active Clients
-                        </span>
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-wider text-foreground">
+                          Happy Clients
+                        </p>
                         <div className="flex gap-0.5 mt-1">
                           {[1, 2, 3, 4, 5].map((s) => (
                             <Star
                               key={s}
-                              className="w-2.5 h-2.5 fill-accent text-accent"
+                              className="w-3 h-3 fill-accent text-accent"
                             />
                           ))}
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-4 p-4 rounded-2xl bg-foreground/[0.03] border border-border/50">
+                    <div className="flex items-start gap-4 p-4 rounded-2xl bg-accent/5 border border-accent/10">
                       <Shield className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-[10px] font-black text-foreground uppercase tracking-widest mb-1">
-                          Guaranteed Quality
+                        <p className="text-[10px] font-black text-foreground uppercase tracking-widest mb-1 leading-none">
+                          Quality Promise
                         </p>
-                        <p className="text-[10px] text-muted-foreground leading-normal">
-                          Full confidentiality and legal protection on all
-                          intellectual property.
+                        <p className="text-[10px] text-muted-foreground leading-normal font-medium">
+                          We keep your project safe and follow all rules.
                         </p>
                       </div>
                     </div>
                   </div>
                 </Card>
-              </div>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="mt-8 flex items-center gap-4 p-6 rounded-[2rem] bg-accent/5 border border-accent/10 relative overflow-hidden group"
+                transition={{ delay: 0.8 }}
+                className="p-8 rounded-[2rem] bg-foreground/[0.02] border border-border/50 text-center"
               >
-                <div className="absolute right-0 top-0 bottom-0 w-1 bg-accent/20 group-hover:bg-accent transition-all" />
-                <HelpCircle className="w-6 h-6 text-accent shrink-0" />
-                <p className="text-xs text-zinc-400 font-medium">
-                  Looking for a custom bundle or agency-style partnership?{" "}
+                <HelpCircle className="w-8 h-8 text-secondary/40 mx-auto mb-4" />
+                <p className="text-xs text-muted-foreground font-medium leading-relaxed">
+                  Looking for a custom enterprise bundle? <br />
                   <Link
                     href="/contact"
-                    className="text-accent underline hover:text-foreground transition-colors"
+                    className="text-accent underline font-bold hover:text-foreground transition-all"
                   >
-                    Inquire directly.
+                    Contact our strategy team.
                   </Link>
                 </p>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
