@@ -34,7 +34,7 @@ export default function ContactPage() {
   return (
     <div
       ref={containerRef}
-      className="relative  selection:bg-accent selection:text-white"
+      className="relative bg-background selection:bg-accent selection:text-white"
     >
       {/* Executive Studio Hero */}
       <section className="relative h-[100vh] flex items-center overflow-hidden border-b border-border/50">

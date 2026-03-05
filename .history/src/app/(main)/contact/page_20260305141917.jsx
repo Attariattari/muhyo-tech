@@ -34,7 +34,7 @@ export default function ContactPage() {
   return (
     <div
       ref={containerRef}
-      className="relative  selection:bg-accent selection:text-white"
+      className="relative bg-background selection:bg-accent selection:text-white"
     >
       {/* Executive Studio Hero */}
       <section className="relative h-[100vh] flex items-center overflow-hidden border-b border-border/50">
@@ -311,6 +311,45 @@ export default function ContactPage() {
           </div>
         </SectionWrapper>
       </section>
+
+      {/* Executive Call to Action */}
+      <section className="pb-40 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative overflow-hidden rounded-[4rem] bg-foreground p-1">
+            <div className="relative bg-background rounded-[3.9rem] p-16 md:p-32 flex flex-col items-center text-center space-y-12">
+              <div className="space-y-6 max-w-3xl">
+                <div className="flex justify-center">
+                  <ShieldCheck className="w-12 h-12 text-accent" />
+                </div>
+                <h3 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] text-foreground">
+                  Elevate Your <br />
+                  <span className="text-accent italic font-serif font-light">
+                    Ecosystem.
+                  </span>
+                </h3>
+                <p className="text-xl md:text-2xl text-muted-foreground font-medium opacity-70">
+                  Currently evaluating high-impact partnerships for the next
+                  fiscal quarter. Let's architect your success.
+                </p>
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-12 py-7 bg-accent text-accent-foreground rounded-full font-bold uppercase text-xs tracking-[0.4em] shadow-2xl transition-all"
+              >
+                Request Partnership
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-12 border-t border-border flex justify-center opacity-30">
+        <span className="text-[9px] font-bold uppercase tracking-[0.5em]">
+          Muhyo Tech &copy; 2024 &bull; All Systems Optimal
+        </span>
+      </footer>
     </div>
   );
 }
