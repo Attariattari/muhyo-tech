@@ -48,7 +48,6 @@ export default function MainLayout({ children }) {
           <InitialLoader />
           <Sidebar />
           <AnimatedBackground />
-          <WhatsAppButton />
           <div
             className="flex flex-col min-h-screen relative z-10 transition-[padding] duration-500 ease-in-out pt-16 lg:pt-0"
             style={{ paddingLeft: "var(--sidebar-width, 0px)" }}

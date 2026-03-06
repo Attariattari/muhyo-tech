@@ -46,15 +46,13 @@ const Contact = () => {
       value: "Active 24/7",
       href: "https://wa.me/923224458481?text=Hi MuhyoTech! I'd like to discuss a new project with you.",
       color: "from-emerald-500 to-teal-500",
-      target: "_blank",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Our Office",
       value: "Lahore, Pakistan",
-      href: "https://www.google.com/maps/search/?api=1&query=Lahore,+Pakistan",
+      href: "#",
       color: "from-purple-500 to-indigo-500",
-      target: "_blank",
     },
   ];
 
@@ -113,10 +111,6 @@ const Contact = () => {
                 <motion.a
                   key={idx}
                   href={info.href}
-                  target={info.target}
-                  rel={
-                    info.target === "_blank" ? "noopener noreferrer" : undefined
-                  }
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -148,8 +142,6 @@ const Contact = () => {
                   <motion.a
                     key={idx}
                     href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >

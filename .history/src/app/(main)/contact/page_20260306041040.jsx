@@ -13,7 +13,7 @@ export default function ContactPage() {
     <div className="min-h-screen relative overflow-hidden ">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 right-[-10%] w-[700px] h-[700px] bg-accent/5 rounded-full blur-[150px] pointer-events-none -z-10 animate-floating" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px]  rounded-full blur-[130px] pointer-events-none -z-10 animate-floating [animation-delay:3s]" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[130px] pointer-events-none -z-10 animate-floating [animation-delay:3s]" />
 
       <main className="max-w-7xl mx-auto pt-20 pb-20 relative z-10">
         {/* 

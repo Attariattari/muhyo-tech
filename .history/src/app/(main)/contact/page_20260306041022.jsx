@@ -12,8 +12,9 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen relative overflow-hidden ">
       {/* Dynamic Background Elements */}
-      <div className="absolute top-0 right-[-10%] w-[700px] h-[700px] bg-accent/5 rounded-full blur-[150px] pointer-events-none -z-10 animate-floating" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px]  rounded-full blur-[130px] pointer-events-none -z-10 animate-floating [animation-delay:3s]" />
+
+      {/* Decorative Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none -z-10" />
 
       <main className="max-w-7xl mx-auto pt-20 pb-20 relative z-10">
         {/* 

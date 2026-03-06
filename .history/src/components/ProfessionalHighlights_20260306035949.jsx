@@ -59,7 +59,7 @@ function Card({ item, index }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onMouseMove={onMouseMove}
-      className="group relative flex flex-col justify-between h-[380px] p-8 glass-dark rounded-3xl border border-white/5 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+      className="group relative flex flex-col justify-between h-[380px] p-8 rounded-3xl border border-white/5 hover:border-accent/30 transition-all duration-500 overflow-hidden"
     >
       {/* Background Spotlight Effect */}
       <motion.div

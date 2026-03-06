@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   MapPin,
@@ -28,33 +27,31 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
-      label: "Email Us",
+      label: "Support Email",
       value: "MuhyoTech@gmail.com",
-      href: "mailto:MuhyoTech@gmail.com?subject=Project Inquiry&body=Hi MuhyoTech Team, I'm interested in working with you on a project...",
+      href: "mailto:MuhyoTech@gmail.com",
       color: "from-blue-500 to-cyan-500",
     },
     {
       icon: <Phone className="w-5 h-5" />,
-      label: "Call Us",
+      label: "Direct Line",
       value: "+92 322 4458481",
       href: "tel:+923224458481",
       color: "from-accent to-blue-400",
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      label: "WhatsApp",
-      value: "Active 24/7",
-      href: "https://wa.me/923224458481?text=Hi MuhyoTech! I'd like to discuss a new project with you.",
+      label: "WhatsApp Business",
+      value: "Available 24/7",
+      href: "https://wa.me/923224458481",
       color: "from-emerald-500 to-teal-500",
-      target: "_blank",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
-      label: "Our Office",
+      label: "Regional Office",
       value: "Lahore, Pakistan",
-      href: "https://www.google.com/maps/search/?api=1&query=Lahore,+Pakistan",
+      href: "#",
       color: "from-purple-500 to-indigo-500",
-      target: "_blank",
     },
   ];
 
@@ -94,16 +91,16 @@ const Contact = () => {
               className="space-y-6"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.3em]">
-                <Clock className="w-3 h-3" /> Quick Response:{" "}
-                <span className="text-white ml-1">Under 2h</span>
+                <Clock className="w-3 h-3" /> Average Response:{" "}
+                <span className="text-white ml-1">2h</span>
               </div>
               <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-white uppercase">
-                Let's <br />
-                <span className="text-accent">Connect</span>
+                Let's Build <br />
+                <span className="text-accent">Digitally</span>
               </h1>
               <p className="text-muted-foreground text-lg font-medium leading-relaxed max-w-md">
-                Have an idea? We are here to help you build it. Send us a
-                message and let's talk about your project.
+                Reach out for a strategic consultation or technical inquiry. Our
+                engineering team is ready to scale your vision.
               </p>
             </motion.div>
 
@@ -113,10 +110,6 @@ const Contact = () => {
                 <motion.a
                   key={idx}
                   href={info.href}
-                  target={info.target}
-                  rel={
-                    info.target === "_blank" ? "noopener noreferrer" : undefined
-                  }
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -141,15 +134,13 @@ const Contact = () => {
             {/* Socials Connection */}
             <div className="pt-8 border-t border-white/5">
               <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6">
-                Find us on social media
+                Direct Sync Platforms
               </p>
               <div className="flex gap-4">
                 {socialLinks.map((social, idx) => (
                   <motion.a
                     key={idx}
                     href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
@@ -173,10 +164,10 @@ const Contact = () => {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                   <div>
                     <h2 className="text-3xl font-black tracking-tight text-white uppercase">
-                      Send a Message
+                      Strategic Inquiry
                     </h2>
                     <p className="text-accent text-xs font-bold uppercase tracking-widest mt-1">
-                      Quick Contact Form
+                      Professional Channel • Form 01-A
                     </p>
                   </div>
                   <div className="hidden md:block">
@@ -191,7 +182,7 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80 ml-2">
-                        Your Name
+                        Client Identity
                       </label>
                       <input
                         type="text"
@@ -201,11 +192,11 @@ const Contact = () => {
                     </div>
                     <div className="space-y-3">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80 ml-2">
-                        Your Email
+                        Professional Email
                       </label>
                       <input
                         type="email"
-                        placeholder="john@email.com"
+                        placeholder="john@enterprise.com"
                         className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                       />
                     </div>
@@ -213,22 +204,22 @@ const Contact = () => {
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80 ml-2">
-                      Subject
+                      Inquiry Subject
                     </label>
                     <input
                       type="text"
-                      placeholder="What is this about?"
+                      placeholder="Project Scope & Architecture"
                       className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                     />
                   </div>
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80 ml-2">
-                      Your Message
+                      Project Brief
                     </label>
                     <textarea
                       rows={5}
-                      placeholder="How can we help you?"
+                      placeholder="Describe the technical requirements..."
                       className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-5 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none"
                     />
                   </div>
@@ -236,9 +227,9 @@ const Contact = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-5 bg-accent text-white font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all cursor-pointer"
+                    className="w-full py-5 bg-accent text-white font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all"
                   >
-                    Send to our team
+                    Initiate protocol
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </motion.button>
                 </form>
@@ -247,33 +238,48 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* What Happens Next Section */}
-        <section className="mt-32 space-y-16">
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl font-black tracking-tighter text-white uppercase">
-              What happens <span className="text-accent italic">next?</span>
+        {/* Strategic Roadmap / Process Section */}
+        <section className="mt-40 border-t border-white/5 pt-32">
+          <div className="text-center mb-20 space-y-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em]"
+            >
+              Consultation Protocol
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase">
+              The Strategic <span className="text-accent italic">Roadmap</span>
             </h2>
-            <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em]">
-              Simple 3-Step Process
+            <p className="text-muted-foreground max-w-xl mx-auto font-medium">
+              A structured approach ensuring every technical partnership begins
+              with precision and clarity.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-[2.5rem] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent -z-10" />
+
             {[
               {
                 step: "01",
-                title: "Project Planning",
-                desc: "We look at your needs to find the best tools and way to build your project.",
+                title: "Deep Discovery",
+                desc: "We analyze your technical landscape and core objectives to ensure perfect alignment.",
+                icon: <Zap className="w-5 h-5 text-blue-400" />,
               },
               {
                 step: "02",
-                title: "Meeting & Chat",
-                desc: "We talk together to finalize the budget, timing, and what we will build for you.",
+                title: "Resource Strategy",
+                desc: "Dedicated strategy call to architect the optimal resource stack and timeline.",
+                icon: <ShieldCheck className="w-5 h-5 text-accent" />,
               },
               {
                 step: "03",
-                title: "Building & Launch",
-                desc: "Our team starts coding your project and gives you regular updates until it's ready.",
+                title: "Execution Cycle",
+                desc: "Formal project kickoff followed by rapid, iterative development sprints.",
+                icon: <ArrowRight className="w-5 h-5 text-emerald-400" />,
               },
             ].map((item, idx) => (
               <motion.div
@@ -282,12 +288,17 @@ const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="relative p-8 glass-dark rounded-[2.5rem] border border-white/5 group hover:border-accent/30 transition-all"
+                className="relative group p-8 glass-dark rounded-[2.5rem] border border-white/5 hover:border-accent/40 transition-all duration-500 overflow-hidden"
               >
-                <div className="text-5xl font-black text-white/5 group-hover:text-accent/10 transition-colors absolute top-6 right-8">
+                <div className="absolute top-0 right-0 p-6 text-6xl font-black text-white/[0.03] italic group-hover:text-accent/5 transition-colors">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">
+
+                <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent/10 group-hover:border-accent/20 transition-all duration-500">
+                  {item.icon}
+                </div>
+
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-medium">
@@ -295,80 +306,6 @@ const Contact = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="mt-32 mb-20">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-5 sticky top-32">
-              <div className="space-y-6">
-                <h2 className="text-5xl font-black tracking-tighter text-white uppercase leading-none">
-                  Common <br />
-                  <span className="text-accent italic">Questions</span>
-                </h2>
-                <p className="text-muted-foreground text-lg font-medium leading-relaxed">
-                  Here are some simple answers to questions we get asked most
-                  often.
-                </p>
-                <div className="pt-8 flex flex-col gap-4">
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                      Need more help?
-                    </span>
-                  </div>
-                  <Link href="/services">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      className="w-fit px-8 py-4 glass rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] text-accent border-accent/20 cursor-pointer"
-                    >
-                      Explore our Services
-                    </motion.button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-4">
-              {[
-                {
-                  q: "How long does a project take?",
-                  a: "Most projects take between 6 to 12 weeks. Small tasks can be finished in just 4 weeks.",
-                },
-                {
-                  q: "Do you help after the project is finished?",
-                  a: "Yes! We stay with you to fix any bugs and make sure your website stays running perfectly.",
-                },
-                {
-                  q: "Who owns the project code?",
-                  a: "You do! Once we finish and you pay, all the code belongs to you forever.",
-                },
-                {
-                  q: "What coding tools do you use?",
-                  a: "We use modern and fast tools like React, Next.js, and Node.js to make sure your site is super quick.",
-                },
-              ].map((faq, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="group relative"
-                >
-                  <details className="glass-dark rounded-3xl border border-white/5 px-8 py-6 cursor-pointer open:bg-white/[0.02] transition-colors overflow-hidden">
-                    <summary className="list-none flex justify-between items-center text-sm font-bold text-white group-hover:text-accent transition-colors cursor-pointer">
-                      {faq.q}
-                      <ArrowRight className="w-4 h-4 transition-transform group-open:rotate-90 group-hover:translate-x-1" />
-                    </summary>
-                    <p className="mt-6 text-sm text-muted-foreground leading-relaxed font-medium">
-                      {faq.a}
-                    </p>
-                  </details>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 

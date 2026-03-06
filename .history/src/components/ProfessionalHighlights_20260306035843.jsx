@@ -111,35 +111,27 @@ function Card({ item, index }) {
 
 export default function ProfessionalHighlights() {
   return (
-    <section className="relative py-32 overflow-hidden bg-[#020617]">
-      {/* Texture Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
+    <section className="relative py-24 overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] -z-10 animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] -z-10" />
 
-      <div className="max-w-7xl mx-auto px-6 relative">
-        <div className="text-center mb-24 space-y-6">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-20 space-y-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.2em]"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest"
           >
-            <Zap className="w-3 h-3 fill-accent" /> Technical Excellence
+            <Zap className="w-3 h-3" /> Technical Excellence
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black tracking-tighter text-white"
+            className="text-4xl md:text-6xl font-black tracking-tighter"
           >
             Engineering <span className="text-accent">Pillars</span>
           </motion.h2>
@@ -148,14 +140,14 @@ export default function ProfessionalHighlights() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-muted-foreground text-lg md:text-xl leading-relaxed font-medium opacity-80"
+            className="max-w-2xl mx-auto text-muted-foreground text-lg leading-relaxed"
           >
-            Architecting the future through precision engineering and
-            mission-critical reliability standards.
+            Leveraging cutting-edge technologies to build resilient systems that
+            power the next generation of digital enterprise.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {highlights.map((item, index) => (
             <Card key={index} item={item} index={index} />
           ))}

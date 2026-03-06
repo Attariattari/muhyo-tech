@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   MapPin,
@@ -28,9 +27,9 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
-      label: "Email Us",
+      label: "Support Email",
       value: "MuhyoTech@gmail.com",
-      href: "mailto:MuhyoTech@gmail.com?subject=Project Inquiry&body=Hi MuhyoTech Team, I'm interested in working with you on a project...",
+      href: "mailto:MuhyoTech@gmail.com",
       color: "from-blue-500 to-cyan-500",
     },
     {
@@ -43,18 +42,16 @@ const Contact = () => {
     {
       icon: <MessageCircle className="w-5 h-5" />,
       label: "WhatsApp",
-      value: "Active 24/7",
-      href: "https://wa.me/923224458481?text=Hi MuhyoTech! I'd like to discuss a new project with you.",
+      value: "Available 24/7",
+      href: "https://wa.me/923224458481",
       color: "from-emerald-500 to-teal-500",
-      target: "_blank",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Our Office",
       value: "Lahore, Pakistan",
-      href: "https://www.google.com/maps/search/?api=1&query=Lahore,+Pakistan",
+      href: "#",
       color: "from-purple-500 to-indigo-500",
-      target: "_blank",
     },
   ];
 
@@ -94,16 +91,16 @@ const Contact = () => {
               className="space-y-6"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.3em]">
-                <Clock className="w-3 h-3" /> Quick Response:{" "}
-                <span className="text-white ml-1">Under 2h</span>
+                <Clock className="w-3 h-3" /> We reply within:{" "}
+                <span className="text-white ml-1">2 hours</span>
               </div>
               <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-white uppercase">
-                Let's <br />
-                <span className="text-accent">Connect</span>
+                Let's Build <br />
+                <span className="text-accent">Together</span>
               </h1>
               <p className="text-muted-foreground text-lg font-medium leading-relaxed max-w-md">
-                Have an idea? We are here to help you build it. Send us a
-                message and let's talk about your project.
+                Have a project or just a question? We're here to help you bring
+                your ideas to life with modern technology.
               </p>
             </motion.div>
 
@@ -113,10 +110,6 @@ const Contact = () => {
                 <motion.a
                   key={idx}
                   href={info.href}
-                  target={info.target}
-                  rel={
-                    info.target === "_blank" ? "noopener noreferrer" : undefined
-                  }
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -141,15 +134,13 @@ const Contact = () => {
             {/* Socials Connection */}
             <div className="pt-8 border-t border-white/5">
               <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6">
-                Find us on social media
+                Follow us on social media
               </p>
               <div className="flex gap-4">
                 {socialLinks.map((social, idx) => (
                   <motion.a
                     key={idx}
                     href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
@@ -173,7 +164,7 @@ const Contact = () => {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                   <div>
                     <h2 className="text-3xl font-black tracking-tight text-white uppercase">
-                      Send a Message
+                      Tell us about your project
                     </h2>
                     <p className="text-accent text-xs font-bold uppercase tracking-widest mt-1">
                       Quick Contact Form
@@ -195,7 +186,7 @@ const Contact = () => {
                       </label>
                       <input
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="e.g. John Doe"
                         className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                       />
                     </div>
@@ -205,7 +196,7 @@ const Contact = () => {
                       </label>
                       <input
                         type="email"
-                        placeholder="john@email.com"
+                        placeholder="john@example.com"
                         className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                       />
                     </div>
@@ -217,18 +208,18 @@ const Contact = () => {
                     </label>
                     <input
                       type="text"
-                      placeholder="What is this about?"
+                      placeholder="How can we help?"
                       className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                     />
                   </div>
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80 ml-2">
-                      Your Message
+                      Message
                     </label>
                     <textarea
                       rows={5}
-                      placeholder="How can we help you?"
+                      placeholder="Tell us more about what you need..."
                       className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-5 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none"
                     />
                   </div>
@@ -236,9 +227,9 @@ const Contact = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-5 bg-accent text-white font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all cursor-pointer"
+                    className="w-full py-5 bg-accent text-white font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all"
                   >
-                    Send to our team
+                    Send Message
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </motion.button>
                 </form>
@@ -254,7 +245,7 @@ const Contact = () => {
               What happens <span className="text-accent italic">next?</span>
             </h2>
             <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em]">
-              Simple 3-Step Process
+              Our working process
             </p>
           </div>
 
@@ -262,18 +253,18 @@ const Contact = () => {
             {[
               {
                 step: "01",
-                title: "Project Planning",
-                desc: "We look at your needs to find the best tools and way to build your project.",
+                title: "Project Review",
+                desc: "Our team looks at your needs to find the best tools and setup for your project.",
               },
               {
                 step: "02",
-                title: "Meeting & Chat",
-                desc: "We talk together to finalize the budget, timing, and what we will build for you.",
+                title: "Planning Call",
+                desc: "We talk together to agree on the goals, timeline, and project steps.",
               },
               {
                 step: "03",
-                title: "Building & Launch",
-                desc: "Our team starts coding your project and gives you regular updates until it's ready.",
+                title: "Fast Development",
+                desc: "We start building with weekly updates and careful testing to make sure everything works perfectly.",
               },
             ].map((item, idx) => (
               <motion.div
@@ -304,28 +295,26 @@ const Contact = () => {
             <div className="lg:col-span-5 sticky top-32">
               <div className="space-y-6">
                 <h2 className="text-5xl font-black tracking-tighter text-white uppercase leading-none">
-                  Common <br />
+                  Frequent <br />
                   <span className="text-accent italic">Questions</span>
                 </h2>
                 <p className="text-muted-foreground text-lg font-medium leading-relaxed">
-                  Here are some simple answers to questions we get asked most
-                  often.
+                  Everything you need to know about how we work and how we help
+                  you.
                 </p>
                 <div className="pt-8 flex flex-col gap-4">
                   <div className="flex items-center gap-4 group">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                     <span className="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                      Need more help?
+                      Still have questions?
                     </span>
                   </div>
-                  <Link href="/services">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      className="w-fit px-8 py-4 glass rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] text-accent border-accent/20 cursor-pointer"
-                    >
-                      Explore our Services
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    className="w-fit px-8 py-4 glass rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] text-accent border-accent/20"
+                  >
+                    Check our service details
+                  </motion.button>
                 </div>
               </div>
             </div>
@@ -334,19 +323,19 @@ const Contact = () => {
               {[
                 {
                   q: "How long does a project take?",
-                  a: "Most projects take between 6 to 12 weeks. Small tasks can be finished in just 4 weeks.",
+                  a: "The time depends on the project. A typical first version (MVP) takes 6-12 weeks, while smaller tasks can be done in 4 weeks.",
                 },
                 {
-                  q: "Do you help after the project is finished?",
-                  a: "Yes! We stay with you to fix any bugs and make sure your website stays running perfectly.",
+                  q: "Do you provide support after launch?",
+                  a: "Yes, we offer monthly support and updates to make sure your project stays online and works perfectly at all times.",
                 },
                 {
-                  q: "Who owns the project code?",
-                  a: "You do! Once we finish and you pay, all the code belongs to you forever.",
+                  q: "Who owns the code?",
+                  a: "You own everything! Once the project is finished, all the code and rights belong to you.",
                 },
                 {
-                  q: "What coding tools do you use?",
-                  a: "We use modern and fast tools like React, Next.js, and Node.js to make sure your site is super quick.",
+                  q: "What tools do you use?",
+                  a: "We use the latest and fastest tools like React, Next.js, and Node.js to make sure your project is fast and safe.",
                 },
               ].map((faq, idx) => (
                 <motion.div
@@ -358,7 +347,7 @@ const Contact = () => {
                   className="group relative"
                 >
                   <details className="glass-dark rounded-3xl border border-white/5 px-8 py-6 cursor-pointer open:bg-white/[0.02] transition-colors overflow-hidden">
-                    <summary className="list-none flex justify-between items-center text-sm font-bold text-white group-hover:text-accent transition-colors cursor-pointer">
+                    <summary className="list-none flex justify-between items-center text-sm font-bold text-white group-hover:text-accent transition-colors">
                       {faq.q}
                       <ArrowRight className="w-4 h-4 transition-transform group-open:rotate-90 group-hover:translate-x-1" />
                     </summary>

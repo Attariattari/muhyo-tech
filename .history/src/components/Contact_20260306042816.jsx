@@ -148,8 +148,6 @@ const Contact = () => {
                   <motion.a
                     key={idx}
                     href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
