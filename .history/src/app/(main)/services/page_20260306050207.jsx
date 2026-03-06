@@ -206,8 +206,8 @@ export default function ServicesPage() {
     <div className=" min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center pt-4 pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse" />
 
         <div className="max-w-7xl mx-auto px-4 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

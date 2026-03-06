@@ -48,7 +48,7 @@ const ServiceSlider = ({ services }) => {
   return (
     <div className="relative w-full aspect-[4/3] md:aspect-square max-w-[600px] mx-auto group">
       {/* Decorative Outer Glow */}
-      <div className="absolute inset-0 bg-accent/20 blur-[40px] rounded-full scale-90 animate-pulse -z-10" />
+      <div className="absolute inset-0 bg-accent/20 blur-[80px] rounded-full scale-90 animate-pulse -z-10" />
 
       <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] border border-white/10 bg-background">
         <AnimatePresence initial={false} mode="wait">
@@ -206,8 +206,8 @@ export default function ServicesPage() {
     <div className=" min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center pt-4 pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse" />
 
         <div className="max-w-7xl mx-auto px-4 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
