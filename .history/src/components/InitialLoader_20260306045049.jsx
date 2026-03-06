@@ -32,6 +32,16 @@ export default function InitialLoader() {
           }}
           className="fixed inset-0 z-[10000] flex items-center justify-center bg-background"
         >
+          {/* Background Elements */}
+          <div
+            className="absolute inset-0 opacity-[0.05] pointer-events-none transition-opacity"
+            style={{
+              backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+              maskImage:
+                "radial-gradient(ellipse at center, black, transparent 80%)",
+            }}
+          />
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
@@ -49,12 +59,7 @@ export default function InitialLoader() {
               transition={{ duration: 1, ease: "easeOut" }}
               className="relative mb-12"
             >
-              <div className="w-32 h-32 flex items-center justify-center glass rounded-[2.5rem] border border-accent/20 shadow-[0_0_80px_rgba(var(--accent-rgb),0.15)] overflow-hidden">
-                <img
-                  src="/logo.png"
-                  alt="Logo"
-                  className="w-20 h-20 object-contain animate-pulse"
-                />
+              <div className="w-32 h-32 flex items-center justify-center glass rounded-[2.5rem] border border-accent/20 shadow-[0_0_80px_rgba(var(--accent-rgb),0.15)]">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{

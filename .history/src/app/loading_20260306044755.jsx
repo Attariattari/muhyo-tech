@@ -18,11 +18,9 @@ export default function Loading() {
             className="absolute inset-[-20px] border border-accent/20 rounded-full border-dashed"
           />
           <div className="relative w-24 h-24 flex items-center justify-center glass rounded-full border border-accent/20 overflow-hidden shadow-[0_0_50px_rgba(var(--accent-rgb),0.1)]">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-16 h-16 object-contain animate-pulse"
-            />
+            <span className="text-4xl font-black text-foreground tracking-tighter animate-shimmer">
+              M<span className="text-accent">.</span>
+            </span>
           </div>
         </div>
 

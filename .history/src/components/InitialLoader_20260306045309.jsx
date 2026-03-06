@@ -32,6 +32,16 @@ export default function InitialLoader() {
           }}
           className="fixed inset-0 z-[10000] flex items-center justify-center bg-background"
         >
+          {/* Background Elements */}
+          <div
+            className="absolute inset-0 opacity-[0.05] pointer-events-none transition-opacity"
+            style={{
+              backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+              maskImage:
+                "radial-gradient(ellipse at center, black, transparent 80%)",
+            }}
+          />
           <motion.div
             animate={{
               scale: [1, 1.2, 1],

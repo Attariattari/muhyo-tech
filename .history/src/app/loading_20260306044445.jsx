@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center ">
       {/* Dynamic Background Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] animate-pulse" />
       <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px]" />
@@ -18,11 +18,9 @@ export default function Loading() {
             className="absolute inset-[-20px] border border-accent/20 rounded-full border-dashed"
           />
           <div className="relative w-24 h-24 flex items-center justify-center glass rounded-full border border-accent/20 overflow-hidden shadow-[0_0_50px_rgba(var(--accent-rgb),0.1)]">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-16 h-16 object-contain animate-pulse"
-            />
+            <span className="text-4xl font-black text-foreground tracking-tighter animate-shimmer">
+              M<span className="text-accent">.</span>
+            </span>
           </div>
         </div>
 
@@ -55,6 +53,17 @@ export default function Loading() {
           </div>
         </div>
       </div>
+
+      {/* Grid Pattern Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.05] pointer-events-none transition-opacity"
+        style={{
+          backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+          maskImage:
+            "radial-gradient(ellipse at center, black, transparent 80%)",
+        }}
+      />
     </div>
   );
 }

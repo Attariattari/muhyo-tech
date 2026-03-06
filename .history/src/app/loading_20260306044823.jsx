@@ -18,11 +18,9 @@ export default function Loading() {
             className="absolute inset-[-20px] border border-accent/20 rounded-full border-dashed"
           />
           <div className="relative w-24 h-24 flex items-center justify-center glass rounded-full border border-accent/20 overflow-hidden shadow-[0_0_50px_rgba(var(--accent-rgb),0.1)]">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-16 h-16 object-contain animate-pulse"
-            />
+            <span className="text-4xl font-black text-foreground tracking-tighter animate-shimmer">
+              M<span className="text-accent">.</span>
+            </span>
           </div>
         </div>
 
@@ -55,6 +53,17 @@ export default function Loading() {
           </div>
         </div>
       </div>
+
+      {/* Grid Pattern Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.05] pointer-events-none transition-opacity"
+        style={{
+          backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+          maskImage:
+            "radial-gradient(ellipse at center, black, transparent 80%)",
+        }}
+      />
     </div>
   );
 }

@@ -12,19 +12,7 @@ export default function Loading() {
       <div className="relative flex flex-col items-center gap-12 max-w-xs w-full">
         {/* Orbital Ring Logo Area */}
         <div className="relative">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[-20px] border border-accent/20 rounded-full border-dashed"
-          />
-          <div className="relative w-24 h-24 flex items-center justify-center glass rounded-full border border-accent/20 overflow-hidden shadow-[0_0_50px_rgba(var(--accent-rgb),0.1)]">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-16 h-16 object-contain animate-pulse"
-            />
-          </div>
-        </div>
+
 
         {/* Triple-Layer Futuristic Progress */}
         <div className="w-full space-y-4">
