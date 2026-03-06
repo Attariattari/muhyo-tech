@@ -25,7 +25,7 @@ const WhatsAppButton = () => {
 
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 p-1 rounded-full hover:bg-white/5 transition-colors cursor-pointer z-10"
+              className="absolute top-4 right-4 p-1 rounded-full hover:bg-white/5 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4 text-muted-foreground" />
             </button>
