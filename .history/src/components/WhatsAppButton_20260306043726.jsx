@@ -67,7 +67,7 @@ const WhatsAppButton = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-2xl shadow-emerald-500/30 relative group cursor-pointer border-none outline-none"
+        className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-2xl shadow-emerald-500/30 relative group cursor-pointer border-4 border-[#020617]"
       >
         {/* Pulse Animation */}
         <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20 group-hover:hidden" />

@@ -18,7 +18,7 @@ const WhatsAppButton = () => {
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.8 }}
-            className="glass-dark p-6 rounded-[2rem] border border-white/10 shadow-2xl max-w-[280px] relative overflow-hidden group"
+            className="glass-dark p-6 rounded-[2rem]  border-white/10 shadow-2xl max-w-[280px] relative overflow-hidden group"
           >
             {/* Background Glow */}
             <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -67,7 +67,7 @@ const WhatsAppButton = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-2xl shadow-emerald-500/30 relative group cursor-pointer border-none outline-none"
+        className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-2xl shadow-emerald-500/30 relative group cursor-pointer border-4 border-[#020617]"
       >
         {/* Pulse Animation */}
         <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20 group-hover:hidden" />
