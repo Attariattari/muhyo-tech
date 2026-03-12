@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Link2, Github, ExternalLink, Code } from "lucide-react";
+import { Link2, Github, ExternalLink, Code, ChevronRight } from "lucide-react";
 import { SectionWrapper, Card } from "./ui";
 
 const ProjectCard = ({ project, index }) => (
