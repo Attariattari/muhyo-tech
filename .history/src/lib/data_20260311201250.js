@@ -459,97 +459,19 @@ export const portfolioData = {
     ],
     blogs: [{
             id: 1,
-            slug: "future-of-web-development-nextjs-15",
             title: "The Future of Web Development with Next.js 15",
-            summary: "Exploring the new features and improvements in the latest version of Next.js, including Turbopack and enhanced caching.",
-            content: `
-                <p>Next.js 15 has officially arrived, bringing a new era of performance and developer experience. At Muhyo Tech, we've been early adopters of these features to ensure our clients get the fastest digital experiences possible.</p>
-                
-                <h2>What's New in Next.js 15?</h2>
-                <p>The most significant update is the stability of Turbopack. This Rust-based bundler transforms the local development experience, offering up to 94.7% faster cold starts compared to Webpack. For developers, this means more time coding and less time waiting for builds.</p>
-                
-                <blockquote>"Next.js 15 isn't just an incremental update; it's a fundamental shift in how we think about server-side rendering and client-side performance."</blockquote>
-                
-                <h2>Server Actions & Forms</h2>
-                <p>Handling data mutations has never been easier. With enhanced Server Actions, we can build complex forms with minimal client-side JavaScript, improving accessibility and SEO at the same time.</p>
-                
-                <p>Stay tuned as we dive deeper into each feature and how they can benefit your next project!</p>
-            `,
-            date: "Mar 11, 2026",
+            summary: "Exploring the new features and improvements in the latest version of Next.js.",
+            content: "Next.js 15 brings significant performance improvements and a more streamlined development experience...",
+            date: "2024-03-01",
             author: "Alex Cameron",
-            authorRole: "Senior Developer",
-            category: "Technology",
-            tags: ["Next.js", "React", "Web Dev"],
-            image: "https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?q=80&w=2000&auto=format&fit=crop",
-            featured: true,
-            readTime: "5 min read",
         },
         {
             id: 2,
-            slug: "creating-beautiful-designs-with-tailwind",
-            title: "Mastering Tailwind CSS: Beyond the Basics",
-            summary: "Learn how to leverage Tailwind CSS's configuration and utility-first approach to create unique, premium design systems.",
-            content: `
-                <p>Tailwind CSS is more than just a CSS framework; it's an engine for creating design systems. While many critics argue it leads to "ugly code," the benefits of consistency and speed are undeniable.</p>
-                
-                <h2>Why Muhyo Tech Uses Tailwind</h2>
-                <p>At Muhyo Tech, we prioritize maintainability. Tailwind's utility classes allow us to build complex UI components without writing thousands of lines of custom CSS that eventually becomes a technical debt.</p>
-                
-                <ul>
-                    <li>Consistent spacing and color palettes.</li>
-                    <li>Responsive design out of the box.</li>
-                    <li>Reduced bundle sizes through PurgeCSS.</li>
-                </ul>
-                
-                <p>In this post, we'll explore custom configurations that make your site look less like a Tailwind demo and more like a bespoke premium product.</p>
-            `,
-            date: "Mar 05, 2026",
-            author: "Sarah Jenkins",
-            authorRole: "Lead Designer",
-            category: "Design",
-            tags: ["UI/UX", "Tailwind CSS", "CSS"],
-            image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2031&auto=format&fit=crop",
-            featured: true,
-            readTime: "8 min read",
-        },
-        {
-            id: 3,
-            slug: "optimizing-performance-in-2026",
-            title: "Performance Optimization Checklist for 2026",
-            summary: "A comprehensive guide to ensuring your web application stays ahead of the curve in speed and performance.",
-            content: `
-                <p>In 2026, user expectations for speed are higher than ever. A delay of even 100ms can lead to a significant drop in conversion rates. Here is how we ensure top-tier performance at Muhyo Tech.</p>
-                
-                <h2>Core Web Vitals</h2>
-                <p>LCP, FID, and CLS remain the gold standards. However, we've added INP (Interaction to Next Paint) to our primary focus points this year.</p>
-                
-                <p>Optimizing images, leveraging edge computing, and minimizing main-thread blocking are just the beginning of the journey.</p>
-            `,
-            date: "Feb 28, 2026",
-            author: "Pir Ghulam Muhyo Din",
-            authorRole: "Founder",
-            category: "Optimization",
-            tags: ["Performance", "SEO", "Cloud"],
-            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-            featured: false,
-            readTime: "12 min read",
-        },
-        {
-            id: 4,
-            slug: "scaling-api-with-node-js",
-            title: "Scaling Backend APIs with Node.js and Redis",
-            summary: "How to handle millions of requests using efficient caching and microservices architecture.",
-            content: `
-                <p>Scaling a backend isn't just about adding more servers; it's about making your code smarter. Node.js's event-driven architecture is powerful, but it needs a solid caching strategy to truly excel under pressure.</p>
-            `,
-            date: "Feb 20, 2026",
+            title: "Creating Beautiful Designs with Tailwind",
+            summary: "Tips and tricks for creating high-quality designs that people love.",
+            content: "Tailwind CSS has revolutionized the way we style applications. By leveraging its configuration system...",
+            date: "2024-02-15",
             author: "Alex Cameron",
-            authorRole: "Senior Developer",
-            category: "Backend",
-            tags: ["Node.js", "API", "Redis"],
-            image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
-            featured: false,
-            readTime: "10 min read",
         },
     ],
     messages: [], // For contact form submissions
