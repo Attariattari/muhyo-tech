@@ -110,102 +110,6 @@ export default function About({ data, isHomePage = false }) {
     },
   ];
 
-  const experiences = [
-    {
-      year: "2024 - Present",
-      role: "Senior Web Developer",
-      company: "Muhyo Tech",
-      duration: "Present",
-      description:
-        "Specializing in building high-performance, responsive web applications using Next.js and Tailwind CSS. Focus on delivering seamless user experiences and modern UI architectures.",
-      milestones: [
-        "Custom Enterprise Dashboards",
-        "SEO Optimized Web Apps",
-        "Responsive UI Design Expert",
-      ],
-    },
-    {
-      year: "2023 - 2024",
-      role: "Full-Stack Web Developer",
-      company: "Muhyo Tech",
-      duration: "1 Year",
-      description:
-        "Architecting robust backend systems and dynamic frontends. Implementing real-time features and secure API integrations to create comprehensive web solutions.",
-      milestones: [
-        "Real-time Data Integration",
-        "Secure User Auth Systems",
-        "API Performance Tuning",
-      ],
-    },
-    {
-      year: "2022 - 2023",
-      role: "Frontend Specialist",
-      company: "Muhyo Tech",
-      duration: "1 Year",
-      description:
-        "Crafting pixel-perfect designs and fluid animations. Working closely with modern JavaScript frameworks to bring complex digital concepts to life on the web.",
-      milestones: [
-        "Fluid Framer Motion Animations",
-        "Modern Component Architecture",
-        "Atomic Design Implementation",
-      ],
-    },
-  ];
-
-  const coreValuesLarge = [
-    {
-      icon: CheckCircle2,
-      title: "Top Quality Work",
-      desc: "Meticulous attention to detail ensures every pixel and line of code is perfect.",
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
-    },
-    {
-      icon: Zap,
-      title: "Fast & Reliable",
-      desc: "Engineered for speed and stability, ensuring your platform is always ready for traffic.",
-      color: "text-amber-500",
-      bg: "bg-amber-500/10",
-    },
-    {
-      icon: Cpu,
-      title: "Future-Proof Solutions",
-      desc: "Building with the latest industry standards to ensure long-term scalability.",
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
-    },
-    {
-      icon: Target,
-      title: "User-Centric Design",
-      desc: "Creating intuitive experiences that your users will actually love using every day.",
-      color: "text-indigo-500",
-      bg: "bg-indigo-500/10",
-    },
-  ];
-
-  const focusAreas = [
-    {
-      icon: Sparkles,
-      title: "Clean & Modern UI/UX",
-      desc: "We focus on creating aesthetic designs that not only look premium but provide effortless navigation and usability.",
-    },
-    {
-      icon: Zap,
-      title: "High Performance",
-      desc: "Speed is our priority. We optimize every image and script to ensure lightning-fast interaction for every visitor.",
-    },
-    {
-      icon: Code2,
-      title: "Scalable Architecture",
-      desc: "Our systems are built to grow. Whether you have 100 or 100,000 users, our architecture handles it with ease.",
-    },
-    {
-      icon: Verified,
-      title: "Client-Centric",
-      desc: "Your vision is our mission. We provide personalized consultations to ensure we deliver exactly what your business needs.",
-    },
-  ];
-
   const contactInfo = [
     {
       icon: Mail,
@@ -554,131 +458,49 @@ export default function About({ data, isHomePage = false }) {
               </div>
             </div>
 
-            {/* Redesigned Mission Focus - Futuristic Bento Grid */}
-            <div className="relative">
-              {/* Section Header */}
+            {/* Focus Section */}
+            <div>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center mb-20 relative z-10"
+                className="text-center mb-16"
               >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/5 border border-accent/20 mb-6 group hover:bg-accent/10 transition-colors">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-ping" />
-                  <span className="text-accent text-[10px] font-black uppercase tracking-[0.3em]">
-                    Core Philosophy
-                  </span>
-                </div>
-                <h2 className="text-4xl md:text-6xl font-black text-foreground mb-6 tracking-tight uppercase italic">
+                <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
                   Mission Focus
+                </h4>
+                <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4">
+                  What I Focus On
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto font-medium text-lg leading-relaxed">
-                  Our mission is to bridge the gap between complex engineering
-                  and intuitive user experiences.
-                </p>
               </motion.div>
 
-              {/* Bento Grid layout */}
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-6 max-w-7xl mx-auto px-4 relative z-10">
-                {/* 1. UI/UX - Large Hero Card */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className="md:col-span-4 md:row-span-2 p-1 relative overflow-hidden rounded-[3.5rem] group"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <div className="h-full w-full glass-dark p-12 flex flex-col justify-between relative z-10 rounded-[3.4rem] border border-white/5 group-hover:border-accent/30 transition-all duration-500">
-                    <div className="absolute top-0 right-0 p-16 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
-                      <Sparkles className="w-80 h-80 text-accent" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {focusAreas.map((area, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex gap-6 p-8 glass-dark rounded-[2.5rem] border border-white/5 hover:border-accent/20 transition-all group"
+                  >
+                    <div className="p-4 rounded-2xl bg-card border border-white/5 shadow-xl flex-shrink-0 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500">
+                      <area.icon className="w-8 h-8" />
                     </div>
-
-                    <div className="w-16 h-16 rounded-3xl bg-accent flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.4)] group-hover:scale-110 transition-transform mb-20">
-                      <Sparkles className="w-8 h-8 text-accent-foreground" />
-                    </div>
-
                     <div>
-                      <h3 className="text-4xl font-black text-foreground mb-4 uppercase tracking-tighter">
-                        {focusAreas[0].title}
+                      <h3 className="text-xl font-black text-foreground mb-3 tracking-tighter uppercase italic">
+                        {area.title}
                       </h3>
-                      <p className="text-muted-foreground text-xl leading-relaxed font-medium max-w-2xl">
-                        {focusAreas[0].desc}
+                      <p className="text-muted-foreground leading-relaxed font-medium text-sm">
+                        {area.desc}
                       </p>
-                      <div className="mt-8 flex items-center gap-6">
-                        <div className="h-px w-20 bg-accent/30" />
-                        <span className="text-accent text-xs font-black uppercase tracking-widest">
-                          Premium Aesthetic Guaranteed
-                        </span>
-                      </div>
                     </div>
-                  </div>
-                </motion.div>
-
-                {/* 2. Performance - Vertical Card */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="md:col-span-2 md:row-span-2 glass p-10 rounded-[3.5rem] border border-white/10 flex flex-col items-center text-center justify-center group relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="w-24 h-24 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-8 relative">
-                    <div className="absolute inset-0 bg-accent blur-xl opacity-0 group-hover:opacity-20 transition-opacity" />
-                    <Zap className="w-12 h-12 text-accent group-hover:scale-110 transition-transform" />
-                  </div>
-                  <h3 className="text-2xl font-black text-foreground mb-4 uppercase">
-                    {focusAreas[1].title}
-                  </h3>
-                  <p className="text-muted-foreground font-medium text-center">
-                    {focusAreas[1].desc}
-                  </p>
-                </motion.div>
-
-                {/* 3. Scalability - Horizontal Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="md:col-span-3 glass-dark p-10 rounded-[3.5rem] border border-white/5 flex items-center gap-8 group"
-                >
-                  <div className="p-5 rounded-3xl bg-amber-500/10 text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500">
-                    <Code2 className="w-10 h-10" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-black text-foreground mb-2 uppercase italic tracking-tighter">
-                      {focusAreas[2].title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                      {focusAreas[2].desc}
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* 4. Client-Centric - Interactive Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="md:col-span-3 glass p-10 rounded-[3.5rem] border border-white/10 flex items-center gap-8 group bg-gradient-to-r from-transparent to-accent/5"
-                >
-                  <div className="p-5 rounded-3xl bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500">
-                    <Verified className="w-10 h-10" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-black text-foreground mb-2 uppercase italic tracking-tighter">
-                      {focusAreas[3].title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                      {focusAreas[3].desc}
-                    </p>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                ))}
               </div>
-
-              {/* Decorative background glow */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.05)_0%,transparent_70%)] pointer-events-none -z-10" />
             </div>
-
+          </div>
+        )}
             {/* Professional Features Section */}
             <div className="">
               <motion.div
@@ -863,27 +685,30 @@ export default function About({ data, isHomePage = false }) {
 
                 <div className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto">
                   <Link href="/contact" className="w-full sm:w-auto">
-                    <button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_rgba(14,165,233,0.3)] transition-all duration-300 font-black uppercase tracking-[0.2em] rounded-2xl">
+                    <Button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_rgba(14,165,233,0.3)] transition-all duration-300 font-black uppercase tracking-[0.2em]">
                       <span className="relative z-10 flex items-center justify-center gap-4">
                         Contact via Email
                         <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                       </span>
                       <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-300" />
-                    </button>
+                    </Button>
                   </Link>
 
                   <a href={`tel:${data.phone}`} className="w-full sm:w-auto">
-                    <button className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all rounded-2xl">
+                    <Button
+                      variant="secondary"
+                      className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all"
+                    >
                       <span className="flex items-center justify-center gap-4">
                         Call Now
                         <Phone className="w-5 h-5 group-hover/btn:rotate-12 transition-transform" />
                       </span>
-                    </button>
+                    </Button>
                   </a>
                 </div>
               </div>
             </motion.div>
-          </div>
+          </>
         )}
       </SectionWrapper>
 

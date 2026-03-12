@@ -113,41 +113,41 @@ export default function About({ data, isHomePage = false }) {
   const experiences = [
     {
       year: "2024 - Present",
-      role: "Senior Web Developer",
-      company: "Muhyo Tech",
+      role: "Founder & Lead Architect",
+      company: "Muhyo Tech • Enterprise Era",
       duration: "Present",
       description:
-        "Specializing in building high-performance, responsive web applications using Next.js and Tailwind CSS. Focus on delivering seamless user experiences and modern UI architectures.",
+        "Leading the strategic direction of Muhyo Tech, focusing on delivering high-end enterprise solutions and pioneering AI-driven digital transformations.",
       milestones: [
-        "Custom Enterprise Dashboards",
-        "SEO Optimized Web Apps",
-        "Responsive UI Design Expert",
+        "Architected 50+ Global Solutions",
+        "Lead Web 3.0 & AI Integration",
+        "Award-Winning UI Frameworks",
       ],
     },
     {
       year: "2023 - 2024",
-      role: "Full-Stack Web Developer",
-      company: "Muhyo Tech",
+      role: "Senior Full-Stack Engineer",
+      company: "Muhyo Tech • Scaling Phase",
       duration: "1 Year",
       description:
-        "Architecting robust backend systems and dynamic frontends. Implementing real-time features and secure API integrations to create comprehensive web solutions.",
+        "Spearheaded the development of scalable architectures and optimized performance metrics for massive-traffic applications.",
       milestones: [
-        "Real-time Data Integration",
-        "Secure User Auth Systems",
-        "API Performance Tuning",
+        "99.9% Infrastructure Stability",
+        "Optimized Core Web Vitals",
+        "Team Leadership & Mentorship",
       ],
     },
     {
       year: "2022 - 2023",
-      role: "Frontend Specialist",
-      company: "Muhyo Tech",
+      role: "Full-Stack Developer",
+      company: "Muhyo Tech • Foundations",
       duration: "1 Year",
       description:
-        "Crafting pixel-perfect designs and fluid animations. Working closely with modern JavaScript frameworks to bring complex digital concepts to life on the web.",
+        "Built the core foundation of Muhyo Tech by developing internal tools and initial client-facing platforms with a focus on precision.",
       milestones: [
-        "Fluid Framer Motion Animations",
-        "Modern Component Architecture",
-        "Atomic Design Implementation",
+        "10+ Successful Launch Cubes",
+        "Security & Encryption Lead",
+        "Database Architecture Design",
       ],
     },
   ];
