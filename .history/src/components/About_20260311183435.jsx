@@ -6,7 +6,11 @@ import {
   Award,
   Zap,
   Code2,
+  Rocket,
+  Heart,
   Sparkles,
+  Target,
+  ShieldCheck,
   Mail,
   Phone,
   MapPin,
@@ -248,7 +252,7 @@ export default function About({ data, isHomePage = false }) {
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
+              <h3 className="text-3xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
                 Engineering{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto]">
                   {text}
@@ -267,7 +271,7 @@ export default function About({ data, isHomePage = false }) {
               </div>
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline cursor-pointer"
+                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline"
               >
                 {isExpanded ? (
                   <>

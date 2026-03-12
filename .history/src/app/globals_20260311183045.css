@@ -170,26 +170,3 @@
     animation: progress-wide 3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     transform-origin: left;
 }
-
-
-/* Global Custom Scrollbar - Strictly 2px */
-
-::-webkit-scrollbar {
-    width: 2px !important;
-    height: 2px !important;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent !important;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--accent) !important;
-    border-radius: 20px !important;
-    border: none !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent) !important;
-    filter: brightness(1.2);
-}

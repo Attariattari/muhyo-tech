@@ -172,24 +172,32 @@
 }
 
 
-/* Global Custom Scrollbar - Strictly 2px */
+/* Global Custom Scrollbar */
 
 ::-webkit-scrollbar {
-    width: 2px !important;
-    height: 2px !important;
+    width: 1px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent !important;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent) !important;
-    border-radius: 20px !important;
-    border: none !important;
+    background: var(--accent);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    /* Added to keep it thin */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent) !important;
-    filter: brightness(1.2);
+    background: var(--accent);
+    opacity: 0.8;
+}
+
+
+/* Firefox compatibility */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
 }

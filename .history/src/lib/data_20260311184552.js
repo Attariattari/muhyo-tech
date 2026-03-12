@@ -1,3 +1,17 @@
+import {
+    Award,
+    Zap,
+    Code2,
+    Mail,
+    Phone,
+    MapPin,
+    Clock,
+    Github,
+    Linkedin,
+    Twitter,
+    Facebook,
+} from "lucide-react";
+
 export const portfolioData = {
     profile: {
         name: "Pir Ghulam Muhyo Din",
@@ -406,4 +420,73 @@ export const portfolioData = {
         },
     ],
     messages: [], // For contact form submissions
+    aboutFeatures: [{
+            icon: Award,
+            title: "Top Quality Work",
+            desc: "Architecting high-performance systems with precision and scalability.",
+            color: "text-amber-500",
+            bg: "bg-amber-500/10",
+            gradient: "from-amber-500/20 to-orange-500/10",
+        },
+        {
+            icon: Zap,
+            title: "Super Fast Speed",
+            desc: "Optimizing every byte for instant load times and fluid interaction.",
+            color: "text-blue-500",
+            bg: "bg-blue-500/10",
+            gradient: "from-blue-500/20 to-indigo-500/10",
+        },
+        {
+            icon: Code2,
+            title: "Smart & Future Proof",
+            desc: "Systems engineered to grow and adapt with emerging technologies.",
+            color: "text-emerald-500",
+            bg: "bg-emerald-500/10",
+            gradient: "from-emerald-500/20 to-teal-500/10",
+        },
+    ],
+    aboutContactInfo: [{
+            icon: Mail,
+            label: "Email",
+            value: "MuhyoTech@gmail.com",
+            link: "mailto:MuhyoTech@gmail.com",
+        },
+        {
+            icon: Phone,
+            label: "Phone",
+            value: "+92 322 4458481",
+            link: "tel:+923224458481",
+        },
+        {
+            icon: MapPin,
+            label: "Office Location",
+            value: "Chung, Lahore, Pakistan",
+        },
+        {
+            icon: Clock,
+            label: "Working hours",
+            value: "Mon - Sat: 9:00 AM - 6:00 PM",
+        },
+    ],
+    aboutSocialLinks: [{
+            icon: Linkedin,
+            url: "https://linkedin.com",
+            color: "hover:text-[#0077b5]",
+        },
+        {
+            icon: Github,
+            url: "https://github.com",
+            color: "hover:text-foreground",
+        },
+        {
+            icon: Twitter,
+            url: "https://twitter.com",
+            color: "hover:text-[#1da1f2]",
+        },
+        {
+            icon: Facebook,
+            url: "https://facebook.com",
+            color: "hover:text-[#1877f2]",
+        },
+    ],
 };

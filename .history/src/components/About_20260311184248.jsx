@@ -78,68 +78,32 @@ export default function About({ data, isHomePage = false }) {
     transitionEasing: "cubic-bezier(.03,.98,.52,.99)",
   };
 
-  const features = [
-    {
-      icon: Award,
-      title: "Top Quality Work",
-      desc: "Architecting high-performance systems with precision and scalability.",
-      color: "text-amber-500",
-      bg: "bg-amber-500/10",
-      gradient: "from-amber-500/20 to-orange-500/10",
-    },
-    {
-      icon: Zap,
-      title: "Super Fast Speed",
-      desc: "Optimizing every byte for instant load times and fluid interaction.",
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
-      gradient: "from-blue-500/20 to-indigo-500/10",
-    },
-    {
-      icon: Code2,
-      title: "Smart & Future Proof",
-      desc: "Systems engineered to grow and adapt with emerging technologies.",
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
-      gradient: "from-emerald-500/20 to-teal-500/10",
-    },
-  ];
+  const features = data.aboutFeatures;
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: data.email,
-      link: `mailto:${data.email}`,
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: data.phone,
-      link: `tel:${data.phone}`,
-    },
-    { icon: MapPin, label: "Office Location", value: data.location },
-    {
-      icon: Clock,
-      label: "Working hours",
-      value: data.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM",
-    },
-  ];
+  const contactInfo = data.contactInfo?.map((item) => ({
+    ...item,
+    value:
+      item.type === "email"
+        ? data.email
+        : item.type === "phone"
+          ? data.phone
+          : item.type === "location"
+            ? data.location
+            : item.type === "workingHours"
+              ? data.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM"
+              : "",
+    link:
+      item.type === "email"
+        ? `mailto:${data.email}`
+        : item.type === "phone"
+          ? `tel:${data.phone}`
+          : undefined,
+  }));
 
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      url: data.socials.linkedin,
-      color: "hover:text-[#0077b5]",
-    },
-    { icon: Github, url: data.socials.github, color: "hover:text-foreground" },
-    { icon: Twitter, url: data.socials.twitter, color: "hover:text-[#1da1f2]" },
-    {
-      icon: Facebook,
-      url: data.socials.facebook,
-      color: "hover:text-[#1877f2]",
-    },
-  ];
+  const socialLinks = data.socialLinks?.map((social) => ({
+    ...social,
+    url: data.socials[social.platform],
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },

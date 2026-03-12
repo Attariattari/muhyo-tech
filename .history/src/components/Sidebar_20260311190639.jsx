@@ -89,10 +89,10 @@ export default function Sidebar() {
         }`}
       >
         <aside className="h-full w-full glass rounded-[2.5rem] flex flex-col border border-border/50 shadow-2xl group overflow-hidden relative">
-          <div className="flex-1 min-h-0 flex flex-col overflow-y-auto overflow-x-hidden relative">
+          <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden relative py-4">
             {/* Logo Section - Perfectly Centered */}
             <div
-              className={`pt-10 mb-12 flex items-center transition-all duration-500 ${isCollapsed ? "justify-center px-0" : "gap-4 px-6"}`}
+              className={`pt-6 mb-12 flex items-center transition-all duration-500 ${isCollapsed ? "justify-center px-0" : "gap-4 px-6"}`}
             >
               <div className="relative group/logo">
                 {/* Atmospheric Aura Glow */}

@@ -6,7 +6,11 @@ import {
   Award,
   Zap,
   Code2,
+  Rocket,
+  Heart,
   Sparkles,
+  Target,
+  ShieldCheck,
   Mail,
   Phone,
   MapPin,
@@ -161,13 +165,9 @@ export default function About({ data, isHomePage = false }) {
   };
 
   return (
-    <div
-      className={`relative overflow-hidden ${isHomePage ? "pb-4 md:pb-8" : "pb-32"}`}
-    >
+    <div className="relative overflow-hidden pb-32">
       {/* Visual Enhancements Background */}
-      <div
-        className={`absolute top-0 left-0 w-full ${isHomePage ? "h-full" : "h-[1500px]"} pointer-events-none -z-10`}
-      >
+      <div className="absolute top-0 left-0 w-full h-[1500px] pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full animate-pulse" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full" />
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
@@ -177,7 +177,6 @@ export default function About({ data, isHomePage = false }) {
         id="about"
         subtitle="Bridging Technology & Innovation"
         title="Muhyo Tech"
-        className={isHomePage ? "pb-0 mb-0" : ""}
       >
         {/* Step 1: Hero / Introduction */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start relative z-10">
@@ -248,7 +247,7 @@ export default function About({ data, isHomePage = false }) {
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
+              <h3 className="text-3xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
                 Engineering{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto]">
                   {text}
@@ -267,7 +266,7 @@ export default function About({ data, isHomePage = false }) {
               </div>
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline cursor-pointer"
+                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline"
               >
                 {isExpanded ? (
                   <>

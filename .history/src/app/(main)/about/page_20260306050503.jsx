@@ -6,7 +6,7 @@ export default async function AboutPage() {
   const { profile } = portfolioData;
 
   return (
-    <div className="">
+    <div className="pt-20">
       <About data={profile} />
     </div>
   );

@@ -1,3 +1,17 @@
+import {
+    Award,
+    Zap,
+    Code2,
+    Mail,
+    Phone,
+    MapPin,
+    Clock,
+    Github,
+    Linkedin,
+    Twitter,
+    Facebook,
+} from "lucide-react";
+
 export const portfolioData = {
     profile: {
         name: "Pir Ghulam Muhyo Din",

@@ -3,11 +3,11 @@ import { SectionWrapper } from "@/components/ui";
 import { portfolioData } from "@/lib/data";
 
 export default async function AboutPage() {
-  const { profile } = portfolioData;
+  const { profile, skills } = portfolioData;
 
   return (
     <div className="">
-      <About data={profile} />
+      <About data={profile} skills={skills} />
     </div>
   );
 }

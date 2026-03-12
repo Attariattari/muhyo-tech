@@ -3,23 +3,11 @@
 import { motion, useInView } from "framer-motion";
 import {
   CheckCircle2,
-  Award,
-  Zap,
-  Code2,
   Sparkles,
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Github,
-  Linkedin,
-  Twitter,
-  Facebook,
   ChevronDown,
   ChevronUp,
   ArrowRight,
   Globe,
-  Cpu,
   Verified,
 } from "lucide-react";
 import { SectionWrapper, Button } from "./ui";
@@ -28,6 +16,7 @@ import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { portfolioData } from "@/lib/data";
 
 const StatBadge = ({ icon: Icon, text, subtitle, delay }) => {
   return (
@@ -78,68 +67,11 @@ export default function About({ data, isHomePage = false }) {
     transitionEasing: "cubic-bezier(.03,.98,.52,.99)",
   };
 
-  const features = [
-    {
-      icon: Award,
-      title: "Top Quality Work",
-      desc: "Architecting high-performance systems with precision and scalability.",
-      color: "text-amber-500",
-      bg: "bg-amber-500/10",
-      gradient: "from-amber-500/20 to-orange-500/10",
-    },
-    {
-      icon: Zap,
-      title: "Super Fast Speed",
-      desc: "Optimizing every byte for instant load times and fluid interaction.",
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
-      gradient: "from-blue-500/20 to-indigo-500/10",
-    },
-    {
-      icon: Code2,
-      title: "Smart & Future Proof",
-      desc: "Systems engineered to grow and adapt with emerging technologies.",
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
-      gradient: "from-emerald-500/20 to-teal-500/10",
-    },
-  ];
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: data.email,
-      link: `mailto:${data.email}`,
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: data.phone,
-      link: `tel:${data.phone}`,
-    },
-    { icon: MapPin, label: "Office Location", value: data.location },
-    {
-      icon: Clock,
-      label: "Working hours",
-      value: data.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      url: data.socials.linkedin,
-      color: "hover:text-[#0077b5]",
-    },
-    { icon: Github, url: data.socials.github, color: "hover:text-foreground" },
-    { icon: Twitter, url: data.socials.twitter, color: "hover:text-[#1da1f2]" },
-    {
-      icon: Facebook,
-      url: data.socials.facebook,
-      color: "hover:text-[#1877f2]",
-    },
-  ];
+  const {
+    aboutFeatures: features,
+    aboutContactInfo: contactInfo,
+    aboutSocialLinks: socialLinks,
+  } = portfolioData;
 
   const containerVariants = {
     hidden: { opacity: 0 },

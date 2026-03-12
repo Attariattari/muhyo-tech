@@ -1,3 +1,17 @@
+import {
+    Award,
+    Zap,
+    Code2,
+    Mail,
+    Phone,
+    MapPin,
+    Clock,
+    Linkedin,
+    Github,
+    Twitter,
+    Facebook,
+} from "lucide-react";
+
 export const portfolioData = {
     profile: {
         name: "Pir Ghulam Muhyo Din",
@@ -24,6 +38,61 @@ export const portfolioData = {
             twitter: "https://twitter.com",
             facebook: "https://facebook.com",
         },
+        aboutFeatures: [{
+                icon: Award,
+                title: "Top Quality Work",
+                desc: "Architecting high-performance systems with precision and scalability.",
+                color: "text-amber-500",
+                bg: "bg-amber-500/10",
+                gradient: "from-amber-500/20 to-orange-500/10",
+            },
+            {
+                icon: Zap,
+                title: "Super Fast Speed",
+                desc: "Optimizing every byte for instant load times and fluid interaction.",
+                color: "text-blue-500",
+                bg: "bg-blue-500/10",
+                gradient: "from-blue-500/20 to-indigo-500/10",
+            },
+            {
+                icon: Code2,
+                title: "Smart & Future Proof",
+                desc: "Systems engineered to grow and adapt with emerging technologies.",
+                color: "text-emerald-500",
+                bg: "bg-emerald-500/10",
+                gradient: "from-emerald-500/20 to-teal-500/10",
+            },
+        ],
+        contactInfo: [{
+                icon: Mail,
+                label: "Email",
+                type: "email",
+            },
+            {
+                icon: Phone,
+                label: "Phone",
+                type: "phone",
+            },
+            { icon: MapPin, label: "Office Location", type: "location" },
+            {
+                icon: Clock,
+                label: "Working hours",
+                type: "workingHours",
+            },
+        ],
+        socialLinks: [{
+                icon: Linkedin,
+                platform: "linkedin",
+                color: "hover:text-[#0077b5]",
+            },
+            { icon: Github, platform: "github", color: "hover:text-foreground" },
+            { icon: Twitter, platform: "twitter", color: "hover:text-[#1da1f2]" },
+            {
+                icon: Facebook,
+                platform: "facebook",
+                color: "hover:text-[#1877f2]",
+            },
+        ],
     },
     skills: [
         { name: "React / Next.js", level: 95, category: "Frontend" },

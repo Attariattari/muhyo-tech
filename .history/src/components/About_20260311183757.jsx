@@ -6,7 +6,11 @@ import {
   Award,
   Zap,
   Code2,
+  Rocket,
+  Heart,
   Sparkles,
+  Target,
+  ShieldCheck,
   Mail,
   Phone,
   MapPin,
@@ -267,7 +271,7 @@ export default function About({ data, isHomePage = false }) {
               </div>
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline cursor-pointer"
+                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline"
               >
                 {isExpanded ? (
                   <>

@@ -30,7 +30,7 @@ export default function AdminSidebar() {
         ADMIN<span className="text-blue-500">.</span>
       </div>
 
-      <nav className="flex-1 min-h-0 p-6 space-y-2 mt-4 overflow-y-auto">
+      <nav className="flex-grow p-6 space-y-2 mt-4 overflow-y-auto">
         {sidebarLinks.map((link) => {
           const isActive = pathname === link.href;
           return (

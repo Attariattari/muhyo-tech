@@ -6,7 +6,11 @@ import {
   Award,
   Zap,
   Code2,
+  Rocket,
+  Heart,
   Sparkles,
+  Target,
+  ShieldCheck,
   Mail,
   Phone,
   MapPin,
@@ -51,7 +55,7 @@ const StatBadge = ({ icon: Icon, text, subtitle, delay }) => {
   );
 };
 
-export default function About({ data, isHomePage = false }) {
+export default function About({ data }) {
   if (!data) return null;
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -161,13 +165,9 @@ export default function About({ data, isHomePage = false }) {
   };
 
   return (
-    <div
-      className={`relative overflow-hidden ${isHomePage ? "pb-4 md:pb-8" : "pb-32"}`}
-    >
+    <div className="relative overflow-visible pb-32">
       {/* Visual Enhancements Background */}
-      <div
-        className={`absolute top-0 left-0 w-full ${isHomePage ? "h-full" : "h-[1500px]"} pointer-events-none -z-10`}
-      >
+      <div className="absolute top-0 left-0 w-full h-[1500px] pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full animate-pulse" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full" />
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
@@ -177,7 +177,6 @@ export default function About({ data, isHomePage = false }) {
         id="about"
         subtitle="Bridging Technology & Innovation"
         title="Muhyo Tech"
-        className={isHomePage ? "pb-0 mb-0" : ""}
       >
         {/* Step 1: Hero / Introduction */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start relative z-10">
@@ -219,7 +218,7 @@ export default function About({ data, isHomePage = false }) {
             </Tilt>
 
             {/* Floating Stats Badges */}
-            <div className="absolute -bottom-10 right-0 md:-right-6 lg:-right-12 z-20 flex flex-col gap-4">
+            <div className="absolute -bottom-10 -right-6 lg:-right-12 z-20 flex flex-col gap-4">
               <StatBadge
                 icon={Sparkles}
                 text="3+ Years"
@@ -248,7 +247,7 @@ export default function About({ data, isHomePage = false }) {
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
+              <h3 className="text-3xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
                 Engineering{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto]">
                   {text}
@@ -267,7 +266,7 @@ export default function About({ data, isHomePage = false }) {
               </div>
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline cursor-pointer"
+                className="lg:hidden mt-4 flex items-center gap-2 text-accent text-sm font-bold uppercase tracking-widest hover:underline"
               >
                 {isExpanded ? (
                   <>
@@ -324,237 +323,216 @@ export default function About({ data, isHomePage = false }) {
               ))}
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent ml-4" />
             </motion.div>
-
-            {/* Read Full Story Button for Home Page */}
-            {isHomePage && (
-              <motion.div variants={itemVariants} className="mt-12">
-                <Link href="/about">
-                  <Button
-                    variant="outline"
-                    className="group/btn relative overflow-hidden px-10 py-5 bg-transparent border-2 border-accent text-accent hover:bg-accent/10 transition-all duration-300 font-black uppercase tracking-[0.2em] text-xs"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-3">
-                      Discover My Full Story
-                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </span>
-                  </Button>
-                </Link>
-              </motion.div>
-            )}
           </motion.div>
         </div>
 
-        {!isHomePage && (
-          <>
-            {/* Step 2: Professional Features / Services */}
-            <div className="mt-40">
+        {/* Step 2: Professional Features / Services */}
+        <div className="mt-40">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
+              Unmatched Precision
+            </h4>
+            <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4">
+              Why Choose Muhyo Tech?
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((f, i) => (
               <motion.div
+                key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center mb-16"
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="group relative p-10 glass rounded-[2.5rem] border border-white/10 hover:border-accent/30 transition-all duration-500 overflow-hidden"
               >
-                <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
-                  Unmatched Precision
-                </h4>
-                <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4">
-                  Why Choose Muhyo Tech?
-                </h2>
-              </motion.div>
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-[2.5rem]`}
+                />
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {features.map((f, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    whileHover={{ y: -10 }}
-                    className="group relative p-10 glass rounded-[2.5rem] border border-white/10 hover:border-accent/30 transition-all duration-500 overflow-hidden"
-                  >
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-[2.5rem]`}
-                    />
+                <div
+                  className={`w-16 h-16 rounded-2xl ${f.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 relative z-10`}
+                >
+                  <f.icon className={`w-8 h-8 ${f.color}`} />
+                </div>
 
-                    <div
-                      className={`w-16 h-16 rounded-2xl ${f.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 relative z-10`}
-                    >
-                      <f.icon className={`w-8 h-8 ${f.color}`} />
-                    </div>
-
-                    <div className="relative z-10">
-                      <h5 className="text-xl font-black mb-4 text-foreground group-hover:text-accent transition-colors tracking-tight">
-                        {f.title}
-                      </h5>
-                      <p className="text-muted-foreground leading-relaxed font-medium">
-                        {f.desc}
-                      </p>
-                    </div>
-
-                    <div className="mt-8 flex items-center gap-2 text-accent opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                      <span className="text-[10px] font-black uppercase tracking-widest">
-                        Explore Standard
-                      </span>
-                      <div className="h-px flex-1 bg-accent/20" />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Step 3: Contact Info & Support */}
-            <div className="mt-40 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-12"
-              >
-                <div>
-                  <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
-                    Availability
-                  </h4>
-                  <h2 className="text-3xl md:text-5xl font-black text-foreground mb-8 tracking-tight">
-                    Let's Discuss Your Next Move.
-                  </h2>
-                  <p className="text-muted-foreground text-lg leading-relaxed font-medium max-w-md">
-                    Whether you're starting from scratch or scaling an existing
-                    platform, our doors are open for collaboration.
+                <div className="relative z-10">
+                  <h5 className="text-xl font-black mb-4 text-foreground group-hover:text-accent transition-colors tracking-tight">
+                    {f.title}
+                  </h5>
+                  <p className="text-muted-foreground leading-relaxed font-medium">
+                    {f.desc}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  {contactInfo.map((item, i) => (
-                    <div key={i} className="flex gap-4 items-start group">
-                      <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300">
-                        <item.icon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
-                          {item.label}
-                        </div>
-                        {item.link ? (
-                          <a
-                            href={item.link}
-                            className="text-base font-bold text-foreground hover:text-accent transition-colors break-all"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-base font-bold text-foreground">
-                            {item.value}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                <div className="mt-8 flex items-center gap-2 text-accent opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                  <span className="text-[10px] font-black uppercase tracking-widest">
+                    Explore Standard
+                  </span>
+                  <div className="h-px flex-1 bg-accent/20" />
                 </div>
               </motion.div>
+            ))}
+          </div>
+        </div>
 
-              {/* Interactive Achievement Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative p-1 glass rounded-[3rem] overflow-hidden group shadow-2xl"
-              >
-                <div className="relative p-12 lg:p-16 h-full flex flex-col justify-center gap-8 relative z-10">
-                  <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
-                    <Globe className="w-64 h-64" />
-                  </div>
-
-                  <div className="flex -space-x-4 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-12 h-12 rounded-full border-4 border-background bg-accent/20 flex items-center justify-center p-1 overflow-hidden backdrop-blur-xl"
-                      >
-                        <Image
-                          src={`https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png`}
-                          alt="Avatar"
-                          width={40}
-                          height={40}
-                          className="rounded-full object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  <h3 className="text-2xl md:text-3xl font-black text-foreground leading-[1.2] tracking-tight">
-                    Trusted by Forward-Thinking Brands{" "}
-                    <span className="text-accent underline decoration-accent/20 decoration-4 underline-offset-8 font-serif leading-none">
-                      Globally.
-                    </span>
-                  </h3>
-
-                  <div className="mt-4 p-8 bg-accent/5 border border-accent/20 rounded-[2rem] flex items-center gap-6">
-                    <div className="p-4 rounded-2xl bg-accent group-hover:shadow-[0_0_30px_rgba(14,165,233,0.4)] transition-shadow duration-500">
-                      <Verified className="w-8 h-8 text-accent-foreground" />
-                    </div>
-                    <div>
-                      <div className="text-3xl font-black text-foreground">
-                        AESTHETIC
-                      </div>
-                      <div className="text-xs font-black uppercase tracking-[0.3em] text-accent">
-                        Precision Verified
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+        {/* Step 3: Contact Info & Support */}
+        <div className="mt-40 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-12"
+          >
+            <div>
+              <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
+                Availability
+              </h4>
+              <h2 className="text-3xl md:text-5xl font-black text-foreground mb-8 tracking-tight">
+                Let's Discuss Your Next Move.
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed font-medium max-w-md">
+                Whether you're starting from scratch or scaling an existing
+                platform, our doors are open for collaboration.
+              </p>
             </div>
 
-            {/* Step 4: Call to Action */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="mt-40 relative glass p-10 md:p-20 rounded-[4rem] border border-accent/20 overflow-hidden group text-center"
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.1)_0%,transparent_50%)]" />
-              <div className="absolute -top-[50%] -left-[50%] w-full h-full bg-accent/5 blur-[150px] rounded-full animate-pulse pointer-events-none" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {contactInfo.map((item, i) => (
+                <div key={i} className="flex gap-4 items-start group">
+                  <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
+                      {item.label}
+                    </div>
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        className="text-base font-bold text-foreground hover:text-accent transition-colors break-all"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-base font-bold text-foreground">
+                        {item.value}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
-              <div className="relative z-10 flex flex-col items-center gap-10">
-                <h3 className="text-4xl md:text-6xl font-black text-foreground max-w-4xl leading-[1.05] tracking-tight">
-                  Ready to bring your project to life? Let's build something{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
-                    amazing together!
-                  </span>
-                </h3>
+          {/* Interactive Achievement Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative p-1 glass rounded-[3rem] overflow-hidden group shadow-2xl"
+          >
+            <div className="relative p-12 lg:p-16 h-full flex flex-col justify-center gap-8 relative z-10">
+              <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+                <Globe className="w-64 h-64" />
+              </div>
 
-                <p className="text-muted-foreground text-xl max-w-2xl font-medium leading-relaxed">
-                  We're currently accepting new projects and inquiries for
-                  Spring 2026. Reach out today for a consultation.
-                </p>
+              <div className="flex -space-x-4 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-12 h-12 rounded-full border-4 border-background bg-accent/20 flex items-center justify-center p-1 overflow-hidden backdrop-blur-xl"
+                  >
+                    <Image
+                      src={`https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png`}
+                      alt="Avatar"
+                      width={40}
+                      height={40}
+                      className="rounded-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
 
-                <div className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto">
-                  <Link href="/contact" className="w-full sm:w-auto">
-                    <Button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_rgba(14,165,233,0.3)] transition-all duration-300 font-black uppercase tracking-[0.2em]">
-                      <span className="relative z-10 flex items-center justify-center gap-4">
-                        Contact via Email
-                        <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                      </span>
-                      <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-300" />
-                    </Button>
-                  </Link>
+              <h3 className="text-2xl md:text-3xl font-black text-foreground leading-[1.2] tracking-tight">
+                Trusted by Forward-Thinking Brands{" "}
+                <span className="text-accent underline decoration-accent/20 decoration-4 underline-offset-8 font-serif leading-none">
+                  Globally.
+                </span>
+              </h3>
 
-                  <a href={`tel:${data.phone}`} className="w-full sm:w-auto">
-                    <Button
-                      variant="secondary"
-                      className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all"
-                    >
-                      <span className="flex items-center justify-center gap-4">
-                        Call Now
-                        <Phone className="w-5 h-5 group-hover/btn:rotate-12 transition-transform" />
-                      </span>
-                    </Button>
-                  </a>
+              <div className="mt-4 p-8 bg-accent/5 border border-accent/20 rounded-[2rem] flex items-center gap-6">
+                <div className="p-4 rounded-2xl bg-accent group-hover:shadow-[0_0_30px_rgba(14,165,233,0.4)] transition-shadow duration-500">
+                  <Verified className="w-8 h-8 text-accent-foreground" />
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-foreground">
+                    AESTHETIC
+                  </div>
+                  <div className="text-xs font-black uppercase tracking-[0.3em] text-accent">
+                    Precision Verified
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </>
-        )}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Step 4: Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="mt-40 relative glass p-10 md:p-20 rounded-[4rem] border border-accent/20 overflow-hidden group text-center"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.1)_0%,transparent_50%)]" />
+          <div className="absolute -top-[50%] -left-[50%] w-full h-full bg-accent/5 blur-[150px] rounded-full animate-pulse pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col items-center gap-10">
+            <h3 className="text-4xl md:text-6xl font-black text-foreground max-w-4xl leading-[1.05] tracking-tight">
+              Ready to bring your project to life? Let's build something{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
+                amazing together!
+              </span>
+            </h3>
+
+            <p className="text-muted-foreground text-xl max-w-2xl font-medium leading-relaxed">
+              We're currently accepting new projects and inquiries for Spring
+              2026. Reach out today for a consultation.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_rgba(14,165,233,0.3)] transition-all duration-300 font-black uppercase tracking-[0.2em]">
+                  <span className="relative z-10 flex items-center justify-center gap-4">
+                    Contact via Email
+                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-300" />
+                </Button>
+              </Link>
+
+              <a href={`tel:${data.phone}`} className="w-full sm:w-auto">
+                <Button
+                  variant="secondary"
+                  className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all"
+                >
+                  <span className="flex items-center justify-center gap-4">
+                    Call Now
+                    <Phone className="w-5 h-5 group-hover/btn:rotate-12 transition-transform" />
+                  </span>
+                </Button>
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </SectionWrapper>
 
       {/* Interactive Particles Background Component */}

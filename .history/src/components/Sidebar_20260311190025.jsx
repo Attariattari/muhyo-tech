@@ -83,137 +83,131 @@ export default function Sidebar() {
       </div>
 
       {/* Modern Desktop Sidebar */}
-      <div
-        className={`fixed left-4 top-4 bottom-4 z-50 hidden lg:flex flex-col transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+      <aside
+        className={`fixed left-4 top-4 bottom-4 glass rounded-[2.5rem] z-50 hidden lg:flex flex-col transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-border/50 shadow-2xl group ${
           isCollapsed ? "w-20" : "w-64"
         }`}
       >
-        <aside className="h-full w-full glass rounded-[2.5rem] flex flex-col border border-border/50 shadow-2xl group overflow-hidden relative">
-          <div className="flex-1 min-h-0 flex flex-col overflow-y-auto overflow-x-hidden relative">
-            {/* Logo Section - Perfectly Centered */}
-            <div
-              className={`pt-10 mb-12 flex items-center transition-all duration-500 ${isCollapsed ? "justify-center px-0" : "gap-4 px-6"}`}
-            >
-              <div className="relative group/logo">
-                {/* Atmospheric Aura Glow */}
-                <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover/logo:opacity-60 transition-all duration-1000 scale-150" />
+        <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden relative rounded-[2.5rem]">
+          {/* Logo Section - Perfectly Centered */}
+          <div
+            className={`pt-10 mb-12 flex items-center transition-all duration-500 ${isCollapsed ? "justify-center px-0" : "gap-4 px-6"}`}
+          >
+            <div className="relative group/logo">
+              {/* Atmospheric Aura Glow */}
+              <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover/logo:opacity-60 transition-all duration-1000 scale-150" />
 
-                {/* Kinetic Orbital Ring */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-[-6px] border border-accent/20 rounded-[1.2rem] border-dashed"
+              {/* Kinetic Orbital Ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-[-6px] border border-accent/20 rounded-[1.2rem] border-dashed"
+              />
+
+              {/* The Insignia Box */}
+              <div className="relative w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center shadow-2xl transition-all duration-500 group-hover/logo:scale-110 group-hover/logo:rotate-6 backdrop-blur-xl group-hover/logo:border-accent/30 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-full h-full object-contain p-2"
                 />
-
-                {/* The Insignia Box */}
-                <div className="relative w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center shadow-2xl transition-all duration-500 group-hover/logo:scale-110 group-hover/logo:rotate-6 backdrop-blur-xl group-hover/logo:border-accent/30 overflow-hidden">
-                  <img
-                    src="/logo.png"
-                    alt="Logo"
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
               </div>
-
-              {!isCollapsed && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex flex-col"
-                >
-                  <span className="text-xl font-black text-foreground tracking-tighter leading-none italic uppercase whitespace-nowrap">
-                    Muhyo Tech
-                  </span>
-                  <span className="text-[10px] text-accent font-bold uppercase tracking-[0.3em] mt-1 whitespace-nowrap opacity-60">
-                    Studio V4.0
-                  </span>
-                </motion.div>
-              )}
             </div>
 
-            {/* Navigation */}
-            <nav className="flex-grow px-3 space-y-1">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 group/link ${
-                      isActive
-                        ? "text-accent"
-                        : "text-muted-foreground hover:text-foreground"
-                    } ${isCollapsed ? "justify-center" : ""}`}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="sidebar-pill"
-                        className="absolute inset-0 bg-muted/50 border border-border/50 rounded-2xl z-0"
-                        transition={{
-                          type: "spring",
-                          bounce: 0.2,
-                          duration: 0.6,
-                        }}
-                      />
-                    )}
-
-                    <div className="relative z-10 flex items-center gap-4">
-                      <div
-                        className={`p-2.5 rounded-xl transition-all duration-300 ${isActive ? "bg-accent/10 border border-accent/20" : "bg-transparent border border-transparent group-hover/link:border-border/50 group-hover/link:bg-muted/30"}`}
-                      >
-                        <link.icon
-                          size={20}
-                          className={`icon-scale transition-colors ${isActive ? "text-accent" : "text-muted-foreground group-hover/link:text-foreground"}`}
-                        />
-                      </div>
-                      {!isCollapsed && (
-                        <span className="text-[11px] font-black uppercase tracking-[0.25em]">
-                          {link.name}
-                        </span>
-                      )}
-                    </div>
-
-                    {isActive && !isCollapsed && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute right-4 w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]"
-                      />
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-
-            {/* Footer Actions */}
-            <div className="p-4 mt-auto space-y-4">
-              <div
-                className={`flex items-center transition-all duration-300 ${isCollapsed ? "justify-center" : "justify-between px-2"}`}
+            {!isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex flex-col"
               >
-                {!isCollapsed && (
-                  <span className="text-xs font-black text-muted-foreground/30 uppercase tracking-widest italic">
-                    Choose Theme
-                  </span>
-                )}
-                <div className="p-1 rounded-xl bg-card border border-border">
-                  <ThemeToggle />
-                </div>
-              </div>
-
-              <Link
-                href="/resume"
-                className="relative h-14 w-full flex items-center justify-center gap-3 rounded-2xl bg-accent text-accent-foreground font-black uppercase text-[10px] tracking-[0.2em] shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5"
-              >
-                <FileUser size={18} />
-                {!isCollapsed && <span>My Resume</span>}
-              </Link>
-            </div>
+                <span className="text-xl font-black text-foreground tracking-tighter leading-none italic uppercase whitespace-nowrap">
+                  Muhyo Tech
+                </span>
+                <span className="text-[10px] text-accent font-bold uppercase tracking-[0.3em] mt-1 whitespace-nowrap opacity-60">
+                  Studio V4.0
+                </span>
+              </motion.div>
+            )}
           </div>
-        </aside>
+
+          {/* Navigation */}
+          <nav className="flex-grow px-3 space-y-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 group/link ${
+                    isActive
+                      ? "text-accent"
+                      : "text-muted-foreground hover:text-foreground"
+                  } ${isCollapsed ? "justify-center" : ""}`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="sidebar-pill"
+                      className="absolute inset-0 bg-muted/50 border border-border/50 rounded-2xl z-0"
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.6,
+                      }}
+                    />
+                  )}
+
+                  <div className="relative z-10 flex items-center gap-4">
+                    <div
+                      className={`p-2.5 rounded-xl transition-all duration-300 ${isActive ? "bg-accent/10 border border-accent/20" : "bg-transparent border border-transparent group-hover/link:border-border/50 group-hover/link:bg-muted/30"}`}
+                    >
+                      <link.icon
+                        size={20}
+                        className={`icon-scale transition-colors ${isActive ? "text-accent" : "text-muted-foreground group-hover/link:text-foreground"}`}
+                      />
+                    </div>
+                    {!isCollapsed && (
+                      <span className="text-[11px] font-black uppercase tracking-[0.25em]">
+                        {link.name}
+                      </span>
+                    )}
+                  </div>
+
+                  {isActive && !isCollapsed && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute right-4 w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]"
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Footer Actions */}
+          <div className="p-4 mt-auto space-y-4">
+            <div
+              className={`flex items-center transition-all duration-300 ${isCollapsed ? "justify-center" : "justify-between px-2"}`}
+            >
+              {!isCollapsed && (
+                <span className="text-xs font-black text-muted-foreground/30 uppercase tracking-widest italic">
+                  Choose Theme
+                </span>
+              )}
+              <div className="p-1 rounded-xl bg-card border border-border">
+                <ThemeToggle />
+              </div>
+            </div>
+
+            <Link
+              href="/resume"
+              className="relative h-14 w-full flex items-center justify-center gap-3 rounded-2xl bg-accent text-accent-foreground font-black uppercase text-[10px] tracking-[0.2em] shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-0.5"
+            >
+              <FileUser size={18} />
+              {!isCollapsed && <span>My Resume</span>}
+            </Link>
+          </div>
+        </div>
 
         {/* Minimalist Toggle Button */}
         <button
@@ -222,7 +216,7 @@ export default function Sidebar() {
         >
           {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
-      </div>
+      </aside>
 
       {/* Futuristic Mobile Menu */}
       <AnimatePresence>
