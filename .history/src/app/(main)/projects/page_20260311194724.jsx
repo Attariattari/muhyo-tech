@@ -1,12 +1,13 @@
-import Portfolio from "@/components/Portfolio";
+import Projects from "@/components/Projects";
+
 import { portfolioData } from "@/lib/data";
 
 export default async function ProjectsPage() {
   const { projects } = portfolioData;
 
   return (
-    <main className="min-h-screen">
-      <Portfolio projects={projects} />
-    </main>
+    <div className="pt-20">
+      <Projects data={projects} />
+    </div>
   );
 }
