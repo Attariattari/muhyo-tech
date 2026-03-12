@@ -170,7 +170,7 @@ export default function Hero() {
                 className="w-full sm:w-auto relative group"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-accent/60 to-accent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-                <button className="relative w-full px-12 py-5 bg-foreground text-background font-black uppercase text-xs tracking-[0.3em] rounded-2xl transition-all flex items-center justify-center gap-3">
+                <button className="relative w-full px-12 py-5 bg-foreground  font-black uppercase text-xs tracking-[0.3em] rounded-2xl transition-all flex items-center justify-center gap-3">
                   See My Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>

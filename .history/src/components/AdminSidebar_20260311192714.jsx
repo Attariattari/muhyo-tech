@@ -25,12 +25,9 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed left-0 top-0 w-64 h-full bg-card border-r border-border flex flex-col z-20 shadow-2xl">
-      <div className="p-8 border-b border-border text-2xl font-black text-foreground tracking-widest uppercase italic border-l-4 border-accent">
-        ADMIN
-        <span className="text-accent underline decoration-accent/30 underline-offset-8">
-          .
-        </span>
+    <div className="fixed left-0 top-0 w-64 h-full bg-[#0a0f1c] border-r border-border flex flex-col z-20">
+      <div className="p-8 border-b border-border text-2xl font-black text-white tracking-widest uppercase">
+        ADMIN<span className="text-accent">.</span>
       </div>
 
       <nav className="flex-1 min-h-0 p-6 space-y-2 mt-4 overflow-y-auto">
@@ -43,7 +40,7 @@ export default function AdminSidebar() {
               className={`flex items-center justify-between p-3 rounded-xl transition-all group ${
                 isActive
                   ? "bg-accent/10 text-accent border border-accent/20"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent hover:border-border/50 shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               }`}
             >
               <div className="flex items-center gap-3">

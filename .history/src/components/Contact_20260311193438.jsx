@@ -67,7 +67,7 @@ const Contact = () => {
     {
       icon: <Github className="w-5 h-5" />,
       href: "#",
-      color: "hover:text-foreground",
+      color: "hover:text-white",
     },
     {
       icon: <Twitter className="w-5 h-5" />,
@@ -97,7 +97,7 @@ const Contact = () => {
                 <Clock className="w-3 h-3" /> Quick Response:{" "}
                 <span className="text-foreground ml-1">Under 2h</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-foreground uppercase italic px-4 py-2 border-l-4 border-accent bg-accent/5 rounded-r-2xl">
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-foreground uppercase italic">
                 Let's <br />
                 <span className="text-accent underline decoration-accent/10 decoration-8 underline-offset-12">
                   Connect
@@ -141,8 +141,8 @@ const Contact = () => {
             </div>
 
             {/* Socials Connection */}
-            <div className="pt-8 border-t border-border/10">
-              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6 italic">
+            <div className="pt-8 border-t border-white/5">
+              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6">
                 Find us on social media
               </p>
               <div className="flex gap-4">
@@ -153,7 +153,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
-                    className={`w-12 h-12 bg-card rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-border/50 shadow-lg`}
+                    className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
                     {social.icon}
                   </motion.a>

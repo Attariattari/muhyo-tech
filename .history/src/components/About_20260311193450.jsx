@@ -307,11 +307,11 @@ export default function About({ data, isHomePage = false }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
 
                   {/* Floating ID Tag */}
-                  <div className="absolute bottom-10 left-10 p-4 glass rounded-2xl border border-border backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
-                    <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4 italic">
+                  <div className="absolute bottom-10 left-10 p-4 glass-dark rounded-2xl border border-white/10 backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4">
                       Founder
                     </div>
-                    <div className="text-xl font-black text-foreground italic">
+                    <div className="text-xl font-black text-white">
                       {data.name}
                     </div>
                   </div>
@@ -349,12 +349,12 @@ export default function About({ data, isHomePage = false }) {
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground italic uppercase">
+              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
                 Engineering{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient-flow bg-[length:200%_auto]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto]">
                   {text}
                 </span>
-                <Cursor cursorColor="var(--color-accent)" cursorStyle="|" />
+                <Cursor cursorColor="#0ea5e9" cursorStyle="|" />
               </h3>
             </motion.div>
 
@@ -392,14 +392,14 @@ export default function About({ data, isHomePage = false }) {
                   key={i}
                   whileHover={{
                     scale: 1.02,
-                    backgroundColor: "var(--color-card)",
+                    backgroundColor: "rgba(255,255,255,0.05)",
                   }}
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-card border border-border/50 backdrop-blur-sm transition-all shadow-sm group/val"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-sm transition-all shadow-sm group/val"
                 >
                   <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover/val:bg-accent group-hover/val:text-accent-foreground transition-all duration-300">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
-                  <span className="text-sm font-bold text-foreground/80 group-hover/val:text-foreground italic">
+                  <span className="text-sm font-bold text-foreground/80 group-hover/val:text-foreground">
                     {val}
                   </span>
                 </motion.div>
@@ -418,12 +418,12 @@ export default function About({ data, isHomePage = false }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -4 }}
-                  className={`w-12 h-12 rounded-xl glass border border-border/50 flex items-center justify-center transition-all duration-300 ${social.color}`}
+                  className={`w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center transition-all duration-300 ${social.color}`}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
-              <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent ml-4 opacity-50" />
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent ml-4" />
             </motion.div>
 
             {/* Read Full Story Button for Home Page */}
@@ -472,7 +472,7 @@ export default function About({ data, isHomePage = false }) {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                     whileHover={{ y: -5 }}
-                    className="p-8 glass rounded-[2.5rem] border border-border hover:border-accent/30 transition-all duration-500 group shadow-xl"
+                    className="p-8 glass rounded-[2.5rem] border border-white/10 hover:border-accent/30 transition-all duration-500 group"
                   >
                     <div className="flex justify-between items-start mb-6">
                       <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300">
@@ -489,11 +489,11 @@ export default function About({ data, isHomePage = false }) {
                     <p className="text-sm font-bold text-muted-foreground mb-4 italic">
                       {exp.company} • {exp.duration}
                     </p>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 font-medium italic">
-                      "{exp.description}"
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 font-medium">
+                      {exp.description}
                     </p>
 
-                    <div className="space-y-3 pt-6 border-t border-border/10">
+                    <div className="space-y-3 pt-6 border-t border-white/5">
                       {exp.milestones.map((milestone, j) => (
                         <div key={j} className="flex items-center gap-3">
                           <div className="w-1.5 h-1.5 rounded-full bg-accent" />

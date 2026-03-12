@@ -67,7 +67,7 @@ const Contact = () => {
     {
       icon: <Github className="w-5 h-5" />,
       href: "#",
-      color: "hover:text-foreground",
+      color: "hover:text-white",
     },
     {
       icon: <Twitter className="w-5 h-5" />,
@@ -95,13 +95,11 @@ const Contact = () => {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.3em]">
                 <Clock className="w-3 h-3" /> Quick Response:{" "}
-                <span className="text-foreground ml-1">Under 2h</span>
+                <span className="text-white ml-1">Under 2h</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-foreground uppercase italic px-4 py-2 border-l-4 border-accent bg-accent/5 rounded-r-2xl">
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-white uppercase">
                 Let's <br />
-                <span className="text-accent underline decoration-accent/10 decoration-8 underline-offset-12">
-                  Connect
-                </span>
+                <span className="text-accent">Connect</span>
               </h1>
               <p className="text-muted-foreground text-lg font-medium leading-relaxed max-w-md">
                 Have an idea? We are here to help you build it. Send us a
@@ -123,17 +121,17 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="group p-6 glass rounded-3xl border border-border hover:border-accent/40 transition-all duration-300 shadow-xl"
+                  className="group p-6 glass-dark rounded-3xl border border-white/5 hover:border-accent/40 transition-all duration-300"
                 >
                   <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-accent/10`}
+                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}
                   >
                     {info.icon}
                   </div>
                   <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
                     {info.label}
                   </p>
-                  <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">
+                  <p className="text-sm font-bold text-white group-hover:text-accent transition-colors">
                     {info.value}
                   </p>
                 </motion.a>
@@ -141,8 +139,8 @@ const Contact = () => {
             </div>
 
             {/* Socials Connection */}
-            <div className="pt-8 border-t border-border/10">
-              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6 italic">
+            <div className="pt-8 border-t border-white/5">
+              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6">
                 Find us on social media
               </p>
               <div className="flex gap-4">
@@ -153,7 +151,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
-                    className={`w-12 h-12 bg-card rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-border/50 shadow-lg`}
+                    className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
                     {social.icon}
                   </motion.a>
@@ -168,13 +166,13 @@ const Contact = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative p-1 glass rounded-[3rem] overflow-hidden shadow-2xl"
+              className="relative p-1 glass-dark rounded-[3rem] overflow-hidden"
             >
               {/* Form Content */}
-              <div className="relative z-10 p-8 md:p-12 bg-card/40 rounded-[2.8rem] border border-border">
+              <div className="relative z-10 p-8 md:p-12 bg-[#020617]/40 rounded-[2.8rem] border border-white/5">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                   <div>
-                    <h2 className="text-3xl font-black tracking-tight text-foreground uppercase italic tracking-tighter">
+                    <h2 className="text-3xl font-black tracking-tight text-white uppercase">
                       Send a Message
                     </h2>
                     <p className="text-accent text-xs font-bold uppercase tracking-widest mt-1">
@@ -182,7 +180,7 @@ const Contact = () => {
                     </p>
                   </div>
                   <div className="hidden md:block">
-                    <MessageSquare className="w-10 h-10 text-accent/10" />
+                    <MessageSquare className="w-10 h-10 text-white/[0.05]" />
                   </div>
                 </div>
 
@@ -198,7 +196,7 @@ const Contact = () => {
                       <input
                         type="text"
                         placeholder="John Doe"
-                        className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                       />
                     </div>
                     <div className="space-y-3">
@@ -208,7 +206,7 @@ const Contact = () => {
                       <input
                         type="email"
                         placeholder="john@email.com"
-                        className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                       />
                     </div>
                   </div>
@@ -220,7 +218,7 @@ const Contact = () => {
                     <input
                       type="text"
                       placeholder="What is this about?"
-                      className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
                     />
                   </div>
 
@@ -231,14 +229,14 @@ const Contact = () => {
                     <textarea
                       rows={5}
                       placeholder="How can we help you?"
-                      className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-5 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none"
+                      className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-5 text-white focus:border-accent/60 focus:bg-white/[0.05] transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none"
                     />
                   </div>
 
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-5 bg-accent text-accent-foreground font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all cursor-pointer"
+                    className="w-full py-5 bg-accent text-white font-black uppercase text-xs tracking-[0.5em] rounded-2xl shadow-2xl shadow-accent/20 flex items-center justify-center gap-3 group transition-all cursor-pointer"
                   >
                     Send to our team
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
@@ -252,7 +250,7 @@ const Contact = () => {
         {/* What Happens Next Section */}
         <section className="mt-32 space-y-16">
           <div className="text-center space-y-4">
-            <h2 className="text-4xl font-black tracking-tighter text-foreground uppercase italic tracking-tighter">
+            <h2 className="text-4xl font-black tracking-tighter text-white uppercase">
               What happens <span className="text-accent italic">next?</span>
             </h2>
             <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em]">
@@ -284,12 +282,12 @@ const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="relative p-8 glass rounded-[2.5rem] border border-border group hover:border-accent/30 transition-all shadow-xl"
+                className="relative p-8 glass-dark rounded-[2.5rem] border border-white/5 group hover:border-accent/30 transition-all"
               >
-                <div className="text-5xl font-black text-foreground/5 group-hover:text-accent/10 transition-colors absolute top-6 right-8">
+                <div className="text-5xl font-black text-white/5 group-hover:text-accent/10 transition-colors absolute top-6 right-8">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-4">
+                <h3 className="text-xl font-bold text-white mb-4">
                   {item.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-medium">
@@ -305,11 +303,9 @@ const Contact = () => {
           <div className="grid lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 sticky top-32">
               <div className="space-y-6">
-                <h2 className="text-5xl font-black tracking-tighter text-foreground uppercase leading-none italic">
+                <h2 className="text-5xl font-black tracking-tighter text-white uppercase leading-none">
                   Common <br />
-                  <span className="text-accent italic underline decoration-accent/10 decoration-8 underline-offset-12">
-                    Questions
-                  </span>
+                  <span className="text-accent italic">Questions</span>
                 </h2>
                 <p className="text-muted-foreground text-lg font-medium leading-relaxed">
                   Here are some simple answers to questions we get asked most
@@ -318,7 +314,7 @@ const Contact = () => {
                 <div className="pt-8 flex flex-col gap-4">
                   <div className="flex items-center gap-4 group">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-foreground/60 group-hover:text-foreground transition-colors">
+                    <span className="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
                       Need more help?
                     </span>
                   </div>
@@ -361,8 +357,8 @@ const Contact = () => {
                   transition={{ delay: idx * 0.1 }}
                   className="group relative"
                 >
-                  <details className="glass rounded-3xl border border-border px-8 py-6 cursor-pointer open:bg-accent/5 transition-colors overflow-hidden">
-                    <summary className="list-none flex justify-between items-center text-sm font-bold text-foreground group-hover:text-accent transition-colors cursor-pointer">
+                  <details className="glass-dark rounded-3xl border border-white/5 px-8 py-6 cursor-pointer open:bg-white/[0.02] transition-colors overflow-hidden">
+                    <summary className="list-none flex justify-between items-center text-sm font-bold text-white group-hover:text-accent transition-colors cursor-pointer">
                       {faq.q}
                       <ArrowRight className="w-4 h-4 transition-transform group-open:rotate-90 group-hover:translate-x-1" />
                     </summary>
@@ -381,7 +377,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-32 relative h-[500px] glass p-2 rounded-[3.5rem] overflow-hidden group shadow-2xl"
+          className="mt-32 relative h-[500px] glass-dark p-2 rounded-[3.5rem] overflow-hidden group"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13615.111956555135!2d74.1950337!3d31.4284542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3918ff06c9a3d767%3A0xe67195449552b75a!2sChung%2C%20Lahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1709800000000!5m2!1sen!2s"
@@ -394,13 +390,13 @@ const Contact = () => {
             className="rounded-[3rem] grayscale invert contrast-[1.1] opacity-60 group-hover:opacity-100 transition-all duration-1000 group-hover:grayscale-0 group-hover:invert-0"
           ></iframe>
 
-          <div className="absolute top-10 left-10 p-8 glass rounded-[2rem] border border-border shadow-2xl hidden md:block">
+          <div className="absolute top-10 left-10 p-8 glass-dark rounded-[2rem] border border-white/10 hidden md:block">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center">
                 <MapPin className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="text-xs font-black uppercase tracking-widest text-foreground">
+                <p className="text-xs font-black uppercase tracking-widest text-white">
                   Main Lab HQ
                 </p>
                 <p className="text-[10px] font-bold text-muted-foreground uppercase mt-1">

@@ -116,7 +116,7 @@ export default function Footer() {
                   key={i}
                   href={social.href}
                   target="_blank"
-                  className="w-16 h-16 rounded-2xl glass border border-border flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all duration-500 group relative shadow-2xl"
+                  className="w-16 h-16 rounded-2xl glass border border-border flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-500 group relative"
                   aria-label={social.label}
                 >
                   <social.icon

@@ -307,11 +307,11 @@ export default function About({ data, isHomePage = false }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
 
                   {/* Floating ID Tag */}
-                  <div className="absolute bottom-10 left-10 p-4 glass rounded-2xl border border-border backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
-                    <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4 italic">
+                  <div className="absolute bottom-10 left-10 p-4 glass-dark rounded-2xl border border-white/10 backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4">
                       Founder
                     </div>
-                    <div className="text-xl font-black text-foreground italic">
+                    <div className="text-xl font-black text-white">
                       {data.name}
                     </div>
                   </div>
@@ -349,12 +349,12 @@ export default function About({ data, isHomePage = false }) {
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground italic uppercase">
+              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground">
                 Engineering{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient-flow bg-[length:200%_auto]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-blue-400 to-indigo-500 animate-gradient-flow bg-[length:200%_auto]">
                   {text}
                 </span>
-                <Cursor cursorColor="var(--color-accent)" cursorStyle="|" />
+                <Cursor cursorColor="#0ea5e9" cursorStyle="|" />
               </h3>
             </motion.div>
 
@@ -392,14 +392,14 @@ export default function About({ data, isHomePage = false }) {
                   key={i}
                   whileHover={{
                     scale: 1.02,
-                    backgroundColor: "var(--color-card)",
+                    backgroundColor: "rgba(255,255,255,0.05)",
                   }}
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-card border border-border/50 backdrop-blur-sm transition-all shadow-sm group/val"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-sm transition-all shadow-sm group/val"
                 >
                   <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover/val:bg-accent group-hover/val:text-accent-foreground transition-all duration-300">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
-                  <span className="text-sm font-bold text-foreground/80 group-hover/val:text-foreground italic">
+                  <span className="text-sm font-bold text-foreground/80 group-hover/val:text-foreground">
                     {val}
                   </span>
                 </motion.div>
@@ -418,12 +418,12 @@ export default function About({ data, isHomePage = false }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -4 }}
-                  className={`w-12 h-12 rounded-xl glass border border-border/50 flex items-center justify-center transition-all duration-300 ${social.color}`}
+                  className={`w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center transition-all duration-300 ${social.color}`}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
-              <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent ml-4 opacity-50" />
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent ml-4" />
             </motion.div>
 
             {/* Read Full Story Button for Home Page */}
@@ -472,7 +472,7 @@ export default function About({ data, isHomePage = false }) {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                     whileHover={{ y: -5 }}
-                    className="p-8 glass rounded-[2.5rem] border border-border hover:border-accent/30 transition-all duration-500 group shadow-xl"
+                    className="p-8 glass rounded-[2.5rem] border border-white/10 hover:border-accent/30 transition-all duration-500 group"
                   >
                     <div className="flex justify-between items-start mb-6">
                       <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300">
@@ -489,11 +489,11 @@ export default function About({ data, isHomePage = false }) {
                     <p className="text-sm font-bold text-muted-foreground mb-4 italic">
                       {exp.company} • {exp.duration}
                     </p>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 font-medium italic">
-                      "{exp.description}"
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 font-medium">
+                      {exp.description}
                     </p>
 
-                    <div className="space-y-3 pt-6 border-t border-border/10">
+                    <div className="space-y-3 pt-6 border-t border-white/5">
                       {exp.milestones.map((milestone, j) => (
                         <div key={j} className="flex items-center gap-3">
                           <div className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -588,7 +588,7 @@ export default function About({ data, isHomePage = false }) {
                   className="md:col-span-4 md:row-span-2 p-1 relative overflow-hidden rounded-[3.5rem] group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <div className="h-full w-full glass p-12 flex flex-col justify-between relative z-10 rounded-[3.4rem] border border-border group-hover:border-accent/30 transition-all duration-500 shadow-2xl">
+                  <div className="h-full w-full glass-dark p-12 flex flex-col justify-between relative z-10 rounded-[3.4rem] border border-white/5 group-hover:border-accent/30 transition-all duration-500">
                     <div className="absolute top-0 right-0 p-16 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
                       <Sparkles className="w-80 h-80 text-accent" />
                     </div>
@@ -639,7 +639,7 @@ export default function About({ data, isHomePage = false }) {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="md:col-span-3 glass p-10 rounded-[3.5rem] border border-border flex items-center gap-8 group shadow-xl"
+                  className="md:col-span-3 glass-dark p-10 rounded-[3.5rem] border border-white/5 flex items-center gap-8 group"
                 >
                   <div className="p-5 rounded-3xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500 shadow-lg shadow-accent/5">
                     <Code2 className="w-10 h-10" />
@@ -659,7 +659,7 @@ export default function About({ data, isHomePage = false }) {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="md:col-span-3 glass p-10 rounded-[3.5rem] border border-border flex items-center gap-8 group bg-gradient-to-r from-transparent to-accent/5 shadow-xl"
+                  className="md:col-span-3 glass p-10 rounded-[3.5rem] border border-white/10 flex items-center gap-8 group bg-gradient-to-r from-transparent to-accent/5"
                 >
                   <div className="p-5 rounded-3xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500 shadow-lg shadow-accent/5">
                     <Verified className="w-10 h-10" />
@@ -794,7 +794,7 @@ export default function About({ data, isHomePage = false }) {
               >
                 <div className="relative p-12 lg:p-16 h-full flex flex-col justify-center gap-8 relative z-10">
                   <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
-                    <Globe className="w-64 h-64 text-accent" />
+                    <Globe className="w-64 h-64" />
                   </div>
 
                   <div className="flex -space-x-4 mb-4">
@@ -849,9 +849,9 @@ export default function About({ data, isHomePage = false }) {
               <div className="absolute -top-[50%] -left-[50%] w-full h-full bg-accent/5 blur-[150px] rounded-full animate-pulse pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center gap-10">
-                <h3 className="text-4xl md:text-6xl font-black text-foreground max-w-4xl leading-[1.05] tracking-tight uppercase italic">
+                <h3 className="text-4xl md:text-6xl font-black text-foreground max-w-4xl leading-[1.05] tracking-tight">
                   Ready to bring your project to life? Let's build something{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
                     amazing together!
                   </span>
                 </h3>
@@ -863,7 +863,7 @@ export default function About({ data, isHomePage = false }) {
 
                 <div className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto">
                   <Link href="/contact" className="w-full sm:w-auto">
-                    <button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_var(--color-accent)] transition-all duration-300 font-black uppercase tracking-[0.2em] rounded-2xl shadow-accent/20 hover:shadow-accent/40 cursor-pointer">
+                    <button className="w-full group/btn relative overflow-hidden px-12 py-7 bg-accent hover:bg-accent/90 text-accent-foreground text-base shadow-[0_20px_40px_rgba(14,165,233,0.3)] transition-all duration-300 font-black uppercase tracking-[0.2em] rounded-2xl">
                       <span className="relative z-10 flex items-center justify-center gap-4">
                         Contact via Email
                         <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
@@ -873,7 +873,7 @@ export default function About({ data, isHomePage = false }) {
                   </Link>
 
                   <a href={`tel:${data.phone}`} className="w-full sm:w-auto">
-                    <button className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all rounded-2xl cursor-pointer">
+                    <button className="w-full group/btn border-2 border-accent text-accent hover:bg-accent/10 px-12 py-7 text-base font-black uppercase tracking-[0.2em] transition-all rounded-2xl">
                       <span className="flex items-center justify-center gap-4">
                         Call Now
                         <Phone className="w-5 h-5 group-hover/btn:rotate-12 transition-transform" />

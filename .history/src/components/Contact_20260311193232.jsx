@@ -67,7 +67,7 @@ const Contact = () => {
     {
       icon: <Github className="w-5 h-5" />,
       href: "#",
-      color: "hover:text-foreground",
+      color: "hover:text-white",
     },
     {
       icon: <Twitter className="w-5 h-5" />,
@@ -95,13 +95,11 @@ const Contact = () => {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.3em]">
                 <Clock className="w-3 h-3" /> Quick Response:{" "}
-                <span className="text-foreground ml-1">Under 2h</span>
+                <span className="text-white ml-1">Under 2h</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-foreground uppercase italic px-4 py-2 border-l-4 border-accent bg-accent/5 rounded-r-2xl">
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-white uppercase">
                 Let's <br />
-                <span className="text-accent underline decoration-accent/10 decoration-8 underline-offset-12">
-                  Connect
-                </span>
+                <span className="text-accent">Connect</span>
               </h1>
               <p className="text-muted-foreground text-lg font-medium leading-relaxed max-w-md">
                 Have an idea? We are here to help you build it. Send us a
@@ -141,8 +139,8 @@ const Contact = () => {
             </div>
 
             {/* Socials Connection */}
-            <div className="pt-8 border-t border-border/10">
-              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6 italic">
+            <div className="pt-8 border-t border-white/5">
+              <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6">
                 Find us on social media
               </p>
               <div className="flex gap-4">
@@ -153,7 +151,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
-                    className={`w-12 h-12 bg-card rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-border/50 shadow-lg`}
+                    className={`w-12 h-12 glass rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-white/5`}
                   >
                     {social.icon}
                   </motion.a>
@@ -252,7 +250,7 @@ const Contact = () => {
         {/* What Happens Next Section */}
         <section className="mt-32 space-y-16">
           <div className="text-center space-y-4">
-            <h2 className="text-4xl font-black tracking-tighter text-foreground uppercase italic tracking-tighter">
+            <h2 className="text-4xl font-black tracking-tighter text-white uppercase">
               What happens <span className="text-accent italic">next?</span>
             </h2>
             <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em]">
@@ -305,11 +303,9 @@ const Contact = () => {
           <div className="grid lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 sticky top-32">
               <div className="space-y-6">
-                <h2 className="text-5xl font-black tracking-tighter text-foreground uppercase leading-none italic">
+                <h2 className="text-5xl font-black tracking-tighter text-white uppercase leading-none">
                   Common <br />
-                  <span className="text-accent italic underline decoration-accent/10 decoration-8 underline-offset-12">
-                    Questions
-                  </span>
+                  <span className="text-accent italic">Questions</span>
                 </h2>
                 <p className="text-muted-foreground text-lg font-medium leading-relaxed">
                   Here are some simple answers to questions we get asked most
@@ -318,7 +314,7 @@ const Contact = () => {
                 <div className="pt-8 flex flex-col gap-4">
                   <div className="flex items-center gap-4 group">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-foreground/60 group-hover:text-foreground transition-colors">
+                    <span className="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
                       Need more help?
                     </span>
                   </div>
@@ -382,6 +378,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-32 relative h-[500px] glass p-2 rounded-[3.5rem] overflow-hidden group shadow-2xl"
+        >
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13615.111956555135!2d74.1950337!3d31.4284542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3918ff06c9a3d767%3A0xe67195449552b75a!2sChung%2C%20Lahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1709800000000!5m2!1sen!2s"
