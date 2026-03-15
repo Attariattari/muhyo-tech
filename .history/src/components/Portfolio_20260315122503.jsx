@@ -51,7 +51,7 @@ const Portfolio = ({ projects }) => {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <div className="relative overflow-hidden ">
+    <div className="relative overflow-hidden bg-background">
       {/* 1. Hero Section */}
       <section className="relative pt-40 pb-24 px-6 overflow-hidden min-h-[90vh] flex items-center">
         {/* Background elements */}
@@ -284,7 +284,10 @@ const Portfolio = ({ projects }) => {
       </section>
 
       {/* 4. Selected Projects Grid with Filters */}
-      <section id="projects-grid" className="py-32 px-6 relative z-10">
+      <section
+        id="projects-grid"
+        className="py-32 px-6 bg-background relative z-10"
+      >
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">

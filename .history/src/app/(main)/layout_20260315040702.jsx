@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import InitialLoader from "@/components/InitialLoader";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import ScrollProgress from "@/components/ScrollProgress";
 
 import { Analytics } from "@vercel/analytics/react";
 
@@ -47,7 +46,6 @@ export default function MainLayout({ children }) {
       >
         <ThemeProvider>
           <InitialLoader />
-          <ScrollProgress />
           <Sidebar />
           <AnimatedBackground />
           <WhatsAppButton />

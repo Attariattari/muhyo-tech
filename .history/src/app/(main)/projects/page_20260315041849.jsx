@@ -1,4 +1,5 @@
 import Portfolio from "@/components/Portfolio";
+import ProjectsClientPage from "./ProjectsClientPage";
 import { portfolioData } from "@/lib/data";
 
 export const metadata = {

@@ -284,7 +284,10 @@ const Portfolio = ({ projects }) => {
       </section>
 
       {/* 4. Selected Projects Grid with Filters */}
-      <section id="projects-grid" className="py-32 px-6 relative z-10">
+      <section
+        id="projects-grid"
+        className="py-32 px-6 bg-background relative z-10"
+      >
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
