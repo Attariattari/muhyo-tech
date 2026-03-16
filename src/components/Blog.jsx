@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Calendar,
@@ -9,7 +9,6 @@ import {
   Search,
   Clock,
   ChevronRight,
-  ChevronLeft,
   Mail,
   Zap,
   TrendingUp,
@@ -18,203 +17,141 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { SectionWrapper, Card } from "./ui";
+import { SectionWrapper } from "./ui";
 
 // --- SUB-COMPONENTS ---
 
-const EditorialHeader = () => (
-  <header className=" pb-16 px-6">
+const EditorialHeader = ({ totalArticles, totalCategories, latestUpdate }) => (
+  <header className="py-20 px-6">
     <div className="max-w-7xl mx-auto">
-      <div className="flex flex-col space-y-8">
-        {/* Superior Labeling */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center gap-4 text-[9px] font-black tracking-[0.5em] text-accent uppercase"
-        >
-          <span className="size-1.5 rounded-full bg-accent animate-pulse" />
-          BLOG_POSTS / UPDATED 2024
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Principal Title */}
+      <div className="flex flex-col lg:flex-row items-end justify-between gap-12">
+        {/* Left Side: Editorial Context */}
+        <div className="flex-1 space-y-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center gap-3 text-[10px] font-black tracking-[0.4em] text-accent uppercase"
+          >
+            <span className="w-8 h-px bg-accent/30" />
+            Insights / Articles
+          </motion.div>
+          
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-12 xl:col-span-7 text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-none uppercase italic"
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9] uppercase italic"
           >
-            Our <br />
-            <span className="text-accent underline decoration-accent/10 underline-offset-[16px]">
-              Blogs.
+            Stories, Guides & <br />
+            <span className="text-accent underline decoration-accent/10 underline-offset-[12px]">
+              Engineering Insights.
             </span>
           </motion.h1>
 
-          {/* Descriptive Abstract */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-12 xl:col-span-5 lg:pt-4 space-y-6"
+            className="text-muted-foreground text-sm md:text-lg leading-relaxed font-medium italic max-w-xl border-l-2 border-accent/20 pl-6"
           >
-            <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground/50 font-bold tracking-[0.18em] leading-loose uppercase italic max-w-sm border-l-2 border-accent/20 pl-6">
-              Explore easy-to-read guides on web development, system
-              architecture, and modern software design.
-            </p>
-            <div className="flex items-center gap-6 pt-4 border-t border-border/50">
-              <div className="flex flex-col">
-                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
-                  Status
-                </span>
-                <span className="text-[10px] font-bold text-foreground uppercase tracking-widest">
-                  LATEST_POSTS
-                </span>
-              </div>
-              <div className="w-px h-6 bg-border" />
-              <div className="flex flex-col">
-                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
-                  Collection
-                </span>
-                <span className="text-[10px] font-bold text-foreground uppercase tracking-widest">
-                  GUIDES_01
-                </span>
-              </div>
-            </div>
-          </motion.div>
+            Dive into professional guides on web development, system architecture, and modern software design patterns.
+          </motion.p>
         </div>
+
+        {/* Right Side: Minimal Stats */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex gap-12 lg:pb-4 border-t lg:border-t-0 lg:border-l border-border/50 lg:pl-12 pt-8 lg:pt-0"
+        >
+          <div className="space-y-1">
+            <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Articles</span>
+            <p className="text-2xl font-black text-foreground">{totalArticles}</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Categories</span>
+            <p className="text-2xl font-black text-foreground">{totalCategories}</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Updated</span>
+            <p className="text-[10px] font-black text-accent uppercase tracking-tighter pt-2">{latestUpdate}</p>
+          </div>
+        </motion.div>
       </div>
     </div>
   </header>
 );
 
-const FeaturedBlogSlider = ({ posts }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev === posts.length - 1 ? 0 : prev + 1));
-  }, [posts.length]);
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? posts.length - 1 : prev - 1));
-  };
-
-  useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(nextSlide, 7000);
-    return () => clearInterval(interval);
-  }, [nextSlide, isHovered]);
-
+const FeaturedBlogArea = ({ posts }) => {
   if (!posts || posts.length === 0) return null;
-  const currentPost = posts[currentIndex];
+  const mainPost = posts[0];
+  const sidePosts = posts.slice(1, 4);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 mb-24 group/slider">
-      <div
-        className="relative h-[500px] sm:h-[600px] md:h-[750px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-border/50 bg-card/20 shadow-2xl"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentPost.id}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={currentPost.image}
-              alt={currentPost.title}
-              fill
-              className="object-cover transition-transform duration-[3s] group-hover/slider:scale-110"
-              priority
-            />
-            {/* Cinematic Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 py-10 sm:py-16 px-6 sm:px-12 md:px-20">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="space-y-4 sm:space-y-8 max-w-4xl"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="px-5 py-2 rounded-xl bg-accent text-accent-foreground text-[10px] font-black uppercase tracking-widest shadow-xl">
-                    Top Story
-                  </span>
-                  <span className="text-muted-foreground text-xs font-bold uppercase tracking-widest">
-                    {currentPost.category}
-                  </span>
-                </div>
-
-                <h2 className="text-3xl sm:text-4xl md:text-7xl font-black leading-none text-foreground tracking-tighter">
-                  {currentPost.title}
-                </h2>
-
-                <p className="text-muted-foreground text-sm sm:text-lg md:text-xl line-clamp-2 max-w-2xl font-medium italic">
-                  {currentPost.summary}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-6 sm:gap-12 pt-4 sm:pt-6">
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-foreground/10 flex items-center justify-center border border-border/50">
-                      <User className="w-5 h-5 sm:w-6 sm:h-6 text-foreground" />
-                    </div>
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-foreground">
-                      {currentPost.author}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 sm:gap-8 text-muted-foreground text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
-                    <span className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{" "}
-                      {currentPost.readTime}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{" "}
-                      {currentPost.date}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="pt-4 sm:pt-8">
-                  <Link href={`/blog/${currentPost.slug}`}>
-                    <button className="group/btn px-8 sm:px-10 py-4 sm:py-5 bg-foreground text-background rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-4 hover:bg-accent hover:text-accent-foreground transition-all">
-                      Read Full Article{" "}
-                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-                    </button>
-                  </Link>
-                </div>
-              </motion.div>
+    <section className="max-w-7xl mx-auto px-6 mb-24">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Large Featured Card (Left) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="lg:col-span-8 relative h-[500px] md:h-[620px] rounded-[2.5rem] overflow-hidden group cursor-pointer border border-border/50 bg-card shadow-2xl"
+        >
+          <Image
+            src={mainPost.image}
+            alt={mainPost.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+          
+          <div className="absolute inset-x-0 bottom-0 p-8 md:p-14 space-y-6">
+            <div className="flex items-center gap-4">
+              <span className="px-4 py-1.5 rounded-lg bg-accent text-accent-foreground text-[9px] font-black uppercase tracking-widest shadow-xl">
+                Featured Article
+              </span>
+              <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+                {mainPost.category}
+              </span>
             </div>
-          </motion.div>
-        </AnimatePresence>
+            
+            <h2 className="text-3xl md:text-5xl font-black text-foreground tracking-tighter leading-none uppercase italic max-w-3xl">
+              {mainPost.title}
+            </h2>
+            
+            <div className="flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 pt-2">
+              <span className="flex items-center gap-2.5"><Clock className="w-4 h-4 text-accent" /> {mainPost.readTime}</span>
+              <span className="flex items-center gap-2.5"><User className="w-4 h-4 text-accent" /> {mainPost.author}</span>
+            </div>
+            
+            <Link href={`/blog/${mainPost.slug}`} className="absolute inset-0 z-10" />
+          </div>
+        </motion.div>
 
-        {/* Tactical Indicators */}
-        <div className="absolute bottom-12 right-12 flex gap-3 z-30">
-          {posts.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              className={`h-1 transition-all duration-1000 rounded-full ${i === currentIndex ? "w-12 bg-accent" : "w-4 bg-foreground/20"}`}
-            />
+        {/* Editorial List (Right) */}
+        <div className="lg:col-span-4 flex flex-col gap-6">
+          {sidePosts.map((post, i) => (
+            <motion.div
+              key={post.id}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex-1 p-8 rounded-[2rem] bg-card/30 border border-border/50 hover:bg-card/50 hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden"
+            >
+              <div className="relative z-10 space-y-4">
+                <span className="text-[9px] font-black text-accent uppercase tracking-[0.3em] flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-accent" /> {post.category}
+                </span>
+                <h3 className="text-xl font-black text-foreground leading-tight tracking-tight uppercase italic group-hover:text-accent transition-colors">
+                  {post.title}
+                </h3>
+                <div className="flex items-center gap-3 text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                  <Clock className="w-3.5 h-3.5" /> {post.readTime}
+                </div>
+              </div>
+              <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" />
+            </motion.div>
           ))}
-        </div>
-
-        {/* Side Controls */}
-        <div className="absolute top-1/2 -translate-y-1/2 w-full px-4 sm:px-8 flex justify-between z-30 opacity-0 group-hover/slider:opacity-100 transition-opacity">
-          <button
-            onClick={prevSlide}
-            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-border/50 flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-border/50 flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
         </div>
       </div>
     </section>
@@ -229,16 +166,16 @@ const ControlHub = ({
   setActiveCategory,
 }) => (
   <div className="max-w-7xl mx-auto px-6 mb-16">
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-card/30 border border-border/50 p-3 rounded-[2.5rem]">
       {/* Category Navigation */}
-      <div className="flex items-center gap-1 p-1 bg-card/20 border border-border/10 rounded-[2rem] overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-1">
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`relative px-6 sm:px-8 py-3 sm:py-3.5 rounded-[1.4rem] sm:rounded-[1.8rem] text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
+            className={`relative px-8 py-3.5 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
               activeCategory === category
-                ? "text-accent-foreground shadow-xl shadow-accent/20"
+                ? "text-accent-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -246,7 +183,7 @@ const ControlHub = ({
             {activeCategory === category && (
               <motion.div
                 layoutId="pill-selector"
-                className="absolute inset-0 bg-accent rounded-[1.8rem]"
+                className="absolute inset-0 bg-accent rounded-[1.8rem] shadow-xl shadow-accent/20"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
@@ -254,14 +191,14 @@ const ControlHub = ({
         ))}
       </div>
 
-      <div className="relative w-full lg:w-[400px] h-fit group">
+      <div className="relative w-full lg:w-[400px] group">
         <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-accent transition-colors" />
         <input
           type="text"
           placeholder="SEARCH ARTICLES..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-card/30 border border-border/50 rounded-[1.8rem] py-5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/50 focus:shadow-[0_0_40px_rgba(var(--accent-rgb),0.1)] uppercase"
+          className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
         />
       </div>
     </div>
@@ -270,32 +207,32 @@ const ControlHub = ({
 
 const TrendingTabs = ({ activeTab, setActiveTab }) => {
   const tabs = [
-    { id: "latest", label: "Recent", icon: Clock },
-    { id: "trending", label: "Trending", icon: TrendingUp },
-    { id: "picks", label: "Best", icon: Award },
+    { id: "latest", label: "Recent Articles", icon: Clock },
+    { id: "trending", label: "Trending Now", icon: TrendingUp },
+    { id: "picks", label: "Editor's Picks", icon: Award },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-6 mb-12">
-      <div className="flex items-center gap-8 sm:gap-12 border-b border-border/50 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-12 border-b border-border/50 overflow-x-auto scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`group pb-6 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] transition-all flex items-center gap-3 sm:gap-4 relative whitespace-nowrap ${
+            className={`group pb-6 text-[10px] font-black uppercase tracking-[0.4em] transition-all flex items-center gap-4 relative whitespace-nowrap ${
               activeTab === tab.id
                 ? "text-accent"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
             <tab.icon
-              className={`w-3.5 h-3.5 ${activeTab === tab.id ? "text-accent" : "text-muted-foreground/50"}`}
+              className={`w-4 h-4 ${activeTab === tab.id ? "text-accent" : "text-muted-foreground/40"}`}
             />
             {tab.label}
             {activeTab === tab.id && (
               <motion.div
                 layoutId="underline-selector"
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-accent"
+                className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"
                 transition={{ type: "spring", bounce: 0, duration: 0.5 }}
               />
             )}
@@ -308,55 +245,40 @@ const TrendingTabs = ({ activeTab, setActiveTab }) => {
 
 const ArticleCard = ({ blog, index }) => (
   <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
-    transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
-    className="h-full group relative"
+    transition={{ delay: index * 0.1, duration: 0.8 }}
+    className="h-full group"
   >
-    {/* Subtle Ambient Glow on Hover */}
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-accent/20 rounded-[1.5rem] opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-700" />
-
-    <div className="relative h-full bg-card backdrop-blur-3xl border border-border/50 rounded-[1.5rem] overflow-hidden flex flex-col transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-accent/50 shadow-2xl">
+    <div className="relative h-full bg-card backdrop-blur-3xl border border-border/50 rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500 hover:shadow-2xl hover:border-accent/30">
       {/* Editorial Thumbnail */}
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-border/50">
+      <div className="relative aspect-[16/11] overflow-hidden">
         <Image
           src={blog.image}
           alt={blog.title}
           fill
-          className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.4] group-hover:grayscale-0"
+          className="object-cover transition-transform duration-1000 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-
-        {/* Status Metadata */}
-        <div className="absolute top-6 right-6">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-xl border border-border/50 shadow-2xl">
-            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
-            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-foreground">
-              NEW
-            </span>
-          </div>
-        </div>
-
-        {/* Floating Category Label */}
-        <div className="absolute bottom-6 left-6">
-          <span className="px-4 py-2 rounded-lg bg-accent text-accent-foreground text-[8px] font-black uppercase tracking-[0.3em] shadow-xl">
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
+        
+        <div className="absolute top-6 left-6">
+          <span className="px-4 py-2 rounded-lg bg-accent text-accent-foreground text-[8px] font-black uppercase tracking-widest shadow-xl">
             {blog.category}
           </span>
         </div>
       </div>
 
       {/* Content Architecture */}
-      <div className="p-6 sm:p-10 flex flex-col flex-grow">
-        {/* Editorial Spec Header */}
-        <div className="flex items-center gap-3 sm:gap-4 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.4em] text-muted-foreground/60 mb-6 sm:mb-8">
+      <div className="p-10 flex flex-col flex-grow">
+        <div className="flex items-center gap-4 text-[9px] font-bold uppercase tracking-[0.4em] text-muted-foreground/60 mb-8">
           <span>{blog.date}</span>
-          <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-accent/20" />
+          <span className="w-1.5 h-1.5 rounded-full bg-accent/20" />
           <span className="text-muted-foreground/80">{blog.readTime}</span>
         </div>
 
         <Link href={`/blog/${blog.slug}`} className="block group/title mb-auto">
-          <h3 className="text-2xl md:text-3xl font-black text-card-foreground group-hover/title:text-accent transition-colors leading-[1.1] tracking-tighter mb-6">
+          <h3 className="text-2xl font-black text-foreground group-hover/title:text-accent transition-colors leading-[1.1] tracking-tighter mb-6 uppercase italic">
             {blog.title}
           </h3>
           <p className="text-muted-foreground/80 text-sm leading-relaxed line-clamp-3 font-medium italic opacity-80 border-l-2 border-accent/10 pl-6">
@@ -368,21 +290,18 @@ const ArticleCard = ({ blog, index }) => (
         <div className="mt-12 pt-8 border-t border-border/50 flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <span className="text-[8px] font-bold text-muted-foreground/60 uppercase tracking-widest">
-              Written by
+              Author
             </span>
-            <span className="text-[11px] font-black text-card-foreground/90 uppercase tracking-widest">
+            <span className="text-[11px] font-black text-foreground uppercase tracking-widest">
               {blog.author}
             </span>
           </div>
 
           <Link
             href={`/blog/${blog.slug}`}
-            className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest text-card-foreground group/explore"
+            className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest text-foreground group/explore"
           >
-            <span className="opacity-60 group-hover/explore:opacity-100 transition-opacity">
-              Read Article
-            </span>
-            <div className="w-12 h-12 rounded-xl border border-border/50 flex items-center justify-center transition-all group-hover/explore:bg-accent group-hover/explore:border-accent group-hover/explore:text-accent-foreground group-hover/explore:scale-110 shadow-xl">
+            <div className="w-12 h-12 rounded-xl border border-border/50 flex items-center justify-center transition-all group-hover/explore:bg-accent group-hover/explore:border-accent group-hover/explore:text-accent-foreground shadow-xl">
               <ArrowUpRight className="w-5 h-5 transition-transform group-hover/explore:translate-x-0.5 group-hover/explore:-translate-y-0.5" />
             </div>
           </Link>
@@ -393,35 +312,34 @@ const ArticleCard = ({ blog, index }) => (
 );
 
 const NewsletterCTA = () => (
-  <SectionWrapper>
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="relative p-8 sm:p-12 lg:p-24 rounded-[2rem] sm:rounded-[4rem] bg-gradient-to-br from-card/80 to-background border border-border/50 overflow-hidden shadow-2xl group">
-        <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-accent/5 blur-[80px] sm:blur-[120px] rounded-full group-hover:scale-125 transition-transform duration-1000" />
+    <div className="max-w-7xl mx-auto px-6 py-24">
+      <div className="relative p-12 lg:p-24 rounded-[4rem] bg-gradient-to-br from-card/80 to-background border border-border/50 overflow-hidden shadow-2xl group">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 blur-[120px] rounded-full" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
-          <div className="space-y-8 flex-1">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-widest">
-              <Zap className="w-4 h-4" /> Stay Updated
+          <div className="space-y-8 flex-1 text-center lg:text-left">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-widest mx-auto lg:mx-0">
+              <Zap className="w-4 h-4" /> Editorial Subscription
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-foreground">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-foreground uppercase">
               Insights <br />{" "}
               <span className="text-accent italic underline decoration-accent/10 underline-offset-8">
                 for you.
               </span>
             </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground/60 max-w-sm italic font-medium leading-relaxed">
-              &quot;Get our latest articles sent directly to your email.&quot;
+            <p className="text-lg sm:text-xl text-muted-foreground/60 max-w-sm italic font-medium leading-relaxed mx-auto lg:mx-0">
+              &quot;Get professional engineering articles delivered straight to your inbox.&quot;
             </p>
           </div>
 
           <div className="w-full lg:w-[450px] space-y-6">
-            <div className="bg-background/40 backdrop-blur-3xl border border-border/50 rounded-2xl sm:rounded-[2.5rem] p-2 sm:p-3 flex flex-col md:flex-row items-center gap-3 shadow-inner">
+            <div className="bg-background/40 backdrop-blur-3xl border border-border/50 rounded-[2.5rem] p-3 flex flex-col md:flex-row items-center gap-3 shadow-inner">
               <input
                 type="email"
                 placeholder="YOUR@EMAIL.COM"
-                className="flex-1 bg-transparent border-none outline-none py-4 sm:py-6 px-6 sm:px-10 text-[10px] sm:text-xs font-black tracking-widest uppercase text-foreground placeholder:text-muted-foreground/30 w-full"
+                className="flex-1 bg-transparent border-none outline-none py-6 px-10 text-[10px] font-black tracking-widest uppercase text-foreground placeholder:text-muted-foreground/30 w-full"
               />
-              <button className="w-full md:w-auto px-8 sm:px-10 py-4 sm:py-6 bg-foreground text-background rounded-xl sm:rounded-[2rem] text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all shadow-xl">
+              <button className="w-full md:w-auto px-10 py-6 bg-foreground text-background rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all shadow-xl">
                 Subscribe
               </button>
             </div>
@@ -429,7 +347,6 @@ const NewsletterCTA = () => (
         </div>
       </div>
     </div>
-  </SectionWrapper>
 );
 
 // --- MAIN PAGE ---
@@ -439,6 +356,11 @@ export default function Blog({ data, isHomePage = false }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeTab, setActiveTab] = useState("latest");
 
+  const categories = useMemo(
+    () => ["All", ...new Set(data?.map((b) => b.category) || [])],
+    [data],
+  );
+
   if (!data) return null;
 
   if (isHomePage) {
@@ -446,7 +368,7 @@ export default function Blog({ data, isHomePage = false }) {
     return (
       <SectionWrapper id="blog" title="Latest Articles" subtitle="My Blog">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {recentBlogs.map((blog, i) => (
               <ArticleCard key={blog.id} blog={blog} index={i} />
             ))}
@@ -460,13 +382,13 @@ export default function Blog({ data, isHomePage = false }) {
           >
             <Link
               href="/blog"
-              className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12"
+              className="group relative px-10 py-5 bg-accent text-accent-foreground font-black uppercase tracking-widest text-[10px] rounded-full overflow-hidden transition-all hover:pr-14"
             >
               <span className="relative z-10 flex items-center gap-2">
                 View All Articles <ArrowRight className="w-4 h-4 ml-1" />
               </span>
               <div className="absolute top-0 -right-full w-full h-full bg-foreground/10 group-hover:right-0 transition-all duration-300" />
-              <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-5 h-5" />
+              <ArrowRight className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-5 h-5" />
             </Link>
           </motion.div>
         </div>
@@ -474,23 +396,16 @@ export default function Blog({ data, isHomePage = false }) {
     );
   }
 
-  const categories = useMemo(
-    () => ["All", ...new Set(data.map((b) => b.category))],
-    [data],
-  );
+  const filteredBlogs = data.filter((blog) => {
+    const matchesSearch =
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      blog.summary.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      activeCategory === "All" || blog.category === activeCategory;
+    return matchesSearch && matchesCategory;
+  });
 
-  const filteredBlogs = useMemo(() => {
-    return data.filter((blog) => {
-      const matchesSearch =
-        blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        blog.summary.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory =
-        activeCategory === "All" || blog.category === activeCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [data, searchQuery, activeCategory]);
-
-  const featuredPosts = useMemo(() => data.slice(0, 5), [data]);
+  const featuredPosts = data.slice(0, 4);
   const displayPosts = useMemo(() => {
     let posts = [...filteredBlogs];
     if (activeTab === "trending") posts = [...posts].reverse();
@@ -499,15 +414,19 @@ export default function Blog({ data, isHomePage = false }) {
 
   return (
     <div className="min-h-screen selection:bg-accent selection:text-accent-foreground">
-      {/* 1. Identity Header */}
-      <EditorialHeader />
+      {/* 1. Blog Hero Introduction */}
+      <EditorialHeader 
+        totalArticles={data.length} 
+        totalCategories={categories.length - 1} 
+        latestUpdate={data[0]?.date || "Updated recently"}
+      />
 
-      {/* 2. Primary Feature Presentation */}
+      {/* 2. Featured Articles */}
       {!searchQuery && activeCategory === "All" && (
-        <FeaturedBlogSlider posts={featuredPosts} />
+        <FeaturedBlogArea posts={featuredPosts} />
       )}
 
-      {/* 3. Archive Discovery Hub */}
+      {/* 3. Category + Search Controls */}
       <ControlHub
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -516,17 +435,17 @@ export default function Blog({ data, isHomePage = false }) {
         setActiveCategory={setActiveCategory}
       />
 
-      {/* 4. Editorial Filtering */}
+      {/* 4. Trending / Recent Tabs */}
       <TrendingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* 5. The Grid */}
-      <SectionWrapper className="!pt-0 min-h-[600px]">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* 5. Blog Articles Grid */}
+      <section className="pb-24 px-6 min-h-[600px]">
+        <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="popLayout">
             {displayPosts.length > 0 ? (
               <motion.div
                 layout
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
               >
                 {displayPosts.map((blog, i) => (
                   <ArticleCard key={blog.id} blog={blog} index={i} />
@@ -538,31 +457,31 @@ export default function Blog({ data, isHomePage = false }) {
                 animate={{ opacity: 1 }}
                 className="flex flex-col items-center justify-center py-40 text-center"
               >
-                <div className="w-24 h-24 rounded-[3rem] bg-card/40 border border-border/50 flex items-center justify-center mb-8 shadow-inner">
+                <div className="w-24 h-24 rounded-[3rem] bg-card/40 border border-border/50 flex items-center justify-center mb-8">
                   <Search className="w-10 h-10 text-muted-foreground/30" />
                 </div>
-                <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">
+                <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter italic">
                   No Results Found.
                 </h3>
                 <p className="text-muted-foreground text-lg italic max-w-sm opacity-60">
-                  We couldn't find any articles matching your search.
+                  Try adjusting your search or category filters.
                 </p>
                 <button
                   onClick={() => {
                     setSearchQuery("");
                     setActiveCategory("All");
                   }}
-                  className="mt-12 px-10 py-5 bg-foreground text-background rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all shadow-xl"
+                  className="mt-12 px-10 py-5 bg-foreground text-background rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all"
                 >
-                  Clear Search
+                  Reset Discovery
                 </button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-      </SectionWrapper>
+      </section>
 
-      {/* 6. Conversion Hub */}
+      {/* 6. Newsletter CTA */}
       <NewsletterCTA />
     </div>
   );
