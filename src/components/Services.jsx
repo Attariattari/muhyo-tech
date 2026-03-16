@@ -23,70 +23,117 @@ const icons = {
   6: TrendingUp,
 };
 
-const ServiceCard = ({ service, index }) => {
+const ServiceRow = ({ service, index }) => {
   const Icon = icons[service.id] || Layout;
+  // Even index: Text Left, Image Right. Odd index: Image Left, Text Right
+  const isReversed = index % 2 !== 0;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className={`relative flex flex-col lg:flex-row items-center justify-between w-full pl-16 md:pl-28 lg:pl-0`}
     >
-      <Card className="h-full border border-border/20 group hover:border-accent/40 transition-all flex flex-col p-6 overflow-hidden">
-        {/* Banner Image */}
-        <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-8">
-          <img
-            src={service.banner}
-            alt={service.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-          <div className="absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-accent/90 backdrop-blur-sm flex items-center justify-center text-accent-foreground shadow-lg">
-            <Icon className="w-6 h-6" />
+      {/* Central Node for Tree */}
+      <div className="absolute left-[12px] md:left-[40px] lg:left-1/2 top-10 lg:top-1/2 w-6 h-6 rounded-full bg-background border-[3px] border-accent transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex items-center justify-center z-20 transition-transform duration-500 hover:scale-[1.3] cursor-pointer shadow-lg shadow-accent/40">
+        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-ping absolute" />
+      </div>
+
+      {/* Horizontal Connector Line (Desktop Only) */}
+      <div className="hidden lg:block absolute top-1/2 left-[calc(50%-4rem)] w-[8rem] h-[2px] bg-gradient-to-r from-accent/0 via-accent/50 to-accent/0 -translate-y-1/2 z-0" />
+
+      {/* Content Side */}
+      <div className={`w-full lg:w-[calc(50%-4rem)] flex flex-col gap-6 md:gap-8 ${isReversed ? "lg:order-2 text-left" : "lg:order-1 lg:text-right text-left"} relative z-10`}>
+        <div className={`flex items-center gap-4 ${isReversed ? "flex-row" : "flex-row lg:flex-row-reverse"}`}>
+          <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent shadow-lg shrink-0">
+            <Icon className="w-8 h-8" />
+          </div>
+          <div>
+            <span className="text-accent font-black uppercase tracking-widest text-[10px] sm:text-xs block mb-1">
+              Phase 0{index + 1}
+            </span>
+            <h3 className="text-3xl md:text-4xl font-black text-foreground tracking-tight leading-tight">
+              {service.title}
+            </h3>
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-foreground mb-4">
-          {service.title}
-        </h3>
-        <p className="text-muted-foreground text-xs leading-relaxed mb-6 flex-grow">
+        <p className={`text-muted-foreground text-sm md:text-lg leading-relaxed ${isReversed ? "" : "lg:ml-auto"}`}>
           {service.description}
         </p>
 
-        <div className="space-y-4 mb-8">
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] font-black uppercase text-accent tracking-widest whitespace-nowrap">
-              The Challenge
-            </span>
-            <p className="text-xs text-secondary italic">
-              "{service.problemSolved}"
-            </p>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] font-black uppercase text-accent tracking-widest whitespace-nowrap">
-              Your Benefits
-            </span>
-            <ul className="flex flex-wrap gap-2 pt-2">
-              {service.benefits.map((b, i) => (
-                <li
-                  key={i}
-                  className="px-2 py-1 rounded bg-secondary/10 border border-secondary/20 text-[10px] font-bold text-muted-foreground"
-                >
-                  {b}
-                </li>
-              ))}
-            </ul>
+        {/* Challenge Box */}
+        <div className={`bg-secondary/5 rounded-2xl p-6 border border-border/50 relative overflow-hidden group hover:border-accent/30 transition-colors ${isReversed ? "text-left" : "lg:text-right text-left"}`}>
+          <div className={`absolute top-0 ${isReversed ? "left-0" : "left-0 lg:right-0 lg:left-auto"} w-1 h-full bg-accent`} />
+          <span className="text-[10px] md:text-xs font-black uppercase text-accent tracking-widest mb-3 block">
+            The Challenge
+          </span>
+          <p className="text-sm italic text-foreground/80 leading-relaxed">
+            "{service.problemSolved}"
+          </p>
+        </div>
+
+        <div className={`${isReversed ? "" : "lg:ml-auto"}`}>
+           <span className="text-[10px] md:text-xs font-black uppercase text-muted-foreground tracking-widest mb-3 block">
+            Key Advantages
+          </span>
+          <div className={`flex flex-wrap gap-2 ${isReversed ? "" : "lg:justify-end"}`}>
+            {service.benefits.map((b, i) => (
+              <span
+                key={i}
+                className="px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-background border border-border hover:border-accent/40 text-[10px] md:text-xs font-bold text-foreground/80 transition-colors shadow-sm"
+              >
+                {b}
+              </span>
+            ))}
           </div>
         </div>
 
-        <Link
-          href={`/services/${service.slug || service.id}`}
-          className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:opacity-80 transition-opacity"
-        >
-          Learn More <ArrowRight className="w-4 h-4" />
-        </Link>
-      </Card>
+        <div className={`mt-2 ${isReversed ? "" : "lg:flex lg:justify-end"}`}>
+          <Link href={`/services/${service.slug || service.id}`}>
+            <motion.button
+              whileHover={{ x: isReversed ? 5 : -5 }}
+              whileTap={{ scale: 0.95 }}
+              className={`inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest text-accent-foreground bg-accent hover:bg-accent/90 px-6 py-4 rounded-xl transition-all shadow-xl shadow-accent/20 cursor-pointer ${isReversed ? "" : "lg:flex-row-reverse"}`}
+            >
+              Explore Strategy <ArrowRight className={`w-4 h-4 ${isReversed ? "" : "lg:rotate-180"}`} />
+            </motion.button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Image Side */}
+      <div className={`w-full lg:w-[calc(50%-4rem)] relative group ${isReversed ? "lg:order-1" : "lg:order-2"} mt-12 lg:mt-0`}>
+        <div className="absolute inset-0 bg-accent/20 blur-3xl rounded-full scale-75 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        
+        <Card className="relative p-2 md:p-3 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden transform transition-all duration-700 group-hover:scale-[1.02] shadow-2xl">
+          <div className="relative rounded-2xl overflow-hidden aspect-[4/3] w-full">
+            <img
+              src={service.banner}
+              alt={service.title}
+              className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+            />
+            {/* Glossy Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 border border-white/10 rounded-2xl" />
+            
+            <div className={`absolute bottom-6 left-6 right-6 ${isReversed ? "" : "lg:text-right"}`}>
+               <div className={`flex gap-2 flex-wrap ${isReversed ? "" : "lg:justify-end"}`}>
+                  {service.techStack?.slice(0, 4).map((tech, i) => (
+                    <span 
+                      key={i} 
+                      className="px-3 py-1.5 bg-background/80 backdrop-blur-md rounded-md border border-white/10 text-[10px] font-bold text-foreground uppercase tracking-wider"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+               </div>
+            </div>
+          </div>
+        </Card>
+      </div>
     </motion.div>
   );
 };
@@ -94,16 +141,24 @@ const ServiceCard = ({ service, index }) => {
 export default function Services({ data, showViewAll = false }) {
   if (!data) return null;
 
+  const displayData = showViewAll ? data.slice(0, 3) : data;
+
   return (
     <SectionWrapper
       id="services"
       title="How I Can Help You"
       subtitle="My Services"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.map((service, index) => (
-          <ServiceCard key={service.id} service={service} index={index} />
-        ))}
+      <div className="relative max-w-7xl mx-auto mt-12 md:mt-24 group/tree">
+        {/* Central Vertical Line (Tree Trunk) */}
+        <div className="absolute left-[23px] md:left-[51px] lg:left-1/2 top-4 bottom-4 w-[2px] bg-gradient-to-b from-accent/0 via-accent/30 to-accent/0 lg:-translate-x-1/2 z-0" />
+        <div className="absolute left-[23px] md:left-[51px] lg:left-1/2 top-4 bottom-4 w-[2px] bg-accent/20 blur-[2px] lg:-translate-x-1/2 z-0 opacity-0 group-hover/tree:opacity-100 transition-opacity duration-1000" />
+
+        <div className="flex flex-col gap-24 md:gap-32 relative z-10 w-full overflow-hidden lg:overflow-visible pb-10">
+          {displayData.map((service, index) => (
+            <ServiceRow key={service.id} service={service} index={index} />
+          ))}
+        </div>
       </div>
 
       {showViewAll && (
@@ -112,11 +167,11 @@ export default function Services({ data, showViewAll = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 flex justify-center"
+          className="mt-12 md:mt-24 flex justify-center"
         >
           <Link
             href="/services"
-            className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12"
+            className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12 shadow-xl hover:shadow-accent/40"
           >
             <span className="relative z-10 flex items-center gap-2">
               View All Services <MousePointerClick className="w-4 h-4" />

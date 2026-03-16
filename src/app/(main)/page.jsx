@@ -16,9 +16,9 @@ export default async function HomePage() {
       <About data={data.profile} isHomePage={true} />
       <Skills data={data.skills} />
       <Services data={data.services} showViewAll={true} />
-      <Projects data={data.projects} />
-      <Blog data={data.blogs} />
-      <Contact />
+      <Projects data={data.projects} showViewAll={true} />
+      <Blog data={data.blogs} isHomePage={true} />
+      <Contact isHomePage={true} />
     </>
   );
 }

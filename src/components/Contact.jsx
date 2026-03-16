@@ -24,7 +24,7 @@ import {
  * Includes: Hero, Information Cards, Professional Contact Form,
  * Google Map Integration, Quick Contact CTA, and Social Links.
  */
-const Contact = () => {
+const Contact = ({ isHomePage = false }) => {
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
@@ -123,14 +123,16 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="group p-6 glass rounded-3xl border border-border hover:border-accent/40 transition-all duration-300 shadow-xl"
+                  className="group relative p-6 bg-card/40 backdrop-blur-3xl rounded-[2rem] border border-border/50 hover:border-accent/50 hover:-translate-y-2 transition-all duration-500 shadow-2xl overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
                   <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-accent/10`}
+                    className={`relative w-12 h-12 rounded-2xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-accent/20`}
                   >
                     {info.icon}
                   </div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
+                  <p className="relative text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-1">
                     {info.label}
                   </p>
                   <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">
@@ -168,10 +170,12 @@ const Contact = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative p-1 glass rounded-[3rem] overflow-hidden shadow-2xl"
+              className="relative h-full group/form"
             >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-accent/20 rounded-[2.8rem] opacity-0 group-hover/form:opacity-100 blur-2xl transition-all duration-700" />
+
               {/* Form Content */}
-              <div className="relative z-10 p-8 md:p-12 bg-card/40 rounded-[2.8rem] border border-border">
+              <div className="relative z-10 p-8 md:p-12 bg-card backdrop-blur-3xl rounded-[2.8rem] border border-border/50 shadow-2xl h-full flex flex-col">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                   <div>
                     <h2 className="text-3xl font-black tracking-tight text-foreground uppercase italic tracking-tighter">
@@ -198,7 +202,7 @@ const Contact = () => {
                       <input
                         type="text"
                         placeholder="John Doe"
-                        className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                        className="w-full bg-background/50 backdrop-blur-xl border border-border/50 rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm shadow-inner"
                       />
                     </div>
                     <div className="space-y-3">
@@ -208,7 +212,7 @@ const Contact = () => {
                       <input
                         type="email"
                         placeholder="john@email.com"
-                        className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                        className="w-full bg-background/50 backdrop-blur-xl border border-border/50 rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm shadow-inner"
                       />
                     </div>
                   </div>
@@ -220,7 +224,7 @@ const Contact = () => {
                     <input
                       type="text"
                       placeholder="What is this about?"
-                      className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm"
+                      className="w-full bg-background/50 backdrop-blur-xl border border-border/50 rounded-2xl px-6 py-4 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm shadow-inner"
                     />
                   </div>
 
@@ -231,7 +235,7 @@ const Contact = () => {
                     <textarea
                       rows={5}
                       placeholder="How can we help you?"
-                      className="w-full bg-muted/20 border border-border rounded-2xl px-6 py-5 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none"
+                      className="w-full bg-background/50 backdrop-blur-xl border border-border/50 rounded-2xl px-6 py-5 text-foreground focus:border-accent/60 focus:bg-accent/5 transition-all outline-none placeholder:text-muted-foreground/30 font-semibold text-sm resize-none shadow-inner"
                     />
                   </div>
 
@@ -249,8 +253,10 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* What Happens Next Section */}
-        <section className="mt-32 space-y-16">
+        {!isHomePage && (
+          <>
+            {/* What Happens Next Section */}
+            <section className="mt-32 space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-4xl font-black tracking-tighter text-foreground uppercase italic tracking-tighter">
               What happens <span className="text-accent italic">next?</span>
@@ -410,6 +416,8 @@ const Contact = () => {
             </div>
           </div>
         </motion.div>
+        </>
+        )}
       </div>
     </div>
   );

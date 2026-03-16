@@ -41,7 +41,7 @@ const EditorialHeader = () => (
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-12 xl:col-span-7 text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-none uppercase italic"
+            className="lg:col-span-12 xl:col-span-7 text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-white leading-none uppercase italic"
           >
             Our <br />
             <span className="text-accent underline decoration-accent/10 underline-offset-[16px]">
@@ -60,21 +60,21 @@ const EditorialHeader = () => (
               Explore easy-to-read guides on web development, system
               architecture, and modern software design.
             </p>
-            <div className="flex items-center gap-6 pt-4 border-t border-border/50">
+            <div className="flex items-center gap-6 pt-4 border-t border-white/5">
               <div className="flex flex-col">
                 <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
                   Status
                 </span>
-                <span className="text-[10px] font-bold text-foreground uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">
                   LATEST_POSTS
                 </span>
               </div>
-              <div className="w-px h-6 bg-border" />
+              <div className="w-px h-6 bg-white/10" />
               <div className="flex flex-col">
                 <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
                   Collection
                 </span>
-                <span className="text-[10px] font-bold text-foreground uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">
                   GUIDES_01
                 </span>
               </div>
@@ -110,7 +110,7 @@ const FeaturedBlogSlider = ({ posts }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 mb-24 group/slider">
       <div
-        className="relative h-[500px] sm:h-[600px] md:h-[750px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-border/50 bg-card/20 shadow-2xl"
+        className="relative h-[500px] sm:h-[600px] md:h-[750px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-white/5 bg-card/20 shadow-2xl"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -143,29 +143,29 @@ const FeaturedBlogSlider = ({ posts }) => {
                   <span className="px-5 py-2 rounded-xl bg-accent text-accent-foreground text-[10px] font-black uppercase tracking-widest shadow-xl">
                     Top Story
                   </span>
-                  <span className="text-muted-foreground text-xs font-bold uppercase tracking-widest">
+                  <span className="text-white/60 text-xs font-bold uppercase tracking-widest">
                     {currentPost.category}
                   </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-7xl font-black leading-none text-foreground tracking-tighter">
+                <h2 className="text-3xl sm:text-4xl md:text-7xl font-black leading-none text-white tracking-tighter">
                   {currentPost.title}
                 </h2>
 
-                <p className="text-muted-foreground text-sm sm:text-lg md:text-xl line-clamp-2 max-w-2xl font-medium italic">
+                <p className="text-white/60 text-sm sm:text-lg md:text-xl line-clamp-2 max-w-2xl font-medium italic">
                   {currentPost.summary}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-6 sm:gap-12 pt-4 sm:pt-6">
                   <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-foreground/10 flex items-center justify-center border border-border/50">
-                      <User className="w-5 h-5 sm:w-6 sm:h-6 text-foreground" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                      <User className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-foreground">
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white">
                       {currentPost.author}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4 sm:gap-8 text-muted-foreground text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
+                  <div className="flex items-center gap-4 sm:gap-8 text-white/40 text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                     <span className="flex items-center gap-2">
                       <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{" "}
                       {currentPost.readTime}
@@ -179,7 +179,7 @@ const FeaturedBlogSlider = ({ posts }) => {
 
                 <div className="pt-4 sm:pt-8">
                   <Link href={`/blog/${currentPost.slug}`}>
-                    <button className="group/btn px-8 sm:px-10 py-4 sm:py-5 bg-foreground text-background rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-4 hover:bg-accent hover:text-accent-foreground transition-all">
+                    <button className="group/btn px-8 sm:px-10 py-4 sm:py-5 bg-white text-black rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-4 hover:bg-accent hover:text-accent-foreground transition-all">
                       Read Full Article{" "}
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
                     </button>
@@ -196,7 +196,7 @@ const FeaturedBlogSlider = ({ posts }) => {
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`h-1 transition-all duration-1000 rounded-full ${i === currentIndex ? "w-12 bg-accent" : "w-4 bg-foreground/20"}`}
+              className={`h-1 transition-all duration-1000 rounded-full ${i === currentIndex ? "w-12 bg-accent" : "w-4 bg-white/20"}`}
             />
           ))}
         </div>
@@ -205,13 +205,13 @@ const FeaturedBlogSlider = ({ posts }) => {
         <div className="absolute top-1/2 -translate-y-1/2 w-full px-4 sm:px-8 flex justify-between z-30 opacity-0 group-hover/slider:opacity-100 transition-opacity">
           <button
             onClick={prevSlide}
-            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-border/50 flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
+            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-white/10 flex items-center justify-center text-white hover:bg-accent transition-all"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
           <button
             onClick={nextSlide}
-            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-border/50 flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all"
+            className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-background/40 backdrop-blur-3xl border border-white/10 flex items-center justify-center text-white hover:bg-accent transition-all"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -261,7 +261,7 @@ const ControlHub = ({
           placeholder="SEARCH ARTICLES..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-card/30 border border-border/50 rounded-[1.8rem] py-5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/50 focus:shadow-[0_0_40px_rgba(var(--accent-rgb),0.1)] uppercase"
+          className="w-full bg-card/30 border border-white/5 rounded-[1.8rem] py-5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 focus:shadow-[0_0_40px_rgba(var(--accent-rgb),0.1)] uppercase"
         />
       </div>
     </div>
@@ -277,7 +277,7 @@ const TrendingTabs = ({ activeTab, setActiveTab }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 mb-12">
-      <div className="flex items-center gap-8 sm:gap-12 border-b border-border/50 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-8 sm:gap-12 border-b border-white/5 overflow-x-auto scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -289,7 +289,7 @@ const TrendingTabs = ({ activeTab, setActiveTab }) => {
             }`}
           >
             <tab.icon
-              className={`w-3.5 h-3.5 ${activeTab === tab.id ? "text-accent" : "text-muted-foreground/50"}`}
+              className={`w-3.5 h-3.5 ${activeTab === tab.id ? "text-accent" : "text-white/20"}`}
             />
             {tab.label}
             {activeTab === tab.id && (
@@ -315,7 +315,7 @@ const ArticleCard = ({ blog, index }) => (
     className="h-full group relative"
   >
     {/* Subtle Ambient Glow on Hover */}
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-accent/20 rounded-[1.5rem] opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-700" />
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-blue-600/20 rounded-[1.5rem] opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-700" />
 
     <div className="relative h-full bg-card backdrop-blur-3xl border border-border/50 rounded-[1.5rem] overflow-hidden flex flex-col transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-accent/50 shadow-2xl">
       {/* Editorial Thumbnail */}
@@ -395,7 +395,7 @@ const ArticleCard = ({ blog, index }) => (
 const NewsletterCTA = () => (
   <SectionWrapper>
     <div className="max-w-7xl mx-auto px-6">
-      <div className="relative p-8 sm:p-12 lg:p-24 rounded-[2rem] sm:rounded-[4rem] bg-gradient-to-br from-card/80 to-background border border-border/50 overflow-hidden shadow-2xl group">
+      <div className="relative p-8 sm:p-12 lg:p-24 rounded-[2rem] sm:rounded-[4rem] bg-gradient-to-br from-card/80 to-background border border-white/10 overflow-hidden shadow-2xl group">
         <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-accent/5 blur-[80px] sm:blur-[120px] rounded-full group-hover:scale-125 transition-transform duration-1000" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
@@ -403,7 +403,7 @@ const NewsletterCTA = () => (
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-widest">
               <Zap className="w-4 h-4" /> Stay Updated
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-foreground">
+            <h2 className="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-white">
               Insights <br />{" "}
               <span className="text-accent italic underline decoration-accent/10 underline-offset-8">
                 for you.
@@ -415,13 +415,13 @@ const NewsletterCTA = () => (
           </div>
 
           <div className="w-full lg:w-[450px] space-y-6">
-            <div className="bg-background/40 backdrop-blur-3xl border border-border/50 rounded-2xl sm:rounded-[2.5rem] p-2 sm:p-3 flex flex-col md:flex-row items-center gap-3 shadow-inner">
+            <div className="bg-background/40 backdrop-blur-3xl border border-white/5 rounded-2xl sm:rounded-[2.5rem] p-2 sm:p-3 flex flex-col md:flex-row items-center gap-3 shadow-inner">
               <input
                 type="email"
                 placeholder="YOUR@EMAIL.COM"
-                className="flex-1 bg-transparent border-none outline-none py-4 sm:py-6 px-6 sm:px-10 text-[10px] sm:text-xs font-black tracking-widest uppercase text-foreground placeholder:text-muted-foreground/30 w-full"
+                className="flex-1 bg-transparent border-none outline-none py-4 sm:py-6 px-6 sm:px-10 text-[10px] sm:text-xs font-black tracking-widest uppercase text-white placeholder:text-muted-foreground/10 w-full"
               />
-              <button className="w-full md:w-auto px-8 sm:px-10 py-4 sm:py-6 bg-foreground text-background rounded-xl sm:rounded-[2rem] text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all shadow-xl">
+              <button className="w-full md:w-auto px-8 sm:px-10 py-4 sm:py-6 bg-white text-black rounded-xl sm:rounded-[2rem] text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-white transition-all shadow-xl">
                 Subscribe
               </button>
             </div>
@@ -434,45 +434,12 @@ const NewsletterCTA = () => (
 
 // --- MAIN PAGE ---
 
-export default function Blog({ data, isHomePage = false }) {
+export default function Blog({ data }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeTab, setActiveTab] = useState("latest");
 
   if (!data) return null;
-
-  if (isHomePage) {
-    const recentBlogs = data.slice(0, 3);
-    return (
-      <SectionWrapper id="blog" title="Latest Articles" subtitle="My Blog">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recentBlogs.map((blog, i) => (
-              <ArticleCard key={blog.id} blog={blog} index={i} />
-            ))}
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 flex justify-center"
-          >
-            <Link
-              href="/blog"
-              className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                View All Articles <ArrowRight className="w-4 h-4 ml-1" />
-              </span>
-              <div className="absolute top-0 -right-full w-full h-full bg-foreground/10 group-hover:right-0 transition-all duration-300" />
-              <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-5 h-5" />
-            </Link>
-          </motion.div>
-        </div>
-      </SectionWrapper>
-    );
-  }
 
   const categories = useMemo(
     () => ["All", ...new Set(data.map((b) => b.category))],
@@ -538,8 +505,8 @@ export default function Blog({ data, isHomePage = false }) {
                 animate={{ opacity: 1 }}
                 className="flex flex-col items-center justify-center py-40 text-center"
               >
-                <div className="w-24 h-24 rounded-[3rem] bg-card/40 border border-border/50 flex items-center justify-center mb-8 shadow-inner">
-                  <Search className="w-10 h-10 text-muted-foreground/30" />
+                <div className="w-24 h-24 rounded-[3rem] bg-card/40 border border-white/5 flex items-center justify-center mb-8 shadow-inner">
+                  <Search className="w-10 h-10 text-muted-foreground/10" />
                 </div>
                 <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">
                   No Results Found.
@@ -552,7 +519,7 @@ export default function Blog({ data, isHomePage = false }) {
                     setSearchQuery("");
                     setActiveCategory("All");
                   }}
-                  className="mt-12 px-10 py-5 bg-foreground text-background rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-all shadow-xl"
+                  className="mt-12 px-10 py-5 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-accent hover:text-white transition-all shadow-xl"
                 >
                   Clear Search
                 </button>

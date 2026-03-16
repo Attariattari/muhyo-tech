@@ -1,87 +1,224 @@
 "use client";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Github,
+  ExternalLink,
+  Code,
+  ArrowRight,
+  Plus,
+} from "lucide-react";
+import { SectionWrapper } from "./ui";
+import Link from "next/link";
+import ProjectModal from "./ProjectModal";
 
-import { motion } from "framer-motion";
-import { Link2, Github, ExternalLink, Code, ChevronRight } from "lucide-react";
-import { SectionWrapper, Card } from "./ui";
+const ProjectRow = ({ project, index, setSelectedProject }) => {
+  const isReversed = index % 2 !== 0;
 
-const ProjectCard = ({ project, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay: index * 0.1 }}
-  >
-    <Card className="p-4 border border-border/50 overflow-hidden group shadow-2xl relative bg-card/40 backdrop-blur-sm">
-      <div className="relative aspect-video rounded-2xl bg-muted/20 overflow-hidden border border-border/10 mb-6 group-hover:shadow-3xl transition-all duration-700">
-        <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center gap-4">
-          <button className="p-3 rounded-full bg-accent text-accent-foreground hover:scale-110 transition-transform cursor-pointer shadow-lg shadow-accent/20">
-            <Link2 className="w-5 h-5 font-black" />
-          </button>
-          <button className="p-3 rounded-full bg-background text-foreground hover:scale-110 transition-transform cursor-pointer border border-border shadow-md">
-            <Github className="w-5 h-5" />
-          </button>
-        </div>
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] blur-[1px] group-hover:blur-0 opacity-90 group-hover:opacity-100"
-        />
-        <div className="absolute top-4 left-4 z-20">
-          <span className="px-3 py-1 rounded-lg bg-accent/90 backdrop-blur text-[9px] font-black uppercase text-accent-foreground tracking-widest border border-accent/30 italic shadow-sm">
-            {project.purpose}
-          </span>
-        </div>
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.95, y: 30 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className={`relative flex flex-col lg:flex-row items-center justify-between w-full pl-16 md:pl-32 lg:pl-0 group mb-24 md:mb-32`}
+    >
+      {/* Interactive Connector Node */}
+      <div className="absolute left-[13px] md:left-[41px] lg:left-1/2 top-10 lg:top-1/2 w-8 h-8 rounded-xl bg-card border-2 border-accent/30 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex items-center justify-center z-20 transition-all duration-500 group-hover:rotate-45 group-hover:border-accent group-hover:scale-110 shadow-[0_0_20px_rgba(var(--accent-rgb),0.2)]">
+        <div className="w-2 h-2 rounded-full bg-accent group-hover:animate-ping" />
       </div>
 
-      <div className="px-4 pb-4">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-[2px] bg-accent/40 rounded-full" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/60 italic">
-            {project.category || "Case Study"}
-          </span>
-        </div>
-        <h3 className="text-2xl font-black mb-3 text-foreground group-hover:text-accent transition-colors italic uppercase tracking-tighter leading-none">
-          {project.title}
-        </h3>
-        <p className="text-muted-foreground text-sm mb-8 line-clamp-2 leading-relaxed italic opacity-80 font-medium">
-          "{project.description}"
-        </p>
+      {/* Animated Connector Path (Desktop Only) */}
+      <div
+        className={`hidden lg:block absolute top-1/2 ${
+          isReversed ? "left-[calc(50%+4rem)]" : "right-[calc(50%+4rem)]"
+        } w-[4rem] h-[2px] bg-gradient-to-r ${
+          isReversed
+            ? "from-accent via-accent/50 to-transparent"
+            : "from-transparent via-accent/50 to-accent"
+        } -translate-y-1/2 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+      />
 
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="text-[9px] font-black px-3 py-1.5 rounded-lg bg-muted/40 border border-border/50 text-foreground/70 tracking-widest uppercase italic shadow-sm"
+      {/* Content Side */}
+      <div
+        className={`w-full lg:w-[calc(50%-6rem)] flex flex-col gap-6 ${
+          isReversed
+            ? "lg:order-2 text-left"
+            : "lg:order-1 lg:text-right text-left"
+        } relative z-10`}
+      >
+        <div
+          className={`flex flex-col ${
+            isReversed ? "items-start" : "lg:items-end items-start"
+          }`}
+        >
+          <span className="px-4 py-1.5 bg-accent/5 rounded-full border border-accent/10 text-[9px] font-black uppercase tracking-[0.3em] text-accent/60 mb-5 group-hover:text-accent transition-colors">
+            {project.category}
+          </span>
+          <h3 className="text-3xl md:text-5xl font-black text-foreground tracking-tighter leading-none mb-6 group-hover:text-accent transition-colors uppercase italic">
+            {project.title}
+          </h3>
+          <p
+            className={`text-muted-foreground text-sm md:text-lg leading-relaxed font-medium italic mb-10 max-w-lg ${
+              isReversed ? "" : "lg:ml-auto"
+            }`}
+          >
+            "{project.description}"
+          </p>
+
+          {/* Tech Minimalist View */}
+          <div
+            className={`flex flex-wrap gap-2 mb-10 ${
+              isReversed ? "" : "lg:justify-end"
+            }`}
+          >
+            {project.techStack?.slice(0, 4).map((tech, i) => (
+              <span
+                key={i}
+                className="px-4 py-2 rounded-xl bg-card border border-border/50 text-[10px] font-bold text-foreground/60 uppercase tracking-widest hover:border-accent/30 hover:text-foreground transition-all"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* Refined Actions */}
+          <div
+            className={`flex items-center gap-8 ${
+              isReversed ? "" : "lg:flex-row-reverse"
+            }`}
+          >
+            <button
+              onClick={() => setSelectedProject(project)}
+              className="group/link flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-foreground hover:text-accent transition-all cursor-pointer bg-transparent border-none"
             >
-              {tech}
-            </span>
-          ))}
+              Case Study
+              <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1.5 transition-transform" />
+            </button>
+            <div className="w-px h-6 bg-border/20" />
+            <div className="flex gap-4">
+              {project.demoLink && (
+                <Link href={project.demoLink} target="_blank">
+                  <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-accent cursor-pointer transition-colors" />
+                </Link>
+              )}
+              {project.githubLink && (
+                <Link href={project.githubLink} target="_blank">
+                  <Github className="w-4 h-4 text-muted-foreground hover:text-accent cursor-pointer transition-colors" />
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
-
-        <button className="w-full py-5 rounded-2xl border border-accent/20 bg-accent text-accent-foreground shadow-2xl shadow-accent/20 hover:shadow-accent/40 text-[10px] font-black uppercase tracking-[0.4em] transition-all flex items-center justify-center gap-3 group cursor-pointer hover:-translate-y-1">
-          Explore Intelligence{" "}
-          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </button>
       </div>
-    </Card>
-  </motion.div>
-);
 
-export default function Projects({ data }) {
+      {/* Image Side: Elevated with 3D feel */}
+      <div
+        className={`w-full lg:w-[calc(50%-6rem)] relative group/img-side ${
+          isReversed ? "lg:order-1" : "lg:order-2"
+        } mt-12 lg:mt-0`}
+      >
+        <div className="absolute -inset-4 bg-accent/10 blur-3xl rounded-full scale-50 opacity-0 group-hover/img-side:opacity-100 transition-opacity duration-1000" />
+
+        <motion.div
+          whileHover={{
+            scale: 1.02,
+            rotateX: 2,
+            rotateY: isReversed ? 2 : -2,
+          }}
+          onClick={() => setSelectedProject(project)}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="relative p-2 rounded-[3.5rem] border border-white/5 bg-white/[0.03] backdrop-blur-3xl overflow-hidden shadow-2xl group-hover/img-side:border-accent/40 transition-colors cursor-pointer"
+        >
+          <div className="relative rounded-[2.8rem] overflow-hidden aspect-[16/11] w-full">
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full h-full object-cover transform transition-all duration-1000 group-hover/img-side:scale-110 group-hover/img-side:rotate-1"
+            />
+            {/* Cinematic Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-background/90 via-transparent to-transparent opacity-80" />
+
+            {/* Hover Indicator */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-accent/10 backdrop-blur-[2px]">
+              <div className="w-14 h-14 rounded-full bg-white text-accent flex items-center justify-center shadow-2xl scale-50 group-hover:scale-100 transition-transform duration-500">
+                <Plus className="w-8 h-8 font-black" />
+              </div>
+            </div>
+
+            {/* Floating Metadata */}
+            <div className="absolute top-8 left-8">
+              <div className="px-4 py-2 bg-background/40 backdrop-blur-2xl border border-white/10 rounded-2xl flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-accent" />
+                <span className="text-[9px] font-black text-white uppercase tracking-widest">
+                  Production Ready
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default function Projects({ data, showViewAll = false }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+  
   if (!data) return null;
+
+  // For the home page, we show 4 projects in the tree
+  const displayData = showViewAll ? data.slice(0, 4) : data;
 
   return (
     <SectionWrapper id="projects" title="Featured Work" subtitle="My Portfolio">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {data.map((p, i) => (
-          <ProjectCard key={p.id} project={p} index={i} />
-        ))}
+      <div className="relative max-w-7xl mx-auto mt-24 group/tree-main">
+        {/* Central Vertical Trunk */}
+        <div className="absolute left-[24px] md:left-[52px] lg:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent/0 via-accent/20 to-accent/0 lg:-translate-x-1/2 z-0" />
+        <div className="absolute left-[24px] md:left-[52px] lg:left-1/2 top-0 bottom-0 w-[2px] bg-accent/10 blur-[3px] lg:-translate-x-1/2 z-0 hidden lg:block" />
+
+        <div className="flex flex-col relative z-20">
+          <AnimatePresence mode="popLayout">
+            {displayData.map((project, index) => (
+              <ProjectRow
+                key={project.id}
+                project={project}
+                index={index}
+                setSelectedProject={setSelectedProject}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
-      <div className="mt-20 text-center">
-        <button className="px-10 py-5 rounded-full border border-border text-foreground hover:bg-card transition-all font-black uppercase text-xs tracking-[0.2em]">
-          See More Projects
-        </button>
-      </div>
+
+      {showViewAll && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 flex justify-center"
+        >
+          <Link
+            href="/projects"
+            className="group relative px-8 py-4 bg-accent text-accent-foreground font-black uppercase tracking-widest text-xs rounded-full overflow-hidden transition-all hover:pr-12"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              View All Projects <Code className="w-4 h-4" />
+            </span>
+            <div className="absolute top-0 -right-full w-full h-full bg-foreground/10 group-hover:right-0 transition-all duration-300" />
+            <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-5 h-5" />
+          </Link>
+        </motion.div>
+      )}
+
+      {/* Reusable Project Modal */}
+      <ProjectModal 
+        selectedProject={selectedProject} 
+        setSelectedProject={setSelectedProject} 
+      />
     </SectionWrapper>
   );
 }
