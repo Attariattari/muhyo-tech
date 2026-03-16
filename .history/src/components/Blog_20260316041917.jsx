@@ -178,7 +178,7 @@ const FeaturedBlogSlider = ({ posts }) => {
                 </div>
 
                 <div className="pt-4 sm:pt-8">
-                  <Link href={`/blog/${currentPost.slug}`}>
+                  <Link href={`/blog/${currentPost.id}`}>
                     <button className="group/btn px-8 sm:px-10 py-4 sm:py-5 bg-white text-black rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-4 hover:bg-accent hover:text-accent-foreground transition-all">
                       Read Full Article{" "}
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
@@ -355,7 +355,7 @@ const ArticleCard = ({ blog, index }) => (
           <span className="text-white/60">{blog.readTime}</span>
         </div>
 
-        <Link href={`/blog/${blog.slug}`} className="block group/title mb-auto">
+        <Link href={`/blog/${blog.id}`} className="block group/title mb-auto">
           <h3 className="text-2xl md:text-3xl font-black text-white group-hover/title:text-accent transition-colors leading-[1.1] tracking-tighter mb-6">
             {blog.title}
           </h3>
@@ -376,7 +376,7 @@ const ArticleCard = ({ blog, index }) => (
           </div>
 
           <Link
-            href={`/blog/${blog.slug}`}
+            href={`/blog/${blog.id}`}
             className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest text-white group/explore"
           >
             <span className="opacity-40 group-hover/explore:opacity-100 transition-opacity">

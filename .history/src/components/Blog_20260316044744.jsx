@@ -440,7 +440,7 @@ export default function Blog({ data }) {
   const [activeTab, setActiveTab] = useState("latest");
 
   if (!data) return null;
-
+  console.log(dataslug);
   const categories = useMemo(
     () => ["All", ...new Set(data.map((b) => b.category))],
     [data],

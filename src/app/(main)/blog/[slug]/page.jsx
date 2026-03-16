@@ -3,8 +3,10 @@ import { portfolioData } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
-  const blog = portfolioData.blogs.find((b) => b.id.toString() === id);
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || resolvedParams.id;
+  const decodedSlug = slug ? decodeURIComponent(slug) : "";
+  const blog = portfolioData.blogs.find((b) => b.slug === decodedSlug);
 
   if (!blog) return {};
 
@@ -29,12 +31,14 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const { id } = await params;
-  const blog = portfolioData.blogs.find((b) => b.id.toString() === id);
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || resolvedParams.id;
+  const decodedSlug = slug ? decodeURIComponent(slug) : "";
+
+  const blog = portfolioData.blogs.find((b) => b.slug === decodedSlug);
 
   if (!blog) {
     notFound();
   }
-
   return <BlogPostDetail blog={blog} />;
 }

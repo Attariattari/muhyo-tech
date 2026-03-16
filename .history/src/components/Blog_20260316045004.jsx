@@ -307,89 +307,95 @@ const TrendingTabs = ({ activeTab, setActiveTab }) => {
 };
 
 const ArticleCard = ({ blog, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
-    className="h-full group relative"
-  >
-    {/* Subtle Ambient Glow on Hover */}
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-blue-600/20 rounded-[1.5rem] opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-700" />
+  console.log("slug", blog.slug),
+  (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
+      className="h-full group relative"
+    >
+      {/* Subtle Ambient Glow on Hover */}
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/20 to-blue-600/20 rounded-[1.5rem] opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-700" />
 
-    <div className="relative h-full bg-black/40 backdrop-blur-3xl border border-white/5 rounded-[1.5rem] overflow-hidden flex flex-col transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-white/10 shadow-2xl">
-      {/* Editorial Thumbnail */}
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5">
-        <Image
-          src={blog.image}
-          alt={blog.title}
-          fill
-          className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.4] group-hover:grayscale-0"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40" />
+      <div className="relative h-full bg-black/40 backdrop-blur-3xl border border-white/5 rounded-[1.5rem] overflow-hidden flex flex-col transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-white/10 shadow-2xl">
+        {/* Editorial Thumbnail */}
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5">
+          <Image
+            src={blog.image}
+            alt={blog.title}
+            fill
+            className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.4] group-hover:grayscale-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40" />
 
-        {/* Status Metadata */}
-        <div className="absolute top-6 right-6">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl">
-            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
-            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white">
-              NEW
+          {/* Status Metadata */}
+          <div className="absolute top-6 right-6">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl">
+              <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white">
+                NEW
+              </span>
+            </div>
+          </div>
+
+          {/* Floating Category Label */}
+          <div className="absolute bottom-6 left-6">
+            <span className="px-4 py-2 rounded-lg bg-accent text-accent-foreground text-[8px] font-black uppercase tracking-[0.3em] shadow-xl">
+              {blog.category}
             </span>
           </div>
         </div>
 
-        {/* Floating Category Label */}
-        <div className="absolute bottom-6 left-6">
-          <span className="px-4 py-2 rounded-lg bg-accent text-accent-foreground text-[8px] font-black uppercase tracking-[0.3em] shadow-xl">
-            {blog.category}
-          </span>
-        </div>
-      </div>
-
-      {/* Content Architecture */}
-      <div className="p-6 sm:p-10 flex flex-col flex-grow">
-        {/* Editorial Spec Header */}
-        <div className="flex items-center gap-3 sm:gap-4 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.4em] text-muted-foreground/30 mb-6 sm:mb-8">
-          <span>{blog.date}</span>
-          <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-accent/20" />
-          <span className="text-white/60">{blog.readTime}</span>
-        </div>
-
-        <Link href={`/blog/${blog.slug}`} className="block group/title mb-auto">
-          <h3 className="text-2xl md:text-3xl font-black text-white group-hover/title:text-accent transition-colors leading-[1.1] tracking-tighter mb-6">
-            {blog.title}
-          </h3>
-          <p className="text-muted-foreground/60 text-sm leading-relaxed line-clamp-3 font-medium italic opacity-80 border-l-2 border-accent/10 pl-6">
-            &quot;{blog.summary}&quot;
-          </p>
-        </Link>
-
-        {/* Footer Architecture */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest uppercase">
-              Written by
-            </span>
-            <span className="text-[11px] font-black text-white/80 uppercase tracking-widest">
-              {blog.author}
-            </span>
+        {/* Content Architecture */}
+        <div className="p-6 sm:p-10 flex flex-col flex-grow">
+          {/* Editorial Spec Header */}
+          <div className="flex items-center gap-3 sm:gap-4 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.4em] text-muted-foreground/30 mb-6 sm:mb-8">
+            <span>{blog.date}</span>
+            <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-accent/20" />
+            <span className="text-white/60">{blog.readTime}</span>
           </div>
 
           <Link
             href={`/blog/${blog.slug}`}
-            className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest text-white group/explore"
+            className="block group/title mb-auto"
           >
-            <span className="opacity-40 group-hover/explore:opacity-100 transition-opacity">
-              Read Article
-            </span>
-            <div className="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center transition-all group-hover/explore:bg-accent group-hover/explore:border-accent group-hover/explore:scale-110 shadow-xl">
-              <ArrowUpRight className="w-5 h-5 transition-transform group-hover/explore:translate-x-0.5 group-hover/explore:-translate-y-0.5" />
-            </div>
+            <h3 className="text-2xl md:text-3xl font-black text-white group-hover/title:text-accent transition-colors leading-[1.1] tracking-tighter mb-6">
+              {blog.title}
+            </h3>
+            <p className="text-muted-foreground/60 text-sm leading-relaxed line-clamp-3 font-medium italic opacity-80 border-l-2 border-accent/10 pl-6">
+              &quot;{blog.summary}&quot;
+            </p>
           </Link>
+
+          {/* Footer Architecture */}
+          <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
+            <div className="flex flex-col gap-1">
+              <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest uppercase">
+                Written by
+              </span>
+              <span className="text-[11px] font-black text-white/80 uppercase tracking-widest">
+                {blog.author}
+              </span>
+            </div>
+
+            <Link
+              href={`/blog/${blog.slug}`}
+              className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest text-white group/explore"
+            >
+              <span className="opacity-40 group-hover/explore:opacity-100 transition-opacity">
+                Read Article
+              </span>
+              <div className="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center transition-all group-hover/explore:bg-accent group-hover/explore:border-accent group-hover/explore:scale-110 shadow-xl">
+                <ArrowUpRight className="w-5 h-5 transition-transform group-hover/explore:translate-x-0.5 group-hover/explore:-translate-y-0.5" />
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  </motion.div>
+    </motion.div>
+  )
 );
 
 const NewsletterCTA = () => (
@@ -440,7 +446,6 @@ export default function Blog({ data }) {
   const [activeTab, setActiveTab] = useState("latest");
 
   if (!data) return null;
-
   const categories = useMemo(
     () => ["All", ...new Set(data.map((b) => b.category))],
     [data],
@@ -463,6 +468,7 @@ export default function Blog({ data }) {
     if (activeTab === "trending") posts = [...posts].reverse();
     return posts;
   }, [filteredBlogs, activeTab]);
+  console.log(data.map((b) => b.slug));
 
   return (
     <div className="min-h-screen selection:bg-accent selection:text-accent-foreground">
