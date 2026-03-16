@@ -457,8 +457,7 @@ export const portfolioData = {
             ],
         },
     ],
-    blogs: [
-        {
+    blogs: [{
             id: 1,
             slug: "rise-of-the-product-engineer",
             title: "The Rise of the Product Engineer",

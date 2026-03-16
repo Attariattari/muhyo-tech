@@ -50,7 +50,9 @@ const EditorialHeader = () => (
             className="lg:col-span-12 xl:col-span-7 text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-white leading-none uppercase italic"
           >
             Our <br />
-            <span className="text-accent underline decoration-accent/10 underline-offset-[16px]">Stories.</span>
+            <span className="text-accent underline decoration-accent/10 underline-offset-[16px]">
+              Stories.
+            </span>
           </motion.h1>
 
           {/* Descriptive Abstract */}
@@ -61,17 +63,26 @@ const EditorialHeader = () => (
             className="lg:col-span-12 xl:col-span-5 lg:pt-4 space-y-6"
           >
             <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground/50 font-bold tracking-[0.18em] leading-loose uppercase italic max-w-sm border-l-2 border-accent/20 pl-6">
-              Explore easy-to-read guides on web development, system architecture, and modern software design.
+              Explore easy-to-read guides on web development, system
+              architecture, and modern software design.
             </p>
             <div className="flex items-center gap-6 pt-4 border-t border-white/5">
               <div className="flex flex-col">
-                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">Status</span>
-                <span className="text-[10px] font-bold text-white uppercase tracking-widest">LATEST_POSTS</span>
+                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
+                  Status
+                </span>
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">
+                  LATEST_POSTS
+                </span>
               </div>
               <div className="w-px h-6 bg-white/10" />
               <div className="flex flex-col">
-                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">Collection</span>
-                <span className="text-[10px] font-bold text-white uppercase tracking-widest">GUIDES_01</span>
+                <span className="text-[8px] font-black text-accent tracking-widest uppercase mb-1">
+                  Collection
+                </span>
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">
+                  GUIDES_01
+                </span>
               </div>
             </div>
           </motion.div>
@@ -162,10 +173,12 @@ const FeaturedBlogSlider = ({ posts }) => {
                   </div>
                   <div className="flex items-center gap-4 sm:gap-8 text-white/40 text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                     <span className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {currentPost.readTime}
+                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{" "}
+                      {currentPost.readTime}
                     </span>
                     <span className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {currentPost.date}
+                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{" "}
+                      {currentPost.date}
                     </span>
                   </div>
                 </div>
