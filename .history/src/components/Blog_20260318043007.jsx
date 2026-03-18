@@ -380,23 +380,6 @@ const ControlHub = ({
     }
   };
 
-  useEffect(() => {
-    if (swiperInstance && !swiperInstance.destroyed) {
-      // More pronounced back-and-forth nudge to show interactivity
-      const nudgeTimer = setTimeout(() => {
-        // Slide out (leftward move to reveal right items)
-        swiperInstance.translateTo(-180, 1800);
-
-        setTimeout(() => {
-          // Slide back home
-          swiperInstance.translateTo(0, 1200);
-        }, 2000);
-      }, 1500);
-
-      return () => clearTimeout(nudgeTimer);
-    }
-  }, [swiperInstance]);
-
   return (
     <div className="max-w-7xl mx-auto px-6 mb-16">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-card/30 border border-border/50 p-3 rounded-[2.5rem]">

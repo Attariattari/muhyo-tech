@@ -92,10 +92,11 @@ const ProjectRow = ({ project, index, setSelectedProject }) => {
           >
             <button
               onClick={() => setSelectedProject(project)}
-              className="group/link flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-foreground hover:text-accent transition-all cursor-pointer bg-transparent border-none"
+              className="group/link relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-foreground hover:text-accent hover:border-accent/40 transition-all cursor-pointer overflow-hidden"
             >
-              Case Study
-              <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1.5 transition-transform" />
+              <span className="relative z-10">Case Study</span>
+              <ArrowRight className="relative z-10 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300 opacity-[0.05]" />
             </button>
             <div className="w-px h-6 bg-border/20" />
             <div className="flex gap-4">
@@ -142,9 +143,10 @@ const ProjectRow = ({ project, index, setSelectedProject }) => {
             <div className="absolute inset-0 bg-gradient-to-tr from-background/90 via-transparent to-transparent opacity-80" />
 
             {/* Hover Indicator */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-accent/10 backdrop-blur-[2px]">
-              <div className="w-14 h-14 rounded-full bg-white text-accent flex items-center justify-center shadow-2xl scale-50 group-hover:scale-100 transition-transform duration-500">
-                <Plus className="w-8 h-8 font-black" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img-side:opacity-100 transition-opacity bg-accent/10 backdrop-blur-[4px]">
+              <div className="px-8 py-3 rounded-full bg-white text-accent flex items-center gap-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] scale-50 group-hover/img-side:scale-100 transition-transform duration-500">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em]">View Case Study</span>
+                <ArrowRight className="w-4 h-4" />
               </div>
             </div>
 

@@ -345,6 +345,10 @@ const ControlHub = ({
   activeCategory,
   setActiveCategory,
 }) => {
+  const [showRightHint, setShowRightHint] = useState(false);
+  const [showLeftHint, setShowLeftHint] = useState(false);
+  const [hasShownRightHint, setHasShownRightHint] = useState(false);
+  const [hasShownLeftHint, setHasShownLeftHint] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   const handleCategoryClick = (category, index) => {
@@ -380,22 +384,31 @@ const ControlHub = ({
     }
   };
 
+  // Initial nudge animation to show scrollability
   useEffect(() => {
-    if (swiperInstance && !swiperInstance.destroyed) {
-      // More pronounced back-and-forth nudge to show interactivity
-      const nudgeTimer = setTimeout(() => {
-        // Slide out (leftward move to reveal right items)
-        swiperInstance.translateTo(-180, 1800);
+    if (swiperInstance && categories.length > 3 && !hasShownRightHint) {
+      const timer = setTimeout(() => {
+        if (swiperInstance.isBeginning) {
+          setShowRightHint(true);
+          setHasShownRightHint(true);
+          // Nudge right
+          swiperInstance.translateTo(-80, 800);
+          setTimeout(() => {
+            // Nudge back
+            if (!swiperInstance.destroyed) {
+              swiperInstance.translateTo(0, 800);
+            }
+          }, 1000);
 
-        setTimeout(() => {
-          // Slide back home
-          swiperInstance.translateTo(0, 1200);
-        }, 2000);
+          // Auto hide after 3.5s
+          setTimeout(() => {
+            setShowRightHint(false);
+          }, 3500);
+        }
       }, 1500);
-
-      return () => clearTimeout(nudgeTimer);
+      return () => clearTimeout(timer);
     }
-  }, [swiperInstance]);
+  }, [swiperInstance, categories.length, hasShownRightHint]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 mb-16">
@@ -404,6 +417,35 @@ const ControlHub = ({
         <div className="relative w-full lg:flex-1 min-w-0 rounded-[1.8rem] overflow-hidden">
           <Swiper
             onSwiper={setSwiperInstance}
+            onReachEnd={() => {
+              if (!hasShownLeftHint && categories.length > 3) {
+                setShowLeftHint(true);
+                setHasShownLeftHint(true);
+
+                // Return nudge left
+                if (swiperInstance && !swiperInstance.destroyed) {
+                  const currentTranslate = swiperInstance.translate;
+                  swiperInstance.translateTo(currentTranslate - 80, 800);
+                  setTimeout(() => {
+                    if (!swiperInstance.destroyed) {
+                      swiperInstance.translateTo(currentTranslate, 800);
+                    }
+                  }, 1000);
+                }
+
+                setTimeout(() => {
+                  setShowLeftHint(false);
+                }, 3500);
+              }
+            }}
+            onTouchStart={() => {
+              setShowRightHint(false);
+              setShowLeftHint(false);
+            }}
+            onSliderMove={() => {
+              setShowRightHint(false);
+              setShowLeftHint(false);
+            }}
             slidesPerView="auto"
             spaceBetween={4}
             freeMode={true}
@@ -415,7 +457,7 @@ const ControlHub = ({
               <SwiperSlide key={category} style={{ width: "auto" }}>
                 <button
                   onClick={() => handleCategoryClick(category, index)}
-                  className={`relative px-8 py-4 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
+                  className={`relative px-8 py-3.5 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                     activeCategory === category
                       ? "text-accent-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -437,6 +479,54 @@ const ControlHub = ({
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Left Arrow (Scroll back) */}
+          <AnimatePresence>
+            {showLeftHint && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background/90 via-background/50 to-transparent z-20 flex items-center justify-start pl-2 pointer-events-none"
+              >
+                <motion.div
+                  animate={{ x: [0, -5, 0] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1.5,
+                    ease: "easeInOut",
+                  }}
+                  className="w-8 h-8 rounded-full bg-card border border-border/50 flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                >
+                  <ArrowRight className="w-4 h-4 text-accent" />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Right Arrow (Scroll more) */}
+          <AnimatePresence>
+            {showRightHint && categories.length > 3 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background/90 via-background/50 to-transparent z-20 flex items-center justify-end pr-2 pointer-events-none"
+              >
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1.5,
+                    ease: "easeInOut",
+                  }}
+                  className="w-8 h-8 rounded-full bg-card border border-border/50 flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                >
+                  <ArrowLeft className="w-4 h-4 text-accent" />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <div className="relative w-full lg:w-[400px] group">
@@ -446,7 +536,7 @@ const ControlHub = ({
             placeholder="SEARCH ARTICLES..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4.5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
+            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
           />
         </div>
       </div>

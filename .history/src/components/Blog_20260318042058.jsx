@@ -347,6 +347,27 @@ const ControlHub = ({
 }) => {
   const [swiperInstance, setSwiperInstance] = useState(null);
 
+  // Auto-nudge animation on first load to show scrollability
+  useEffect(() => {
+    if (swiperInstance && !swiperInstance.destroyed) {
+      const nudgeTimer = setTimeout(() => {
+        // Premium "Onboarding" Nudge: Peek to the right to show more categories
+        swiperInstance.translateTo(-120, 1400, false);
+
+        const backTimer = setTimeout(() => {
+          // Bounce back to the start position
+          if (swiperInstance && !swiperInstance.destroyed) {
+            swiperInstance.translateTo(0, 1000, false);
+          }
+        }, 1600);
+
+        return () => clearTimeout(backTimer);
+      }, 1200);
+
+      return () => clearTimeout(nudgeTimer);
+    }
+  }, [swiperInstance]);
+
   const handleCategoryClick = (category, index) => {
     setActiveCategory(category);
     if (swiperInstance && !swiperInstance.destroyed) {
@@ -380,28 +401,11 @@ const ControlHub = ({
     }
   };
 
-  useEffect(() => {
-    if (swiperInstance && !swiperInstance.destroyed) {
-      // More pronounced back-and-forth nudge to show interactivity
-      const nudgeTimer = setTimeout(() => {
-        // Slide out (leftward move to reveal right items)
-        swiperInstance.translateTo(-180, 1800);
-
-        setTimeout(() => {
-          // Slide back home
-          swiperInstance.translateTo(0, 1200);
-        }, 2000);
-      }, 1500);
-
-      return () => clearTimeout(nudgeTimer);
-    }
-  }, [swiperInstance]);
-
   return (
     <div className="max-w-7xl mx-auto px-6 mb-16">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-card/30 border border-border/50 p-3 rounded-[2.5rem]">
         {/* Category Navigation */}
-        <div className="relative w-full lg:flex-1 min-w-0 rounded-[1.8rem] overflow-hidden">
+        <div className="relative w-full lg:flex-1 min-w-0 rounded-[1.8rem] overflow-hidden group/swiper">
           <Swiper
             onSwiper={setSwiperInstance}
             slidesPerView="auto"
@@ -415,7 +419,7 @@ const ControlHub = ({
               <SwiperSlide key={category} style={{ width: "auto" }}>
                 <button
                   onClick={() => handleCategoryClick(category, index)}
-                  className={`relative px-8 py-4 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
+                  className={`relative px-8 py-3.5 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                     activeCategory === category
                       ? "text-accent-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -437,6 +441,26 @@ const ControlHub = ({
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Premium Scroll Guidance */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-card/80 via-card/20 to-transparent flex items-center justify-end pr-6 pointer-events-none z-20">
+            <motion.div
+              animate={{ x: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="flex flex-col items-center gap-1"
+            >
+              <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center backdrop-blur-sm shadow-xl shadow-accent/5">
+                <ArrowRight className="w-5 h-5 text-accent" />
+              </div>
+              <span className="text-[7px] font-black text-accent uppercase tracking-[0.3em] opacity-80">
+                Slide
+              </span>
+            </motion.div>
+          </div>
         </div>
 
         <div className="relative w-full lg:w-[400px] group">
@@ -446,7 +470,7 @@ const ControlHub = ({
             placeholder="SEARCH ARTICLES..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4.5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
+            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
           />
         </div>
       </div>

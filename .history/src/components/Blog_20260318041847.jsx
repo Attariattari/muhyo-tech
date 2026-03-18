@@ -380,23 +380,6 @@ const ControlHub = ({
     }
   };
 
-  useEffect(() => {
-    if (swiperInstance && !swiperInstance.destroyed) {
-      // More pronounced back-and-forth nudge to show interactivity
-      const nudgeTimer = setTimeout(() => {
-        // Slide out (leftward move to reveal right items)
-        swiperInstance.translateTo(-180, 1800);
-
-        setTimeout(() => {
-          // Slide back home
-          swiperInstance.translateTo(0, 1200);
-        }, 2000);
-      }, 1500);
-
-      return () => clearTimeout(nudgeTimer);
-    }
-  }, [swiperInstance]);
-
   return (
     <div className="max-w-7xl mx-auto px-6 mb-16">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-card/30 border border-border/50 p-3 rounded-[2.5rem]">
@@ -415,7 +398,7 @@ const ControlHub = ({
               <SwiperSlide key={category} style={{ width: "auto" }}>
                 <button
                   onClick={() => handleCategoryClick(category, index)}
-                  className={`relative px-8 py-4 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
+                  className={`relative px-8 py-3.5 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                     activeCategory === category
                       ? "text-accent-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -446,7 +429,7 @@ const ControlHub = ({
             placeholder="SEARCH ARTICLES..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4.5 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
+            className="w-full bg-background/50 border border-border/30 rounded-[1.8rem] py-4 pl-14 pr-8 focus:outline-none focus:border-accent/40 transition-all text-[10px] font-black tracking-widest text-foreground placeholder:text-muted-foreground/30 uppercase"
           />
         </div>
       </div>
