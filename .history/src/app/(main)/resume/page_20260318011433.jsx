@@ -9,9 +9,12 @@ import {
   Phone,
   MapPin,
   Award,
+  ChevronRight,
   Code,
+  Layout,
   Layers,
   CheckCircle2,
+  ExternalLink,
   Target,
   Zap,
 } from "lucide-react";
@@ -32,17 +35,17 @@ const resumeData = {
     {
       label: "Years Experience",
       value: "3+",
-      icon: <Award className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Award className="w-5 h-5 text-accent" />,
     },
     {
       label: "Projects Delivered",
       value: "10+",
-      icon: <Zap className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Zap className="w-5 h-5 text-accent" />,
     },
     {
       label: "Technologies",
       value: "10+",
-      icon: <Code className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Code className="w-5 h-5 text-accent" />,
     },
   ],
   experience: [
@@ -149,18 +152,8 @@ const resumeData = {
 };
 
 export default function ResumePage() {
-  const handleDownload = () => {
-    // Simply placing a file named 'resume.pdf' in your 'public' folder will make this work
-    const link = document.createElement("a");
-    link.href = "/resume.pdf";
-    link.download = "Pir_Ghulam_Muhyo_CV.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
-    <div className="pt-2 pb-2 ">
+    <div className="pt-2 pb-12 ">
       <SectionWrapper subtitle="Professional Path" title="My Digital Legacy">
         {/* HERO SECTION */}
         <div className="relative mb-20 overflow-hidden">
@@ -199,9 +192,9 @@ export default function ResumePage() {
 
               <Button
                 variant="primary"
-                onClick={handleDownload}
+                className="group shadow-accent/20 px-10 py-5"
               >
-                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
+                <Download className="w-5 h-5 mr-3 group-hover:bounce" />
                 Download CV
               </Button>
             </motion.div>

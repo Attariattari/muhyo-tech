@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import {
-  Github,
-  Linkedin,
-  Twitter,
   Mail,
   ArrowUp,
   Globe,
   ShieldCheck,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -93,39 +91,11 @@ export default function Footer() {
             <h4 className="text-foreground font-black uppercase text-[10px] tracking-[0.4em] italic opacity-40">
               Connect with Me
             </h4>
-            <div className="flex flex-wrap gap-4">
-              {[
-                { icon: Github, href: "https://github.com", label: "Github" },
-                {
-                  icon: Linkedin,
-                  href: "https://linkedin.com",
-                  label: "Linkedin",
-                },
-                {
-                  icon: Twitter,
-                  href: "https://twitter.com",
-                  label: "Twitter",
-                },
-                {
-                  icon: Mail,
-                  href: "mailto:contact@muhyo.tech",
-                  label: "Email",
-                },
-              ].map((social, i) => (
-                <a
-                  key={i}
-                  href={social.href}
-                  target="_blank"
-                  className="w-16 h-16 rounded-2xl glass border border-border flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all duration-500 group relative shadow-2xl"
-                  aria-label={social.label}
-                >
-                  <social.icon
-                    size={22}
-                    className="group-hover:scale-110 transition-transform"
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-              ))}
+            <div className="w-full">
+              <SocialLinks 
+                buttonClassName="w-14 h-14 rounded-2xl glass border border-border flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all duration-500 group relative shadow-2xl"
+                iconSize="w-6 h-6 group-hover:scale-110 transition-transform" 
+              />
             </div>
             <div className="p-6 rounded-3xl bg-muted/20 border border-border italic text-[11px] text-muted-foreground leading-loose">
               Available for high-stakes technical consultations and

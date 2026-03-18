@@ -6,15 +6,23 @@ import { motion } from "framer-motion";
 import { Button } from "./ui";
 import {
   MapPin,
+  Mail,
+  Phone,
   Clock,
+  Send,
+  Linkedin,
+  Github,
+  Twitter,
+  Facebook,
+  ExternalLink,
   ArrowRight,
   MessageSquare,
+  MessageCircle,
 } from "lucide-react";
 import { portfolioData } from "@/lib/data";
-import SocialLinks from "./SocialLinks";
 
 const Contact = ({ isHomePage = false }) => {
-  const { contactInfo } = portfolioData;
+  const { contactInfo, socialLinks } = portfolioData;
 
   return (
     <div className="w-full relative py-12">
@@ -82,7 +90,20 @@ const Contact = ({ isHomePage = false }) => {
               <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mb-6 italic">
                 Find us on social media
               </p>
-              <SocialLinks buttonClassName="w-12 h-12 bg-card rounded-2xl flex items-center justify-center text-muted-foreground transition-all duration-300 border border-border/50 shadow-lg" />
+              <div className="flex gap-4">
+                {socialLinks.map((social, idx) => (
+                  <motion.a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -5 }}
+                    className={`w-12 h-12 bg-card rounded-2xl flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-300 border border-border/50 shadow-lg`}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
 

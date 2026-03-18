@@ -17,18 +17,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { SectionWrapper, Button } from "./ui";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  FreeMode,
-  Autoplay,
-  Pagination,
-  EffectFade,
-  EffectCreative,
-} from "swiper/modules";
+import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import "swiper/css/effect-creative";
 
 // --- SUB-COMPONENTS ---
 
@@ -36,114 +27,111 @@ const EditorialHeader = ({
   totalArticles,
   totalCategories,
   latestUpdate,
-  featuredBlogs,
+  featuredBlog,
   trendingTags,
-}) => {
-  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
+}) => (
+  <header className="relative pt-32 pb-20 px-6 overflow-hidden">
+    {/* --- Premium Background Elements --- */}
+    <div className="absolute  z-0">
+      {/* Editorial Grid Pattern */}
+      <div className="absolute  bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-  return (
-    <header className="relative pt-12 pb-20 px-6 overflow-hidden">
-      {/* --- Premium Background Elements --- */}
-      <div className="absolute  z-0">
-        {/* Editorial Grid Pattern */}
-
-        {/* Large Faded "EDITORIAL" Text */}
-        <div className="absolute -top-10 -left-10 select-none pointer-events-none opacity-[0.02] dark:opacity-[0.03]">
-          <h2 className="text-[20rem] font-black tracking-tighter uppercase italic -rotate-12 translate-x-[-10%] translate-y-[-10%]">
-            BLOG
-          </h2>
-        </div>
-
-        {/* Floating Background Shapes */}
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-1/4 right-[5%] w-96 h-96 bg-accent/5 blur-[100px] rounded-full"
-        />
+      {/* Large Faded "EDITORIAL" Text */}
+      <div className="absolute -top-10 -left-10 select-none pointer-events-none opacity-[0.02] dark:opacity-[0.03]">
+        <h2 className="text-[20rem] font-black tracking-tighter uppercase italic -rotate-12 translate-x-[-10%] translate-y-[-10%]">
+          BLOG
+        </h2>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-          {/* --- Left Side: Editorial Content --- */}
-          <div className="lg:col-span-7 space-y-12">
-            {/* Label & Heading */}
-            <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/10 border border-accent/20"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                <span className="text-[10px] font-black tracking-[0.3em] text-accent uppercase">
-                  BLOG / INSIGHTS
-                </span>
-              </motion.div>
+      {/* Floating Background Shapes */}
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          rotate: [0, 5, 0],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute top-1/4 right-[5%] w-96 h-96 bg-accent/5 blur-[100px] rounded-full"
+      />
+    </div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.85] uppercase italic"
-              >
-                Stories, Guides <br />
-                <span className="relative">
-                  & <span className="text-accent">Insights.</span>
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-muted-foreground text-base md:text-xl leading-relaxed font-medium italic max-w-xl border-l-2 border-accent/20 pl-8 py-2"
-              >
-                &quot;Exploring the intersection of high-performance
-                engineering, premium design, and future-forward digital
-                strategy.&quot;
-              </motion.p>
-            </div>
-
-            {/* Redesigned Stats */}
+    <div className="max-w-7xl mx-auto relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+        {/* --- Left Side: Editorial Content --- */}
+        <div className="lg:col-span-7 space-y-12">
+          {/* Label & Heading */}
+          <div className="space-y-6">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap gap-12 pt-4"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/10 border border-accent/20"
             >
-              <div className="space-y-1">
-                <p className="text-3xl font-black text-foreground tracking-tighter">
-                  50+
-                </p>
-                <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
-                  Articles Published
-                </p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-3xl font-black text-foreground tracking-tighter">
-                  10+
-                </p>
-                <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
-                  Categories
-                </p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-3xl font-black text-accent tracking-tighter uppercase italic">
-                  WEEKLY
-                </p>
-                <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
-                  Updated
-                </p>
-              </div>
+              <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="text-[10px] font-black tracking-[0.3em] text-accent uppercase">
+                BLOG / INSIGHTS
+              </span>
             </motion.div>
 
-            {/* Trending Tags Row
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.85] uppercase italic"
+            >
+              Stories, Guides <br />
+              <span className="relative">
+                & <span className="text-accent">Insights.</span>
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-muted-foreground text-base md:text-xl leading-relaxed font-medium italic max-w-xl border-l-2 border-accent/20 pl-8 py-2"
+            >
+              &quot;Exploring the intersection of high-performance engineering,
+              premium design, and future-forward digital strategy.&quot;
+            </motion.p>
+          </div>
+
+          {/* Redesigned Stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-wrap gap-12 pt-4"
+          >
+            <div className="space-y-1">
+              <p className="text-3xl font-black text-foreground tracking-tighter">
+                50+
+              </p>
+              <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
+                Articles Published
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-3xl font-black text-foreground tracking-tighter">
+                10+
+              </p>
+              <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
+                Categories
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-3xl font-black text-accent tracking-tighter uppercase italic">
+                WEEKLY
+              </p>
+              <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
+                Updated
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Trending Tags Row */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,180 +152,105 @@ const EditorialHeader = ({
                 </Link>
               ))}
             </div>
-          </motion.div> */}
-          </div>
+          </motion.div>
+        </div>
 
-          {/* --- Right Side: Featured Preview Card --- */}
-          <div className="lg:col-span-5 relative group">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* --- Featured Slider --- */}
-              <div className="relative">
-                <Swiper
-                  modules={[Autoplay, Pagination, EffectFade, EffectCreative]}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
-                  pagination={{
-                    clickable: true,
-                    bulletClass:
-                      "swiper-pagination-bullet !bg-accent !opacity-20 !w-2 !h-2",
-                    bulletActiveClass:
-                      "!opacity-100 !w-6 !rounded-full transition-all",
-                  }}
-                  grabCursor={true}
-                  effect="creative"
-                  creativeEffect={{
-                    prev: {
-                      shadow: true,
-                      translate: ["-20%", 0, -1],
-                    },
-                    next: {
-                      translate: ["100%", 0, 0],
-                    },
-                  }}
-                  onSlideChange={(swiper) =>
-                    setActiveFeaturedIndex(swiper.realIndex)
-                  }
-                  className="featured-slider rounded-[2.5rem] overflow-hidden"
-                >
-                  {featuredBlogs?.map((blog, idx) => (
-                    <SwiperSlide key={blog.id}>
-                      {/* Main Featured Card */}
-                      <div className="relative bg-card/60 backdrop-blur-2xl border border-border/40 rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-700 hover:shadow-[0_40px_80px_rgba(0,0,0,0.2)] group-hover:border-accent/30">
-                        {/* Thumbnail Area */}
-                        <div className="relative aspect-[4/3] overflow-hidden">
+        {/* --- Right Side: Featured Preview Card --- */}
+        <div className="lg:col-span-5 relative group">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Main Featured Card */}
+            <div className="relative bg-card/60 backdrop-blur-2xl border border-border/40 rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-700 hover:shadow-[0_40px_80px_rgba(0,0,0,0.2)] group-hover:border-accent/30 group-hover:-translate-y-2">
+              {featuredBlog && (
+                <>
+                  {/* Thumbnail Area */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={featuredBlog.image}
+                      alt={featuredBlog.title}
+                      fill
+                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+
+                    {/* Badge */}
+                    <div className="absolute top-8 left-8">
+                      <span className="px-5 py-2.5 rounded-xl bg-accent text-accent-foreground text-[9px] font-black uppercase tracking-widest shadow-2xl">
+                        FEATURED / {featuredBlog.category}
+                      </span>
+                    </div>
+
+                    {/* Read Time on Image */}
+                    <div className="absolute bottom-8 right-8 flex items-center gap-2 text-white/90 text-[10px] font-black uppercase tracking-widest">
+                      <Clock className="w-4 h-4 text-accent" />
+                      {featuredBlog.readTime}
+                    </div>
+                  </div>
+
+                  {/* Content Area */}
+                  <div className="p-10 space-y-8">
+                    <div className="space-y-4">
+                      <Link href={`/blog/${featuredBlog.slug}`}>
+                        <h2 className="text-3xl md:text-4xl font-black text-foreground leading-[1.1] tracking-tighter uppercase italic hover:text-accent transition-colors">
+                          {featuredBlog.title}
+                        </h2>
+                      </Link>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-6 border-t border-border/50">
+                      {/* Author */}
+                      <div className="flex items-center gap-4">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-accent/20 p-0.5">
                           <Image
-                            src={blog.image}
-                            alt={blog.title}
+                            src="https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png"
+                            alt="Author"
                             fill
-                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                            className="object-cover rounded-full"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
-
-                          {/* Badge */}
-                          <div className="absolute top-8 left-8">
-                            <motion.span
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={
-                                activeFeaturedIndex === idx
-                                  ? { opacity: 1, x: 0 }
-                                  : { opacity: 0, x: -20 }
-                              }
-                              transition={{ delay: 0.3 }}
-                              className="px-5 py-2.5 rounded-xl bg-accent text-accent-foreground text-[9px] font-black uppercase tracking-widest shadow-2xl block"
-                            >
-                              FEATURED / {blog.category}
-                            </motion.span>
-                          </div>
-
-                          {/* Read Time on Image */}
-                          <div className="absolute bottom-8 right-8 flex items-center gap-2 text-white/90 text-[10px] font-black uppercase tracking-widest">
-                            <Clock className="w-4 h-4 text-accent" />
-                            {blog.readTime}
-                          </div>
                         </div>
-
-                        {/* Content Area */}
-                        <div className="p-10 space-y-8">
-                          <div className="space-y-4">
-                            <Link href={`/blog/${blog.slug}`}>
-                              <motion.h2
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={
-                                  activeFeaturedIndex === idx
-                                    ? { opacity: 1, y: 0 }
-                                    : { opacity: 0, y: 20 }
-                                }
-                                transition={{
-                                  delay: 0.4,
-                                  duration: 0.8,
-                                  ease: [0.16, 1, 0.3, 1],
-                                }}
-                                className="text-3xl md:text-4xl font-black text-foreground leading-[1.1] tracking-tighter uppercase italic hover:text-accent transition-colors"
-                              >
-                                {blog.title}
-                              </motion.h2>
-                            </Link>
-                          </div>
-
-                          <div className="flex items-center justify-between pt-6 border-t border-border/50">
-                            {/* Author */}
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={
-                                activeFeaturedIndex === idx
-                                  ? { opacity: 1 }
-                                  : { opacity: 0 }
-                              }
-                              transition={{ delay: 0.5 }}
-                              className="flex items-center gap-4"
-                            >
-                              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-accent/20 p-0.5">
-                                <Image
-                                  src="https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png"
-                                  alt="Author"
-                                  fill
-                                  className="object-cover rounded-full"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <span className="text-[11px] font-black text-foreground uppercase tracking-wider">
-                                  {blog.author || "Pir Ghulam Muhyo Din"}
-                                </span>
-                                <span className="text-[9px] font-bold text-muted-foreground uppercase opacity-60">
-                                  Written by
-                                </span>
-                              </div>
-                            </motion.div>
-
-                            {/* CTA */}
-                            <motion.div
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={
-                                activeFeaturedIndex === idx
-                                  ? { opacity: 1, x: 0 }
-                                  : { opacity: 0, x: 20 }
-                              }
-                              transition={{ delay: 0.6 }}
-                            >
-                              <Link
-                                href={`/blog/${blog.slug}`}
-                                className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-foreground text-background text-[9px] font-black uppercase tracking-tighter transition-all hover:bg-accent hover:text-accent-foreground group/cta"
-                              >
-                                Read Article
-                                <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
-                              </Link>
-                            </motion.div>
-                          </div>
+                        <div className="flex flex-col">
+                          <span className="text-[11px] font-black text-foreground uppercase tracking-wider">
+                            {featuredBlog.author || "Pir Ghulam Muhyo Din"}
+                          </span>
+                          <span className="text-[9px] font-bold text-muted-foreground uppercase opacity-60">
+                            Written by
+                          </span>
                         </div>
                       </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            </motion.div>
 
-            {/* Decorative Elements around card */}
-            <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full border border-accent/10 rounded-[2.5rem]" />
-            <div className="absolute -z-10 -top-6 -left-6 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full" />
-          </div>
+                      {/* CTA */}
+                      <Link
+                        href={`/blog/${featuredBlog.slug}`}
+                        className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-foreground text-background text-[9px] font-black uppercase tracking-tighter transition-all hover:bg-accent hover:text-accent-foreground group/cta"
+                      >
+                        Read Article
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Decorative Elements around card */}
+          <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full border border-accent/10 rounded-[2.5rem]" />
+          <div className="absolute -z-10 -top-6 -left-6 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full" />
         </div>
       </div>
+    </div>
 
-      {/* Vertical Label */}
-      <div className="hidden xl:block absolute left-8 top-1/2 -translate-y-1/2 -rotate-90 origin-left">
-        <span className="text-[10px] font-black text-muted-foreground/20 uppercase tracking-[1em]">
-          EDITORIAL ARCHIVE / 2026
-        </span>
-      </div>
-    </header>
-  );
-};
+    {/* Vertical Label */}
+    <div className="hidden xl:block absolute left-8 top-1/2 -translate-y-1/2 -rotate-90 origin-left">
+      <span className="text-[10px] font-black text-muted-foreground/20 uppercase tracking-[1em]">
+        EDITORIAL ARCHIVE / 2026
+      </span>
+    </div>
+  </header>
+);
 const ControlHub = ({
   searchQuery,
   setSearchQuery,
@@ -757,11 +670,7 @@ export default function Blog({ data, isHomePage = false }) {
         totalArticles={data.length}
         totalCategories={categories.length - 1}
         latestUpdate={data[0]?.date || "Updated recently"}
-        featuredBlogs={
-          data.filter((b) => b.featured).length > 0
-            ? data.filter((b) => b.featured)
-            : data.slice(0, 3)
-        }
+        featuredBlog={data.find((b) => b.featured) || data[0]}
         trendingTags={[...new Set(data.flatMap((b) => b.tags))].slice(0, 6)}
       />
 

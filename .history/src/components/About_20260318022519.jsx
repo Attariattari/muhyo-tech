@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import {
   CheckCircle2,
+  Award,
   Zap,
   Code2,
   Sparkles,
@@ -11,8 +12,13 @@ import {
   ChevronUp,
   ArrowRight,
   Globe,
+  Cpu,
   Verified,
+  ShieldCheck,
+  Target,
   Briefcase,
+  History,
+  Layers,
 } from "lucide-react";
 import { SectionWrapper, Button } from "./ui";
 import { useTypewriter, Cursor } from "react-simple-typewriter";

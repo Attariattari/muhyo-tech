@@ -2,26 +2,22 @@
 
 import { motion, useInView } from "framer-motion";
 import {
-  CheckCircle2,
-  Zap,
-  Code2,
   Sparkles,
-  Phone,
   ChevronDown,
   ChevronUp,
   ArrowRight,
+  CheckCircle2,
   Globe,
   Verified,
   Briefcase,
 } from "lucide-react";
+import { portfolioData } from "@/lib/data";
 import { SectionWrapper, Button } from "./ui";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { aboutData } from "@/lib/data";
-import SocialLinks from "./SocialLinks";
 
 const StatBadge = ({ icon: Icon, text, subtitle, delay }) => {
   return (
@@ -72,8 +68,14 @@ export default function About({ data, isHomePage = false }) {
     transitionEasing: "cubic-bezier(.03,.98,.52,.99)",
   };
 
-  const { features, experiences, coreValuesLarge, focusAreas, contactInfo } =
-    aboutData;
+  const {
+    features,
+    experiences,
+    coreValuesLarge,
+    focusAreas,
+    contactInfo,
+    socialLinks,
+  } = portfolioData.about;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -244,7 +246,18 @@ export default function About({ data, isHomePage = false }) {
               variants={itemVariants}
               className="flex gap-4 items-center"
             >
-              <SocialLinks />
+              {socialLinks.map((social, i) => (
+                <motion.a
+                  key={i}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -4 }}
+                  className={`w-12 h-12 rounded-xl glass border border-border/50 flex items-center justify-center transition-all duration-300 ${social.color}`}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
               <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent ml-4 opacity-50" />
             </motion.div>
 

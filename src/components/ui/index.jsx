@@ -50,17 +50,37 @@ export const Button = ({
   className = "",
   ...props
 }) => {
+  const baseClass =
+    "group relative inline-flex items-center justify-center gap-3 px-8 py-4 overflow-hidden rounded-full font-black text-[13px] tracking-[0.2em] uppercase transition-all duration-500 transform active:scale-95 z-10 w-fit";
+
   const variants = {
-    primary: "bg-accent text-accent-foreground shadow-lg shadow-accent/20",
-    secondary: "bg-muted text-foreground border border-border",
-    outline: "border-2 border-accent text-accent hover:bg-accent/10",
+    primary:
+      "bg-accent text-white shadow-xl shadow-accent/20 border border-accent/40 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/40",
+    secondary:
+      "bg-card/40 backdrop-blur-md text-foreground border border-border/50 hover:border-accent/30 hover:bg-card/80 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10",
+    outline:
+      "bg-transparent text-accent border border-accent/50 hover:bg-accent hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/30",
+    danger:
+      "bg-red-500 text-white shadow-lg shadow-red-500/20 border border-red-400 hover:-translate-y-1 hover:bg-red-600 hover:shadow-xl hover:shadow-red-500/40",
   };
+
   return (
     <button
-      className={`cursor-pointer px-8 py-3 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-300 transform active:scale-95 ${variants[variant]} ${className}`}
+      className={`${baseClass} ${variants[variant] || variants.primary} ${className}`}
       {...props}
     >
-      {children}
+      {/* SHIMMER EFFECT FOR PRIMARY */}
+      {variant === "primary" && (
+        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out pointer-events-none -z-10" />
+      )}
+      {/* SHIMMER FOR OUTLINE */}
+      {variant === "outline" && (
+        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out pointer-events-none -z-10" />
+      )}
+      
+      <span className="relative z-10 flex items-center justify-center gap-2 whitespace-nowrap">
+        {children}
+      </span>
     </button>
   );
 };

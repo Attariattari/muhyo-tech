@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "./ui";
 
 export default function BlogSlider({ posts }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,12 +94,11 @@ export default function BlogSlider({ posts }) {
                 {currentPost.summary}
               </p>
 
-              <Link
-                href={`/blog/${currentPost.id}`}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-accent-foreground rounded-full font-black uppercase text-xs tracking-[0.2em] transition-all hover:scale-105 hover:shadow-2xl hover:shadow-accent/40 group/btn"
-              >
-                Read Full Story{" "}
-                <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+              <Link href={`/blog/${currentPost.id}`}>
+                <Button>
+                  Read Full Story
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 duration-300" />
+                </Button>
               </Link>
             </motion.div>
           </div>

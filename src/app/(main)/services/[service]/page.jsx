@@ -289,12 +289,8 @@ export default function ServiceDetailPage() {
 
                   <div className="space-y-4">
                     <Link href="/contact" className="block">
-                      <Button className="w-full  cursor-pointer h-16 text-sm font-black uppercase tracking-[0.2em] bg-accent hover:bg-accent/90 text-white rounded-2xl shadow-xl shadow-accent/20 group/btn overflow-hidden relative">
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                          Get Started Now{" "}
-                          <Zap className="w-4 h-4 fill-white animate-pulse" />
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
+                      <Button className="w-full">
+                        Get Started Now <Zap className="w-4 h-4 fill-white animate-pulse" />
                       </Button>
                     </Link>
                     <Link
@@ -303,10 +299,7 @@ export default function ServiceDetailPage() {
                       rel="noopener noreferrer"
                       className="block"
                     >
-                      <Button
-                        variant="outline"
-                        className="w-full cursor-pointer h-16 text-sm font-black uppercase tracking-[0.2em] text-foreground border-border/50 hover:bg-foreground/5 rounded-2xl transition-all"
-                      >
+                      <Button variant="outline" className="w-full">
                         Quick WhatsApp
                       </Button>
                     </Link>

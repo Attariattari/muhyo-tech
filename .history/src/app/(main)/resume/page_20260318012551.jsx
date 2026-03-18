@@ -32,17 +32,17 @@ const resumeData = {
     {
       label: "Years Experience",
       value: "3+",
-      icon: <Award className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Award className="w-5 h-5 text-accent" />,
     },
     {
       label: "Projects Delivered",
       value: "10+",
-      icon: <Zap className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Zap className="w-5 h-5 text-accent" />,
     },
     {
       label: "Technologies",
       value: "10+",
-      icon: <Code className="w-5 h-5 transition-colors duration-300" />,
+      icon: <Code className="w-5 h-5 text-accent" />,
     },
   ],
   experience: [
@@ -200,9 +200,13 @@ export default function ResumePage() {
               <Button
                 variant="primary"
                 onClick={handleDownload}
+                className="group relative overflow-hidden shadow-2xl shadow-accent/30 hover:shadow-accent/50 inline-flex items-center justify-center gap-3 transition-all duration-300 hover:-translate-y-1 border border-accent/40 text-white w-fit"
               >
-                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
-                Download CV
+                <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out" />
+                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300 relative z-10" />
+                <span className="font-black tracking-widest relative z-10 uppercase whitespace-nowrap shrink-0 mt-[2px]">
+                  Download CV
+                </span>
               </Button>
             </motion.div>
 

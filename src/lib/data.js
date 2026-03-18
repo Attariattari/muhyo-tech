@@ -1,3 +1,31 @@
+import React from "react";
+import {
+    Mail,
+    Phone,
+    MessageCircle,
+    MapPin,
+    Linkedin,
+    Github,
+    Twitter,
+    Facebook,
+    Zap,
+    Shield,
+    Laptop,
+    Rocket,
+    MessageSquare,
+    Monitor,
+    Code,
+    Award,
+    Code2,
+    CheckCircle2,
+    Cpu,
+    Target,
+    Sparkles,
+    Verified,
+    Clock,
+    Briefcase,
+} from "lucide-react";
+
 export const portfolioData = {
     profile: {
         name: "Pir Ghulam Muhyo Din",
@@ -25,6 +53,79 @@ export const portfolioData = {
             facebook: "https://facebook.com",
         },
     },
+    contactInfo: [{
+            icon: < Mail className = "w-5 h-5" / > ,
+            label: "Email Us",
+            value: "MuhyoTech@gmail.com",
+            href: "mailto:MuhyoTech@gmail.com?subject=Project Inquiry&body=Hi MuhyoTech Team, I'm interested in working with you on a project...",
+            color: "from-accent/80 to-accent",
+        },
+        {
+            icon: < Phone className = "w-5 h-5" / > ,
+            label: "Call Us",
+            value: "+92 322 4458481",
+            href: "tel:+923224458481",
+            color: "from-accent to-blue-600/50",
+        },
+        {
+            icon: < MessageCircle className = "w-5 h-5" / > ,
+            label: "WhatsApp",
+            value: "Active 24/7",
+            href: "https://wa.me/923224458481?text=Hi MuhyoTech! I'd like to discuss a new project with you.",
+            color: "from-emerald-500 to-teal-500",
+            target: "_blank",
+        },
+        {
+            icon: < MapPin className = "w-5 h-5" / > ,
+            label: "Our Office",
+            value: "Lahore, Pakistan",
+            href: "https://www.google.com/maps/search/?api=1&query=Lahore,+Pakistan",
+            color: "from-purple-500 to-indigo-500",
+            target: "_blank",
+        },
+    ],
+    serviceFeatures: [{
+            icon: < Zap className = "w-6 h-6" / > ,
+            title: "Fast Performance",
+            description: "Optimized for speed to ensure your visitors stay engaged and convert.",
+        },
+        {
+            icon: < Shield className = "w-6 h-6" / > ,
+            title: "Secure & Reliable",
+            description: "Built with the latest security standards to protect your data and users.",
+        },
+        {
+            icon: < Laptop className = "w-6 h-6" / > ,
+            title: "Fully Responsive",
+            description: "Your site will look and work perfectly on every device, from mobile to desktop.",
+        },
+        {
+            icon: < Rocket className = "w-6 h-6" / > ,
+            title: "SEO Optimized",
+            description: "Clean code structure that search engines love, helping you rank higher.",
+        },
+    ],
+    serviceProcess: [{
+            title: "Discovery",
+            description: "We start by understanding your goals, audience, and technical requirements.",
+            icon: < MessageSquare className = "w-5 h-5" / > ,
+        },
+        {
+            title: "Architecture",
+            description: "I design the structure and layout to ensure the best possible user flow.",
+            icon: < Monitor className = "w-5 h-5" / > ,
+        },
+        {
+            title: "Development",
+            description: "Using the best tools, I build your solution with clean, efficient code.",
+            icon: < Code className = "w-5 h-5" / > ,
+        },
+        {
+            title: "Launch",
+            description: "I handle the deployment and fine-tuning to make sure everything is perfect.",
+            icon: < Rocket className = "w-5 h-5" / > ,
+        },
+    ],
     skills: [
         { name: "React / Next.js", level: 95, category: "Frontend" },
         { name: "Tailwind CSS", level: 90, category: "Frontend" },
@@ -457,8 +558,7 @@ export const portfolioData = {
             ],
         },
     ],
-    blogs: [
-        {
+    blogs: [{
             id: 1,
             slug: "rise-of-the-product-engineer",
             title: "The Rise of the Product Engineer",
@@ -694,3 +794,145 @@ export const portfolioData = {
     ],
     messages: [], // For contact form submissions
 };
+
+export const aboutData = {
+    features: [
+      {
+        icon: Award,
+        title: "Top Quality Work",
+        desc: "Architecting high-performance systems with precision and scalability.",
+        color: "text-accent",
+        bg: "bg-accent/10",
+        gradient: "from-accent/20 to-blue-500/10",
+      },
+      {
+        icon: Zap,
+        title: "Super Fast Speed",
+        desc: "Optimizing every byte for instant load times and fluid interaction.",
+        color: "text-accent/90",
+        bg: "bg-accent/10",
+        gradient: "from-accent/20 to-indigo-500/10",
+      },
+      {
+        icon: Code2,
+        title: "Smart & Future Proof",
+        desc: "Systems engineered to grow and adapt with emerging technologies.",
+        color: "text-accent/80",
+        bg: "bg-accent/10",
+        gradient: "from-accent/20 to-emerald-500/10",
+      },
+    ],
+    experiences: [
+      {
+        year: "2024 - Present",
+        role: "Senior Web Developer",
+        company: "Muhyo Tech",
+        duration: "Present",
+        description:
+          "Specializing in building high-performance, responsive web applications using Next.js and Tailwind CSS. Focus on delivering seamless user experiences and modern UI architectures.",
+        milestones: [
+          "Custom Enterprise Dashboards",
+          "SEO Optimized Web Apps",
+          "Responsive UI Design Expert",
+        ],
+      },
+      {
+        year: "2023 - 2024",
+        role: "Full-Stack Web Developer",
+        company: "Muhyo Tech",
+        duration: "1 Year",
+        description:
+          "Architecting robust backend systems and dynamic frontends. Implementing real-time features and secure API integrations to create comprehensive web solutions.",
+        milestones: [
+          "Real-time Data Integration",
+          "Secure User Auth Systems",
+          "API Performance Tuning",
+        ],
+      },
+      {
+        year: "2022 - 2023",
+        role: "Frontend Specialist",
+        company: "Muhyo Tech",
+        duration: "1 Year",
+        description:
+          "Crafting pixel-perfect designs and fluid animations. Working closely with modern JavaScript frameworks to bring complex digital concepts to life on the web.",
+        milestones: [
+          "Fluid Framer Motion Animations",
+          "Modern Component Architecture",
+          "Atomic Design Implementation",
+        ],
+      },
+    ],
+    coreValuesLarge: [
+      {
+        icon: CheckCircle2,
+        title: "Top Quality Work",
+        desc: "Meticulous attention to detail ensures every pixel and line of code is perfect.",
+        color: "text-accent",
+        bg: "bg-accent/10",
+      },
+      {
+        icon: Zap,
+        title: "Fast & Reliable",
+        desc: "Engineered for speed and stability, ensuring your platform is always ready for traffic.",
+        color: "text-accent",
+        bg: "bg-accent/10",
+      },
+      {
+        icon: Cpu,
+        title: "Future-Proof Solutions",
+        desc: "Building with the latest industry standards to ensure long-term scalability.",
+        color: "text-accent",
+        bg: "bg-accent/10",
+      },
+      {
+        icon: Target,
+        title: "User-Centric Design",
+        desc: "Creating intuitive experiences that your users will actually love using every day.",
+        color: "text-accent",
+        bg: "bg-accent/10",
+      },
+    ],
+    focusAreas: [
+      {
+        icon: Sparkles,
+        title: "Clean & Modern UI/UX",
+        desc: "We focus on creating aesthetic designs that not only look premium but provide effortless navigation and usability.",
+      },
+      {
+        icon: Zap,
+        title: "High Performance",
+        desc: "Speed is our priority. We optimize every image and script to ensure lightning-fast interaction for every visitor.",
+      },
+      {
+        icon: Code2,
+        title: "Scalable Architecture",
+        desc: "Our systems are built to grow. Whether you have 100 or 100,000 users, our architecture handles it with ease.",
+      },
+      {
+        icon: Verified,
+        title: "Client-Centric",
+        desc: "Your vision is our mission. We provide personalized consultations to ensure we deliver exactly what your business needs.",
+      },
+    ],
+    contactInfo: [
+      {
+        icon: Mail,
+        label: "Email",
+        value: portfolioData.profile.email,
+        link: `mailto:${portfolioData.profile.email}`,
+      },
+      {
+        icon: Phone,
+        label: "Phone",
+        value: portfolioData.profile.phone,
+        link: `tel:${portfolioData.profile.phone}`,
+      },
+      { icon: MapPin, label: "Office Location", value: portfolioData.profile.location },
+      {
+        icon: Clock,
+        label: "Working hours",
+        value: portfolioData.profile.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM",
+      },
+    ],
+};

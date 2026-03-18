@@ -11,6 +11,7 @@ import {
   ExternalLink,
   Github,
 } from "lucide-react";
+import { Button } from "./ui";
 
 const ProjectModal = ({ selectedProject, setSelectedProject }) => {
   if (!selectedProject) return null;
@@ -164,12 +165,12 @@ const ProjectModal = ({ selectedProject, setSelectedProject }) => {
 
             {/* Buttons */}
             <div className="flex flex-wrap gap-4 pt-6 pb-2">
-              <button className="px-8 py-3.5 bg-accent text-accent-foreground font-bold rounded-lg flex items-center gap-2 hover:translate-y-[-2px] transition-all shadow-lg shadow-accent/20">
+              <Button>
                 Live Project <ExternalLink className="w-4 h-4" />
-              </button>
-              <button className="px-8 py-3.5 bg-transparent border border-border text-foreground font-bold rounded-lg flex items-center gap-2 hover:bg-muted transition-all">
+              </Button>
+              <Button variant="outline">
                 View Source <Github className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </div>
 

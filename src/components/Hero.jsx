@@ -16,6 +16,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Tilt from "react-parallax-tilt";
+import { Button } from "@/components/ui";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -165,22 +166,17 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="flex flex-col sm:flex-row items-center gap-5"
             >
-              <Link
-                href="/projects"
-                className="w-full sm:w-auto relative group"
-              >
-                <div className="absolute -inset-1 bg-gradient-to-r from-accent/60 to-accent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-                <button className="relative w-full px-12 py-5 bg-foreground text-background font-black uppercase text-xs tracking-[0.3em] rounded-2xl transition-all flex items-center justify-center gap-3">
+              <Link href="/projects" className="w-full sm:w-auto">
+                <Button className="w-full">
                   See My Work
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </Button>
               </Link>
 
-              <Link
-                href="/contact"
-                className="w-full sm:w-auto px-10 py-5 rounded-2xl border border-border bg-card/20 text-foreground font-black uppercase text-xs tracking-[0.3em] hover:bg-card/50 transition-all backdrop-blur-sm"
-              >
-                Let's Talk
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full backdrop-blur-sm">
+                  Let's Talk
+                </Button>
               </Link>
             </motion.div>
           </div>

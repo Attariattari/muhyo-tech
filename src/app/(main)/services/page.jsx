@@ -6,16 +6,9 @@ import Services from "@/components/Services";
 import { portfolioData } from "@/lib/data";
 import { SectionWrapper, Card, Button } from "@/components/ui";
 import {
-  CheckCircle2,
   Zap,
-  Shield,
   Rocket,
-  Laptop,
-  MessageSquare,
   ArrowRight,
-  Monitor,
-  Code,
-  Cpu,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -146,61 +139,7 @@ const ServiceSlider = ({ services }) => {
 };
 
 export default function ServicesPage() {
-  const { services } = portfolioData;
-
-  const features = [
-    {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Fast Performance",
-      description:
-        "Optimized for speed to ensure your visitors stay engaged and convert.",
-    },
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Secure & Reliable",
-      description:
-        "Built with the latest security standards to protect your data and users.",
-    },
-    {
-      icon: <Laptop className="w-6 h-6" />,
-      title: "Fully Responsive",
-      description:
-        "Your site will look and work perfectly on every device, from mobile to desktop.",
-    },
-    {
-      icon: <Rocket className="w-6 h-6" />,
-      title: "SEO Optimized",
-      description:
-        "Clean code structure that search engines love, helping you rank higher.",
-    },
-  ];
-
-  const processSteps = [
-    {
-      title: "Discovery",
-      description:
-        "We start by understanding your goals, audience, and technical requirements.",
-      icon: <MessageSquare className="w-5 h-5" />,
-    },
-    {
-      title: "Architecture",
-      description:
-        "I design the structure and layout to ensure the best possible user flow.",
-      icon: <Monitor className="w-5 h-5" />,
-    },
-    {
-      title: "Development",
-      description:
-        "Using the best tools, I build your solution with clean, efficient code.",
-      icon: <Code className="w-5 h-5" />,
-    },
-    {
-      title: "Launch",
-      description:
-        "I handle the deployment and fine-tuning to make sure everything is perfect.",
-      icon: <Rocket className="w-5 h-5" />,
-    },
-  ];
+  const { services, serviceFeatures, serviceProcess } = portfolioData;
 
   return (
     <div className=" min-h-screen pt-20">
@@ -241,16 +180,11 @@ export default function ServicesPage() {
                       .getElementById("services")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
-                  className="px-10 py-4 shadow-2xl shadow-accent/20 cursor-pointer"
                 >
-                  Explore Services{" "}
-                  <ArrowRight className="ml-2 w-5 h-5 inline" />
+                  Explore Services <ArrowRight className="w-5 h-5 inline" />
                 </Button>
                 <Link href="/contact">
-                  <Button
-                    variant="outline"
-                    className="px-10 py-4 cursor-pointer"
-                  >
+                  <Button variant="outline">
                     Book a Call
                   </Button>
                 </Link>
@@ -349,7 +283,7 @@ export default function ServicesPage() {
         className="bg-secondary/5"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
+          {serviceFeatures.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -377,7 +311,7 @@ export default function ServicesPage() {
           <div className="hidden lg:block absolute top-[60px] left-0 w-full h-0.5 bg-border/30 -z-10" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {processSteps.map((step, index) => (
+            {serviceProcess.map((step, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -422,16 +356,13 @@ export default function ServicesPage() {
               business grow."
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button className="w-full sm:w-auto px-12 py-5 text-base cursor-pointer">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button className="w-full">
                   Start Your Project
                 </Button>
               </Link>
-              <Link href="/projects">
-                <Button
-                  variant="outline"
-                  className="w-full sm:w-auto px-12 py-5 text-base cursor-pointer"
-                >
+              <Link href="/projects" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full">
                   View My Work
                 </Button>
               </Link>
