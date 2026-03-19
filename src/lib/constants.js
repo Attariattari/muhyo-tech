@@ -18,8 +18,12 @@ export const NAVIGATION_LINKS = [
 ];
 
 export const ADMIN_NAVIGATION_LINKS = [
-  { name: "Dashboard", href: "/admin/dashboard" },
-  { name: "Blogs", href: "/admin/blogs" },
-  { name: "Projects", href: "/admin/projects" },
-  { name: "Messages", href: "/admin/messages" },
+  { name: "Dashboard", href: "/admin/dashboard", icon: "LayoutDashboard" },
+  { name: "Projects", href: "/admin/projects", icon: "Briefcase" },
+  { name: "Services", href: "/admin/services", icon: "Cpu" },
+  { name: "Blog", href: "/admin/blog", icon: "FileText" },
+  { name: "Skills", href: "/admin/skills", icon: "Code2" },
+  { name: "Resume", href: "/admin/resume", icon: "FileText" },
+  { name: "Messages", href: "/admin/messages", icon: "MessageSquare" },
+  { name: "Settings", href: "/admin/settings", icon: "Settings" },
 ];

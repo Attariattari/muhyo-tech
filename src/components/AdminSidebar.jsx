@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
@@ -10,19 +10,38 @@ import {
   LogOut,
   ChevronRight,
   Settings,
+  Cpu,
+  Code2,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { ADMIN_NAVIGATION_LINKS } from "@/lib/constants";
+import { toast } from "sonner";
 
-const sidebarLinks = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Projects", href: "/projects-management", icon: Briefcase },
-  { name: "Blogs", href: "/blogs-management", icon: FileText },
-  { name: "Messages", href: "/messages", icon: MessageSquare },
-  { name: "Settings", href: "/settings", icon: Settings },
-];
+const ICON_MAP = {
+  LayoutDashboard,
+  Briefcase,
+  Cpu,
+  FileText,
+  Code2,
+  MessageSquare,
+  Settings,
+};
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/admin/logout", { method: "POST" });
+      if (res.ok) {
+        toast.success("Identity revoked. Redirecting...");
+        router.push("/admin/login");
+      }
+    } catch (err) {
+      toast.error("Logout failed. System failure.");
+    }
+  };
 
   return (
     <div className="fixed left-0 top-0 w-64 h-full bg-card border-r border-border flex flex-col z-20 shadow-2xl">
@@ -33,8 +52,9 @@ export default function AdminSidebar() {
         </span>
       </div>
 
-      <nav className="flex-1 min-h-0 p-6 space-y-2 mt-4 overflow-y-auto">
-        {sidebarLinks.map((link) => {
+      <nav className="flex-1 min-h-0 p-6 space-y-2 mt-4 overflow-y-auto font-sans">
+        {ADMIN_NAVIGATION_LINKS.map((link) => {
+          const IconComponent = ICON_MAP[link.icon] || FileText;
           const isActive = pathname === link.href;
           return (
             <Link
@@ -47,10 +67,10 @@ export default function AdminSidebar() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <link.icon
+                <IconComponent
                   className={`w-5 h-5 ${isActive ? "text-accent" : "group-hover:text-accent"}`}
                 />
-                <span className="font-semibold text-sm">{link.name}</span>
+                <span className="font-semibold text-sm tracking-tight">{link.name}</span>
               </div>
               {isActive && (
                 <motion.div
@@ -64,13 +84,13 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="p-6 border-t border-border">
-        <Link
-          href="/logout"
-          className="flex items-center gap-3 p-3 text-red-400/70 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-colors font-semibold text-sm"
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 p-3 text-red-100 hover:text-white hover:bg-red-500 rounded-xl transition-all font-semibold text-sm active:scale-95 cursor-pointer shadow-lg shadow-red-500/10"
         >
           <LogOut className="w-5 h-5" />
-          <span>Logout</span>
-        </Link>
+          <span>Revoke Identity</span>
+        </button>
       </div>
     </div>
   );
