@@ -10,71 +10,11 @@ import {
   ChevronRight,
   Circle,
 } from "lucide-react";
-import Link from "next/link";
+import { portfolioData } from "@/lib/data";
 
 export default function PrivacyPolicy() {
-  const sections = [
-    {
-      title: "Data We Collect",
-      icon: <Eye size={20} />,
-      content:
-        "We collect personal information that you voluntarily provide when interacting with our digital ecosystem.",
-      details: [
-        "Personal Names",
-        "Email Addresses",
-        "Technical Footprints",
-        "Usage Patterns",
-      ],
-    },
-    {
-      title: "Processing Intent",
-      icon: <Lock size={20} />,
-      content:
-        "Information is processed for legitimate business logic, contract fulfillment, and legal compliance.",
-      details: [
-        "Identity Verification",
-        "Service Optimization",
-        "Strategic Marketing",
-        "Security Hardening",
-      ],
-    },
-    {
-      title: "Data Sovereignty",
-      icon: <Shield size={20} />,
-      content:
-        "Consent-based information sharing restricted to essential legal and business operations.",
-      details: [
-        "Legal Mandates",
-        "Rights Protection",
-        "Third-party Audits",
-        "Operational Continuity",
-      ],
-    },
-    {
-      title: "Security & Persistence",
-      icon: <FileText size={20} />,
-      content:
-        "Advanced technical measures to ensure information integrity and appropriate retention scales.",
-      details: [
-        "AES Encryption",
-        "Vulnerability Audits",
-        "Strategic Archival",
-        "Secure Deletion",
-      ],
-    },
-    {
-      title: "Regulatory Rights",
-      icon: <Shield size={20} />,
-      content:
-        "Empowering users with control over their digital footprint under international privacy frameworks.",
-      details: [
-        "Access Rights",
-        "Erasure Protocols",
-        "Processing Objections",
-        "Portability Requests",
-      ],
-    },
-  ];
+  const { privacyPage } = portfolioData.siteConfig;
+  const { sections, title, subtitle, description, finalStatement } = privacyPage;
 
   return (
     <div className="min-h-screen pt-32 pb-40 px-6 lg:px-24 relative overflow-hidden text-foreground selection:bg-accent/30 font-sans">
@@ -92,7 +32,7 @@ export default function PrivacyPolicy() {
               Nexus
             </Link>
             <ChevronRight size={10} className="text-muted-foreground" />
-            <span className="text-muted-foreground/50">Privacy Governance</span>
+            <span className="text-muted-foreground/50">{subtitle}</span>
           </motion.div>
 
           <motion.h1
@@ -101,9 +41,9 @@ export default function PrivacyPolicy() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-6xl md:text-[10rem] font-black italic tracking-tighter uppercase leading-[0.8] mix-blend-difference"
           >
-            Privacy{" "}
+            {title.split(" ").slice(0, 1).join(" ")}{" "}
             <span className="text-accent underline decoration-accent/20 underline-offset-[1rem]">
-              Policy
+              {title.split(" ").slice(1).join(" ")}
             </span>
           </motion.h1>
 
@@ -113,8 +53,7 @@ export default function PrivacyPolicy() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-muted-foreground text-xl lg:text-2xl italic max-w-3xl leading-relaxed pl-6 border-l-2 border-accent"
           >
-            High-fidelity data protection framework defining the digital
-            integrity standards at Muhyo Tech.
+            {description}
           </motion.p>
         </div>
 
@@ -185,7 +124,7 @@ export default function PrivacyPolicy() {
                       className={`flex items-center gap-4 ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}
                     >
                       <div className="text-accent w-12 h-12 flex items-center justify-center rounded-2xl bg-accent/10 border border-accent/20 backdrop-blur-md">
-                        {section.icon}
+                        <section.icon size={20} />
                       </div>
                       <h3 className="text-3xl font-black uppercase italic tracking-tighter text-foreground leading-none">
                         {section.title}
@@ -232,15 +171,15 @@ export default function PrivacyPolicy() {
           className="mt-60 text-center space-y-12"
         >
           <div className="h-px w-24 bg-accent/40 mx-auto" />
-          <h2 className="text-4xl md:text-7xl font-black italic uppercase tracking-tighter text-foreground">
-            Digital <span className="text-accent">Sovereignty</span> Ensured
+           <h2 className="text-4xl md:text-7xl font-black italic uppercase tracking-tighter text-foreground">
+            {finalStatement.title.split(" ").slice(0, 1).join(" ")} <span className="text-accent">{finalStatement.title.split(" ").slice(1).join(" ")}</span>
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             <Link
               href="/contact"
               className="px-10 py-4 h-14 rounded-full bg-accent text-background text-[10px] font-black uppercase tracking-[0.4em] hover:scale-105 transition-transform flex items-center justify-center"
             >
-              Consult Security Team
+              {finalStatement.cta}
             </Link>
           </div>
         </motion.div>

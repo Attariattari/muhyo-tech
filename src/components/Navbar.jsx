@@ -6,14 +6,10 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
-];
+import { portfolioData } from "@/lib/data";
+
+const { navbar } = portfolioData.siteConfig;
+const { navLinks, logo, cta } = navbar;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,9 +31,9 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-foreground">
-          Muhyo
+          {logo.title}
           <span className="text-accent underline decoration-accent/30 underline-offset-4">
-            Tech
+            {logo.accent}
           </span>
         </Link>
 
@@ -54,10 +50,10 @@ export default function Navbar() {
           ))}
           <ThemeToggle />
           <Link
-            href="/resume"
+            href={cta.href}
             className="px-5 py-2 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition-opacity hover-glow"
           >
-            My Resume
+            {cta.label}
           </Link>
         </div>
 
@@ -94,11 +90,11 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/resume"
+                href={cta.href}
                 className="w-full text-center py-3 rounded-lg bg-accent text-accent-foreground font-semibold"
                 onClick={() => setIsOpen(false)}
               >
-                Contact Me
+                {cta.label}
               </Link>
             </div>
           </motion.div>

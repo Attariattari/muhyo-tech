@@ -17,7 +17,137 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import EditorialBackground from "@/components/EditorialBackground";
-import { resumeData } from "@/lib/data";
+
+const resumeData = {
+  name: "Pir Ghulam Muhyo Din",
+  role: "Full Stack Web Developer",
+  tagline: "Full-Stack Engineer | Performance & Scalable Web Applications",
+  about:
+    "Versatile professional with experience in sales management, project coordination, and full stack web development. Worked as Sales Manager (2020–2022), transitioned into freelance full stack development (2023–Present), and also handled project management and digital systems (2025–2026). Strong ability to manage technical, administrative, and team-based responsibilities.",
+  contact: [
+    { icon: <Phone className="w-4 h-4" />, text: "+92-322-4458481" },
+    { icon: <Mail className="w-4 h-4" />, text: "attariattari549@gmail.com" },
+    { icon: <MapPin className="w-4 h-4" />, text: "Lahore, Pakistan" },
+  ],
+  stats: [
+    {
+      label: "Years Experience",
+      value: "3+",
+      icon: <Award className="w-5 h-5 transition-colors duration-300" />,
+    },
+    {
+      label: "Projects Delivered",
+      value: "10+",
+      icon: <Zap className="w-5 h-5 transition-colors duration-300" />,
+    },
+    {
+      label: "Technologies",
+      value: "10+",
+      icon: <Code className="w-5 h-5 transition-colors duration-300" />,
+    },
+  ],
+  experience: [
+    {
+      role: "Freelance Full Stack Web Developer",
+      company: "Self-Employed",
+      duration: "2023 – Present",
+      metrics: "Global Reach • 95+ Performance",
+      achievements: [
+        "Engineered and delivered 10+ high-performance web applications using robust modern stacks (Next.js, Node.js), ensuring optimized performance and scalability.",
+        "Managed the end-to-end software development lifecycle (SDLC), from initial architecture to final cloud deployment, for global clients across multiple domains.",
+        "Reduced client operational overhead by 20% through custom-built automation tools and seamless third-party integrations.",
+      ],
+    },
+    {
+      role: "Project Manager & Computer Operator",
+      company: "Digital Systems Division",
+      duration: "2025 – Jan 2026",
+      metrics: "100% On-Time Delivery",
+      achievements: [
+        "Directed project execution and cross-functional team coordination, maintaining a 100% success rate in meeting project milestones.",
+        "Revolutionized digital record-keeping and documentation systems, enhancing data retrieval speed by 40% and overall reporting accuracy.",
+        "Optimized internal workflows by identifying technical bottlenecks and implementing streamlined communication protocols between departments.",
+      ],
+    },
+    {
+      role: "Sales Manager",
+      company: "Theme Park Society",
+      duration: "2020 – 2022",
+      metrics: "Increased Rev. & Efficiency",
+      achievements: [
+        "Orchestrated sales operations and managed high-priority client relationships, consistently exceeding quarterly performance targets.",
+        "Improved inter-departmental communication efficiency by 30% through the implementation of standardized reporting frameworks.",
+        "Led diverse teams to execute complex operational tasks, ensuring high-quality client service delivery under tight deadlines.",
+      ],
+    },
+  ],
+  education: [
+    {
+      degree: "BS Computer Science",
+      institution: "Virtual University Lahore",
+      duration: "2025",
+    },
+    {
+      degree: "Intermediate",
+      institution: "BISE Sahiwal",
+      duration: "2020 – 2021",
+    },
+    {
+      degree: "Matric",
+      institution: "BISE Sahiwal",
+      duration: "2018 – 2019",
+    },
+  ],
+  skills: [
+    {
+      category: "Development",
+      items: [
+        "Full Stack Web Dev",
+        "Next.js & React",
+        "Node.js & Express",
+        "Database Management",
+      ],
+    },
+    {
+      category: "Management",
+      items: [
+        "Project Coordination",
+        "Sales & Client Management",
+        "Team Leadership",
+        "Digital Records",
+      ],
+    },
+    {
+      category: "Strategy",
+      items: [
+        "Problem Solving",
+        "Adaptability",
+        "Process Optimization",
+        "Client Growth",
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: "Enterprise ERP Ecosystem",
+      tech: ["Next.js", "Node.js", "MongoDB"],
+      outcome:
+        "Streamlined resource management, reducing inventory waste by 15%.",
+    },
+    {
+      name: "High-Traffic SaaS Portal",
+      tech: ["React", "Firebase", "Tailwind"],
+      outcome:
+        "Achieved 99.9% uptime for 2k+ daily users with sub-1s load times.",
+    },
+    {
+      name: "Real Estate CRM Edge",
+      tech: ["Express", "PostgreSQL", "React"],
+      outcome:
+        "Automated lead tracking, increasing closure rates by 25% in 3 months.",
+    },
+  ],
+};
 
 export default function ResumePage() {
   const handleDownload = () => {
@@ -34,7 +164,7 @@ export default function ResumePage() {
     <div className="pt-2 pb-2 ">
       <SectionWrapper subtitle="Professional Path" title="My Digital Legacy">
         <EditorialBackground text="RESUME" />
-
+        sssssssssssssssssssssssssssssssss
         {/* HERO SECTION */}
         <div className="relative mb-20 overflow-hidden">
           <div className="max-w-4xl mx-auto">
@@ -62,7 +192,7 @@ export default function ResumePage() {
                       className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
                     >
                       <span className="p-2 rounded-lg bg-accent/10 text-accent">
-                        <item.icon className="w-4 h-4" />
+                        {item.icon}
                       </span>
                       {item.text}
                     </div>
@@ -87,7 +217,7 @@ export default function ResumePage() {
                 >
                   <Card className="flex items-center gap-5 py-6 group hover:translate-y-[-4px] transition-all duration-300">
                     <div className="p-4 rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/20 group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                      <stat.icon className="w-5 h-5 transition-colors duration-300" />
+                      {stat.icon}
                     </div>
                     <div>
                       <div className="text-2xl font-black text-foreground">
@@ -103,7 +233,6 @@ export default function ResumePage() {
             </div>
           </div>
         </div>
-
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* LEFT COLUMN: EXPERIENCE & EDUCATION */}
           <div className="lg:col-span-8 space-y-16">

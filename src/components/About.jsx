@@ -53,12 +53,7 @@ export default function About({ data, isHomePage = false }) {
   const narrativeRef = useRef(null);
 
   const [text] = useTypewriter({
-    words: [
-      "Software Engineer",
-      "Full-Stack Developer",
-      "UI/UX Enthusiast",
-      "Solution Architect",
-    ],
+    words: aboutData.typewriterWords,
     loop: true,
     delaySpeed: 2000,
   });

@@ -1,4 +1,16 @@
 import React from "react";
+const XIcon = ({ className }) => (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+);
+
+const WhatsAppIcon = ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+);
+
 import {
     Mail,
     Phone,
@@ -24,9 +36,255 @@ import {
     Verified,
     Clock,
     Briefcase,
+    Layers,
+    Terminal,
+    Home,
+    User,
+    FileText,
+    GraduationCap,
+    Eye,
+    Lock,
+    Gavel,
+    Scale,
 } from "lucide-react";
 
 export const portfolioData = {
+    siteConfig: {
+        hero: {
+            typewriterWords: [
+                "Muhyo Tech",
+                "Senior Software Engineer",
+                "UX Architect",
+                "Full Stack Developer",
+            ],
+            description: "I specialize in building high-quality, modern websites that look amazing and work perfectly on every device. By using the latest technology, I ensure your site is fast, secure, and easy for your visitors to use. My goal is to help your business grow with a powerful online presence that makes a great first impression.",
+            features: [
+                { icon: Layers, label: "Great Design", description: "Built to grow" },
+                { icon: Terminal, label: "Clean Code", description: "Easy to manage" },
+                { icon: Shield, label: "Safe & Secure", description: "Stable setup" },
+                { icon: Zap, label: "Fast Load", description: "Smooth experience" },
+            ]
+        },
+        sidebar: {
+            navLinks: [
+                { name: "Home", href: "/", icon: Home },
+                { name: "About", href: "/about", icon: User },
+                { name: "Services", href: "/services", icon: Cpu },
+                { name: "Projects", href: "/projects", icon: Code2 },
+                { name: "Blog", href: "/blog", icon: FileText },
+                { name: "Contact", href: "/contact", icon: Mail },
+            ]
+        },
+        footer: {
+            brandDescription: "Architecting high-performance digital solutions with a focus on scalability, aesthetics, and user experience.",
+            navigation: [
+                { name: "Home", href: "/" },
+                { name: "About", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Projects", href: "/projects" },
+            ],
+            resources: [
+                { name: "Blog", href: "/blog" },
+                { name: "Resume", href: "/resume" },
+                { name: "Skills", href: "/#skills" },
+                { name: "Contact", href: "/contact" },
+            ],
+            legal: [
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Terms of Service", href: "/terms" },
+            ],
+        },
+        navbar: {
+            logo: {
+                title: "Muhyo",
+                accent: "Tech"
+            },
+            navLinks: [
+                { name: "Home", href: "/" },
+                { name: "About", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Projects", href: "/projects" },
+                { name: "Blog", href: "/blog" },
+                { name: "Contact", href: "/contact" },
+            ],
+            cta: {
+                label: "My Resume",
+                href: "/resume"
+            }
+        },
+        servicesPage: {
+            hero: {
+                badge: "Expert Solutions",
+                title: "Transforming Ideas Into Digital Excellence",
+                description: "I provide high-end web development and design services tailored to your specific business needs. My focus is on quality, performance, and delivering real results that help you scale."
+            },
+            stats: [
+                { value: "3+", label: "Years Exp" },
+                { value: "50+", label: "Projects" },
+                { value: "100%", label: "Success" }
+            ],
+            cta: {
+                title: "Ready to build something professional?",
+                description: "Let's work together to create a website that actually helps your business grow."
+            }
+        },
+        privacyPage: {
+            title: "Privacy Policy",
+            subtitle: "Privacy Governance",
+            description: "High-fidelity data protection framework defining the digital integrity standards at Muhyo Tech.",
+            finalStatement: {
+                title: "Digital Sovereignty Ensured",
+                cta: "Consult Security Team"
+            },
+            sections: [
+                {
+                    title: "Data We Collect",
+                    icon: Eye,
+                    content: "We collect personal information that you voluntarily provide when interacting with our digital ecosystem.",
+                    details: ["Personal Names", "Email Addresses", "Technical Footprints", "Usage Patterns"]
+                },
+                {
+                    title: "Processing Intent",
+                    icon: Lock,
+                    content: "Information is processed for legitimate business logic, contract fulfillment, and legal compliance.",
+                    details: ["Identity Verification", "Service Optimization", "Strategic Marketing", "Security Hardening"]
+                },
+                {
+                    title: "Data Sovereignty",
+                    icon: Shield,
+                    content: "Consent-based information sharing restricted to essential legal and business operations.",
+                    details: ["Legal Mandates", "Rights Protection", "Third-party Audits", "Operational Continuity"]
+                },
+                {
+                    title: "Security & Persistence",
+                    icon: FileText,
+                    content: "Advanced technical measures to ensure information integrity and appropriate retention scales.",
+                    details: ["AES Encryption", "Vulnerability Audits", "Strategic Archival", "Secure Deletion"]
+                },
+                {
+                    title: "Regulatory Rights",
+                    icon: Shield,
+                    content: "Empowering users with control over their digital footprint under international privacy frameworks.",
+                    details: ["Access Rights", "Erasure Protocols", "Processing Objections", "Portability Requests"]
+                }
+            ]
+        },
+        termsPage: {
+            title: "Terms Engagement",
+            subtitle: "Service Governance",
+            description: "Strategic framework governing the technical collaboration and professional engagement at Muhyo Tech.",
+            finalStatement: {
+                title: "Operational Integrity Verified",
+                cta: "Consult Legal Advisor"
+            },
+            sections: [
+                {
+                    title: "Consensus Agreement",
+                    icon: FileText,
+                    content: "These Terms constitute a legally binding agreement governing the digital interaction between you and Muhyo Tech.",
+                    details: ["Binding Contract", "Mutual Acceptance", "Global Applicability", "Periodic Refinement"]
+                },
+                {
+                    title: "Creative Assets",
+                    icon: Cpu,
+                    content: "All proprietary code, architecture, and design tokens remain the exclusive intellectual property of the studio.",
+                    details: ["Source Integrity", "Copyright v4.1", "Licensing Tokens", "Usage Restrictions"]
+                },
+                {
+                    title: "Operational Ethics",
+                    icon: Gavel,
+                    content: "By engaging with our platform, you warrant adherence to accurate registration and secure digital conduct.",
+                    details: ["Identity Integrity", "Network Decorum", "Prohibited Malice", "System Respect"]
+                },
+                {
+                    title: "Liability Boundaries",
+                    icon: Zap,
+                    content: "Muhyo Tech maintains defined liability caps for digital services, ensuring project-based risk management.",
+                    details: ["Direct Damage Caps", "Force Majeure", "Operational Uptime", "Financial Immunity"]
+                },
+                {
+                    title: "Conflict Resolution",
+                    icon: Scale,
+                    content: "Resolution frameworks for digital disputes, prioritizing international arbitration and technical mediation.",
+                    details: ["Binding Protocols", "Legal Seat: Int.", "Timeframe Metrics", "Escalation Steps"]
+                }
+            ]
+        },
+        contactPage: {
+            quickResponse: "Under 2h",
+            process: [
+                {
+                    step: "01",
+                    title: "Project Planning",
+                    desc: "We look at your needs to find the best tools and way to build your project.",
+                },
+                {
+                    step: "02",
+                    title: "Meeting & Chat",
+                    desc: "We talk together to finalize the budget, timing, and what we will build for you.",
+                },
+                {
+                    step: "03",
+                    title: "Building & Launch",
+                    desc: "Our team starts coding your project and gives you regular updates until it's ready.",
+                },
+            ],
+            faq: [
+                {
+                    q: "How long does a project take?",
+                    a: "Most projects take between 6 to 12 weeks. Small tasks can be finished in just 4 weeks.",
+                },
+                {
+                    q: "Do you help after the project is finished?",
+                    a: "Yes! We stay with you to fix any bugs and make sure your website stays running perfectly.",
+                },
+                {
+                    q: "Who owns the project code?",
+                    a: "You do! Once we finish and you pay, all the code belongs to you forever.",
+                },
+                {
+                    q: "What coding tools do you use?",
+                    a: "We use modern and fast tools like React, Next.js, and Node.js to make sure your site is super quick.",
+                },
+            ],
+            locationInfo: {
+                label: "Main Lab HQ",
+                value: "Lahore, Punjab, PK"
+            }
+        },
+        socials: [
+            {
+                name: "LinkedIn",
+                icon: Linkedin,
+                url: "https://www.linkedin.com/in/ghulam-muhyo-din-web-designer/",
+                color: "#0077b5",
+            },
+            {
+                name: "WhatsApp",
+                icon: WhatsAppIcon,
+                url: `https://wa.me/923224458481?text=${encodeURIComponent("Hi Ghulam Muhyo Din! I came across your portfolio and would love to connect. Are you available to discuss a potential project or collaboration?")}`,
+                color: "#25D366",
+            },
+            {
+                name: "GitHub",
+                icon: Github,
+                url: "https://github.com/Attariattari",
+                color: "#ffffff",
+            },
+            {
+                name: "X (Twitter)",
+                icon: XIcon,
+                url: "https://x.com/GhulamMuhyo",
+                color: "#ffffff",
+            },
+            {
+                name: "Facebook",
+                icon: Facebook,
+                url: "https://www.facebook.com/MuhammadMuhyoDinAttari",
+                color: "#1877f2",
+            },
+        ],
+    },
     profile: {
         name: "Pir Ghulam Muhyo Din",
         company: "Muhyo Tech",
@@ -797,6 +1055,12 @@ export const portfolioData = {
 
 export const aboutData = {
   avatar: "https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png",
+  typewriterWords: [
+    "Software Engineer",
+    "Full-Stack Developer",
+    "UI/UX Enthusiast",
+    "Solution Architect",
+  ],
   features: [
     {
         icon: Award,
@@ -936,4 +1200,136 @@ export const aboutData = {
         value: portfolioData.profile.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM",
       },
     ],
-};
+};
+
+export const resumeData = {
+  name: "Pir Ghulam Muhyo Din",
+  role: "Full Stack Web Developer",
+  tagline: "Full-Stack Engineer | Performance & Scalable Web Applications",
+  about:
+    "Versatile professional with experience in sales management, project coordination, and full stack web development. Worked as Sales Manager (2020–2022), transitioned into freelance full stack development (2023–Present), and also handled project management and digital systems (2025–2026). Strong ability to manage technical, administrative, and team-based responsibilities.",
+  contact: [
+    { icon: Phone, text: "+92-322-4458481" },
+    { icon: Mail, text: "attariattari549@gmail.com" },
+    { icon: MapPin, text: "Lahore, Pakistan" },
+  ],
+  stats: [
+    {
+      label: "Years Experience",
+      value: "3+",
+      icon: Award,
+    },
+    {
+      label: "Projects Delivered",
+      value: "10+",
+      icon: Zap,
+    },
+    {
+      label: "Technologies",
+      value: "10+",
+      icon: Code,
+    },
+  ],
+  experience: [
+    {
+      role: "Freelance Full Stack Web Developer",
+      company: "Self-Employed",
+      duration: "2023 – Present",
+      metrics: "Global Reach • 95+ Performance",
+      achievements: [
+        "Engineered and delivered 10+ high-performance web applications using robust modern stacks (Next.js, Node.js), ensuring optimized performance and scalability.",
+        "Managed the end-to-end software development lifecycle (SDLC), from initial architecture to final cloud deployment, for global clients across multiple domains.",
+        "Reduced client operational overhead by 20% through custom-built automation tools and seamless third-party integrations.",
+      ],
+    },
+    {
+      role: "Project Manager & Computer Operator",
+      company: "Digital Systems Division",
+      duration: "2025 – Jan 2026",
+      metrics: "100% On-Time Delivery",
+      achievements: [
+        "Directed project execution and cross-functional team coordination, maintaining a 100% success rate in meeting project milestones.",
+        "Revolutionized digital record-keeping and documentation systems, enhancing data retrieval speed by 40% and overall reporting accuracy.",
+        "Optimized internal workflows by identifying technical bottlenecks and implementing streamlined communication protocols between departments.",
+      ],
+    },
+    {
+      role: "Sales Manager",
+      company: "Theme Park Society",
+      duration: "2020 – 2022",
+      metrics: "Increased Rev. & Efficiency",
+      achievements: [
+        "Orchestrated sales operations and managed high-priority client relationships, consistently exceeding quarterly performance targets.",
+        "Improved inter-departmental communication efficiency by 30% through the implementation of standardized reporting frameworks.",
+        "Led diverse teams to execute complex operational tasks, ensuring high-quality client service delivery under tight deadlines.",
+      ],
+    },
+  ],
+  education: [
+    {
+      degree: "BS Computer Science",
+      institution: "Virtual University Lahore",
+      duration: "2025",
+    },
+    {
+      degree: "Intermediate",
+      institution: "BISE Sahiwal",
+      duration: "2020 – 2021",
+    },
+    {
+      degree: "Matric",
+      institution: "BISE Sahiwal",
+      duration: "2018 – 2019",
+    },
+  ],
+  skills: [
+    {
+      category: "Development",
+      items: [
+        "Full Stack Web Dev",
+        "Next.js & React",
+        "Node.js & Express",
+        "Database Management",
+      ],
+    },
+    {
+      category: "Management",
+      items: [
+        "Project Coordination",
+        "Sales & Client Management",
+        "Team Leadership",
+        "Digital Records",
+      ],
+    },
+    {
+      category: "Strategy",
+      items: [
+        "Problem Solving",
+        "Adaptability",
+        "Process Optimization",
+        "Client Growth",
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: "Enterprise ERP Ecosystem",
+      tech: ["Next.js", "Node.js", "MongoDB"],
+      outcome:
+        "Streamlined resource management, reducing inventory waste by 15%.",
+    },
+    {
+      name: "High-Traffic SaaS Portal",
+      tech: ["React", "Firebase", "Tailwind"],
+      outcome:
+        "Achieved 99.9% uptime for 2k+ daily users with sub-1s load times.",
+    },
+    {
+      name: "Real Estate CRM Edge",
+      tech: ["Express", "PostgreSQL", "React"],
+      outcome:
+        "Automated lead tracking, increasing closure rates by 25% in 3 months.",
+    },
+  ],
+};
+

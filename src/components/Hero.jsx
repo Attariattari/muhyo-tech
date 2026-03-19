@@ -19,17 +19,15 @@ import Tilt from "react-parallax-tilt";
 import { Button } from "@/components/ui";
 import EditorialBackground from "@/components/ui/EditorialBackground";
 
+import { portfolioData } from "@/lib/data";
+
 export default function Hero() {
+  const data = portfolioData.siteConfig.hero;
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
 
   const [text] = useTypewriter({
-    words: [
-      "Muhyo Tech",
-      "Senior Software Engineer",
-      "UX Architect",
-      "Full Stack Developer",
-    ],
+    words: data.typewriterWords,
     loop: true,
     delaySpeed: 2000,
   });
@@ -48,28 +46,7 @@ export default function Hero() {
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const features = [
-    {
-      icon: <Layers className="w-5 h-5" />,
-      label: "Great Design",
-      description: "Built to grow",
-    },
-    {
-      icon: <Terminal className="w-5 h-5" />,
-      label: "Clean Code",
-      description: "Easy to manage",
-    },
-    {
-      icon: <Shield className="w-5 h-5" />,
-      label: "Safe & Secure",
-      description: "Stable setup",
-    },
-    {
-      icon: <Zap className="w-5 h-5" />,
-      label: "Fast Load",
-      description: "Smooth experience",
-    },
-  ];
+  const features = data.features;
 
   return (
     <section
@@ -132,11 +109,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-muted-foreground text-base md:text-lg max-w-xl mb-10 leading-relaxed font-medium opacity-80"
             >
-              I specialize in building high-quality, modern websites that look
-              amazing and work perfectly on every device. By using the latest
-              technology, I ensure your site is fast, secure, and easy for your
-              visitors to use. My goal is to help your business grow with a
-              powerful online presence that makes a great first impression.
+              {data.description}
             </motion.p>
 
             {/* Strategic CTA Section */}
@@ -267,7 +240,7 @@ export default function Hero() {
               className="flex items-center gap-4 group"
             >
               <div className="w-12 h-12 shrink-0 rounded-xl bg-accent/5 border border-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-xl shadow-accent/5">
-                {feature.icon}
+                <feature.icon className="w-5 h-5" />
               </div>
               <div className="text-left">
                 <h3 className="text-[11px] uppercase font-black text-foreground tracking-[0.2em]">

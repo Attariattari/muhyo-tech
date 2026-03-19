@@ -13,7 +13,10 @@ import {
 import { motion } from "framer-motion";
 import SocialLinks from "./SocialLinks";
 
+import { portfolioData } from "@/lib/data";
+
 export default function Footer() {
+  const data = portfolioData.siteConfig.footer;
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -21,22 +24,9 @@ export default function Footer() {
   };
 
   const footerLinks = {
-    navigation: [
-      { name: "Home", href: "/" },
-      { name: "About", href: "/about" },
-      { name: "Services", href: "/services" },
-      { name: "Projects", href: "/projects" },
-    ],
-    resources: [
-      { name: "Blog", href: "/blog" },
-      { name: "Resume", href: "/resume" },
-      { name: "Skills", href: "/#skills" },
-      { name: "Contact", href: "/contact" },
-    ],
-    legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-    ],
+    navigation: data.navigation,
+    resources: data.resources,
+    legal: data.legal,
   };
 
   return (
@@ -57,13 +47,15 @@ export default function Footer() {
                 />
               </div>
               <span className="text-2xl font-bold tracking-tight text-foreground uppercase">
-                Muhyo<span className="text-accent">Tech</span>
+                {portfolioData.siteConfig.navbar?.logo?.title || "Muhyo"}
+                <span className="text-accent">
+                  {portfolioData.siteConfig.navbar?.logo?.accent || "Tech"}
+                </span>
               </span>
             </Link>
 
             <p className="text-muted-foreground text-base leading-relaxed max-w-sm">
-              Architecting high-performance digital solutions with a focus on
-              scalability, aesthetics, and user experience.
+              {data.brandDescription}
             </p>
 
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/50 bg-muted/30 backdrop-blur-sm">
@@ -127,7 +119,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-6">
               <a
-                href="mailto:MuhyoTech@gmail.com"
+                href={`mailto:${portfolioData.profile.email}`}
                 className="flex items-center gap-4 group p-4 rounded-2xl border border-border/40 hover:border-accent/40 bg-muted/20 transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-background transition-colors">
@@ -138,7 +130,7 @@ export default function Footer() {
                     Email Me
                   </p>
                   <p className="text-sm font-semibold text-foreground">
-                    MuhyoTech@gmail.com
+                    {portfolioData.profile.email}
                   </p>
                 </div>
                 <ExternalLink

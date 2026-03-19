@@ -20,14 +20,9 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "About", href: "/about", icon: User },
-  { name: "Services", href: "/services", icon: Cpu },
-  { name: "Projects", href: "/projects", icon: Code2 },
-  { name: "Blog", href: "/blog", icon: FileText },
-  { name: "Contact", href: "/contact", icon: Mail },
-];
+import { portfolioData } from "@/lib/data";
+
+const navLinks = portfolioData.siteConfig.sidebar.navLinks;
 
 export default function Sidebar() {
   const pathname = usePathname();

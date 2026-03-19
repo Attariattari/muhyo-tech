@@ -14,69 +14,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { portfolioData } from "@/lib/data";
+
 export default function TermsOfService() {
-  const sections = [
-    {
-      title: "Consensus Agreement",
-      icon: <FileText size={20} />,
-      content:
-        "These Terms constitute a legally binding agreement governing the digital interaction between you and Muhyo Tech.",
-      details: [
-        "Binding Contract",
-        "Mutual Acceptance",
-        "Global Applicability",
-        "Periodic Refinement",
-      ],
-    },
-    {
-      title: "Creative Assets",
-      icon: <Cpu size={20} />,
-      content:
-        "All proprietary code, architecture, and design tokens remain the exclusive intellectual property of the studio.",
-      details: [
-        "Source Integrity",
-        "Copyright v4.1",
-        "Licensing Tokens",
-        "Usage Restrictions",
-      ],
-    },
-    {
-      title: "Operational Ethics",
-      icon: <Gavel size={20} />,
-      content:
-        "By engaging with our platform, you warrant adherence to accurate registration and secure digital conduct.",
-      details: [
-        "Identity Integrity",
-        "Network Decorum",
-        "Prohibited Malice",
-        "System Respect",
-      ],
-    },
-    {
-      title: "Liability Boundaries",
-      icon: <Zap size={20} />,
-      content:
-        "Muhyo Tech maintains defined liability caps for digital services, ensuring project-based risk management.",
-      details: [
-        "Direct Damage Caps",
-        "Force Majeure",
-        "Operational Uptime",
-        "Financial Immunity",
-      ],
-    },
-    {
-      title: "Conflict Resolution",
-      icon: <Scale size={20} />,
-      content:
-        "Resolution frameworks for digital disputes, prioritizing international arbitration and technical mediation.",
-      details: [
-        "Binding Protocols",
-        "Legal Seat: Int.",
-        "Timeframe Metrics",
-        "Escalation Steps",
-      ],
-    },
-  ];
+  const { termsPage } = portfolioData.siteConfig;
+  const { sections, title, subtitle, description, finalStatement } = termsPage;
 
   return (
     <div className="min-h-screen pt-32 pb-40 px-6 lg:px-24 relative overflow-hidden text-foreground selection:bg-accent/30 font-sans">
@@ -94,7 +36,7 @@ export default function TermsOfService() {
               Nexus
             </Link>
             <ChevronRight size={10} className="text-muted-foreground" />
-            <span className="text-muted-foreground/50">Service Governance</span>
+            <span className="text-muted-foreground/50">{subtitle}</span>
           </motion.div>
 
           <motion.h1
@@ -103,9 +45,9 @@ export default function TermsOfService() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-6xl md:text-[10rem] font-black italic tracking-tighter uppercase leading-[0.8] mix-blend-difference"
           >
-            Terms{" "}
+            {title.split(" ").slice(0, 1).join(" ")}{" "}
             <span className="text-accent underline decoration-accent/20 underline-offset-[1rem]">
-              Engagement
+              {title.split(" ").slice(1).join(" ")}
             </span>
           </motion.h1>
 
@@ -115,8 +57,7 @@ export default function TermsOfService() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-muted-foreground text-xl lg:text-2xl italic max-w-3xl leading-relaxed pl-6 border-l-2 border-accent"
           >
-            Strategic framework governing the technical collaboration and
-            professional engagement at Muhyo Tech.
+            {description}
           </motion.p>
         </div>
 
@@ -187,7 +128,7 @@ export default function TermsOfService() {
                       className={`flex items-center gap-4 ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}
                     >
                       <div className="text-accent w-12 h-12 flex items-center justify-center rounded-2xl bg-accent/10 border border-accent/20 backdrop-blur-md">
-                        {section.icon}
+                        <section.icon size={20} />
                       </div>
                       <h3 className="text-3xl font-black uppercase italic tracking-tighter text-foreground leading-none">
                         {section.title}
@@ -234,15 +175,15 @@ export default function TermsOfService() {
           className="mt-60 text-center space-y-12"
         >
           <div className="h-px w-24 bg-accent/40 mx-auto" />
-          <h2 className="text-4xl md:text-7xl font-black italic uppercase tracking-tighter text-foreground">
-            Operational <span className="text-accent">Integrity</span> Verified
+           <h2 className="text-4xl md:text-7xl font-black italic uppercase tracking-tighter text-foreground">
+            {finalStatement.title.split(" ").slice(0, 1).join(" ")} <span className="text-accent">{finalStatement.title.split(" ").slice(1).join(" ")}</span>
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             <Link
               href="/contact"
               className="px-10 py-4 h-14 rounded-full bg-accent text-background text-[10px] font-black uppercase tracking-[0.4em] hover:scale-105 transition-transform flex items-center justify-center"
             >
-              Consult Legal Advisor
+              {finalStatement.cta}
             </Link>
           </div>
         </motion.div>
