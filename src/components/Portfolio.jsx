@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import ProjectModal from "./ProjectModal";
-import { Button } from "@/components/ui";
+import { SectionWrapper, Button } from "./ui";
+import EditorialBackground from "./ui/EditorialBackground";
 
 const Portfolio = ({ projects }) => {
   const categories = useMemo(
@@ -56,15 +57,8 @@ const Portfolio = ({ projects }) => {
   return (
     <div className="relative overflow-hidden ">
       {/* 1. Hero Section */}
-      <section className="relative pt-12 pb-12 px-6 overflow-hidden min-h-[95vh] flex items-center">
-        {/* Advanced Background Gradients */}
-        <div className="absolute z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 blur-[160px] rounded-full opacity-40" />
-          <div className="absolute bottom-[10%] right-[10%] w-[30%] h-[30%] bg-accent/5 blur-[120px] rounded-full opacity-30" />
-          {/* Subtle Grid Pattern */}
-          <div className="absolute bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] brightness-100 contrast-150" />
-        </div>
-
+      <section className="relative py-14 px-6 overflow-hidden">
+        <EditorialBackground text="PORTFOLIO" />
         <div className="max-w-7xl mx-auto relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* LEFT SIDE: Content */}
@@ -524,8 +518,6 @@ const Portfolio = ({ projects }) => {
                               alt={project.title}
                               className="w-full h-full object-cover transform transition-all duration-1000 group-hover/img-side:scale-110 group-hover/img-side:rotate-1"
                             />
-                            {/* Cinematic Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-background/90 via-transparent to-transparent opacity-80" />
 
                             {/* Floating Metadata */}
                             <div className="absolute top-8 left-8">
@@ -549,7 +541,7 @@ const Portfolio = ({ projects }) => {
       </section>
 
       {/* 2. Client Results Section */}
-      <section className="py-32 px-6 bg-card/10">
+      <section className="py-12 px-6 bg-card/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -588,7 +580,7 @@ const Portfolio = ({ projects }) => {
         </div>
       </section>
       {/* 5. Core Approach Overview Section */}
-      <section className="py-24 px-6 border-y border-border/50 bg-card/10 backdrop-blur-sm">
+      <section className="py-12 px-6 border-y border-border/50 bg-card/10 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
@@ -644,7 +636,7 @@ const Portfolio = ({ projects }) => {
       </section>
 
       {/* 6. Technologies Section */}
-      <section className="py-24 px-6 border-y border-border/50">
+      <section className="py-12 px-6 border-y border-border/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-xs font-black uppercase tracking-[0.5em] text-accent mb-4">
@@ -678,7 +670,7 @@ const Portfolio = ({ projects }) => {
       </section>
 
       {/* 7. Final CTA */}
-      <section className="py-24 px-6 relative z-10">
+      <section className="py-12 px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

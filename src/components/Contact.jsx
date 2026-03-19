@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "./ui";
+import { SectionWrapper, Button } from "./ui";
 import {
   MapPin,
   Clock,
@@ -17,9 +17,8 @@ const Contact = ({ isHomePage = false }) => {
   const { contactInfo } = portfolioData;
 
   return (
-    <div className="w-full relative py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
+    <SectionWrapper id="contact" title="Get In Touch" subtitle="Contact Me">
+      <div className="grid lg:grid-cols-12 gap-16 items-start">
           {/* Left Column: Context & Info */}
           <div className="lg:col-span-5 space-y-12">
             <motion.div
@@ -391,8 +390,7 @@ const Contact = ({ isHomePage = false }) => {
             </motion.div>
           </>
         )}
-      </div>
-    </div>
+    </SectionWrapper>
   );
 };
 

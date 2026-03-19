@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Tilt from "react-parallax-tilt";
 import { Button } from "@/components/ui";
+import EditorialBackground from "@/components/ui/EditorialBackground";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -73,30 +74,9 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-20 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-6 py-12 overflow-hidden"
     >
-      {/* Premium Background Layering */}
-      <div className="absolute  z-0 overflow-hidden pointer-events-none">
-        {/* Animated Orbs */}
-        <motion.div
-          style={{ y: y1 }}
-          className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-accent/15 rounded-full blur-[140px] animate-floating"
-        />
-        <motion.div
-          style={{ y: y2 }}
-          className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] bg-accent/10 rounded-full blur-[140px] animate-floating [animation-delay:3s]"
-        />
-
-        {/* Professional Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-        {/* Grainy Texture */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 mix-blend-overlay" />
-
-        {/* Radial Depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,var(--background)_90%)]" />
-      </div>
-
+      <EditorialBackground text="HOME" />
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content Column */}
@@ -164,16 +144,16 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-col sm:flex-row items-center gap-5"
+              className="flex flex-col md:flex-row items-center gap-5 w-full md:w-auto"
             >
-              <Link href="/projects" className="w-full sm:w-auto">
+              <Link href="/projects" className="w-full md:w-auto">
                 <Button className="w-full">
                   See My Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
               </Link>
 
-              <Link href="/contact" className="w-full sm:w-auto">
+              <Link href="/contact" className="w-full md:w-auto">
                 <Button variant="outline" className="w-full backdrop-blur-sm">
                   Let's Talk
                 </Button>
@@ -278,7 +258,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mr-auto border-t border-border/10 mt-12 pt-12"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mr-auto border-t border-border/10 mt-6 pt-6 lg:mt-12 lg:pt-12"
         >
           {features.map((feature, index) => (
             <motion.div

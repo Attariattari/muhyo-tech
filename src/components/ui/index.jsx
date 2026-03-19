@@ -12,7 +12,7 @@ export const SectionWrapper = ({
   return (
     <section
       id={id}
-      className={`py-24 px-3 md:px-8 lg:px-12 mx-auto max-w-7xl overflow-hidden ${className}`}
+      className={`py-12 px-4 md:px-8 lg:px-12 mx-auto max-w-7xl overflow-hidden ${className}`}
     >
       {title && (
         <motion.div
@@ -20,7 +20,7 @@ export const SectionWrapper = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
           <h4 className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
             {subtitle || "Overview"}

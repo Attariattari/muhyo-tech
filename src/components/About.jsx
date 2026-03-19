@@ -15,13 +15,14 @@ import {
   Briefcase,
 } from "lucide-react";
 import { SectionWrapper, Button } from "./ui";
+import EditorialBackground from "./ui/EditorialBackground";
+import SocialLinks from "./SocialLinks";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { aboutData } from "@/lib/data";
-import SocialLinks from "./SocialLinks";
 
 const StatBadge = ({ icon: Icon, text, subtitle, delay }) => {
   return (
@@ -72,8 +73,14 @@ export default function About({ data, isHomePage = false }) {
     transitionEasing: "cubic-bezier(.03,.98,.52,.99)",
   };
 
-  const { features, experiences, coreValuesLarge, focusAreas, contactInfo } =
-    aboutData;
+  const {
+    avatar,
+    features,
+    experiences,
+    coreValuesLarge,
+    focusAreas,
+    contactInfo,
+  } = aboutData;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -95,10 +102,9 @@ export default function About({ data, isHomePage = false }) {
   };
 
   return (
-    <div
-      className={`relative overflow-hidden ${isHomePage ? "pb-4 md:pb-8" : "pb-32"}`}
-    >
+    <div className="relative overflow-hidden">
       {/* Visual Enhancements Background */}
+      {!isHomePage && <EditorialBackground text="ABOUT" />}
       <div
         className={`absolute top-0 left-0 w-full ${isHomePage ? "h-full" : "h-[1500px]"} pointer-events-none -z-10`}
       >
@@ -106,12 +112,11 @@ export default function About({ data, isHomePage = false }) {
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full" />
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       </div>
-
       <SectionWrapper
         id="about"
-        subtitle="Bridging Technology & Innovation"
+        subtitle="About Muhyo Tech"
         title="Muhyo Tech"
-        className={isHomePage ? "pb-0 mb-0" : ""}
+        className={isHomePage ? "" : "pb-12"}
       >
         {/* Step 1: Hero / Introduction */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start relative z-10">
@@ -121,36 +126,34 @@ export default function About({ data, isHomePage = false }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative order-2 lg:order-1"
+            className="relative order-1 lg:order-1"
           >
             {/* Background Aura */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-accent/10 blur-[100px] rounded-full -z-10 animate-pulse" />
 
-            <Tilt {...tiltOptions}>
-              <div className="relative z-10 p-2 glass rounded-[3rem] overflow-hidden group border border-white/10 hover:border-accent/30 transition-all duration-700">
-                <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
-                  <Image
-                    src={data.avatar}
-                    alt={data.name}
-                    fill
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                    priority
-                  />
-                  {/* Dynamic Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
+            <div className="relative z-10 p-2 glass rounded-[1.5rem] overflow-hidden group border border-white/10 hover:border-accent/30 transition-all duration-700">
+              <div className="relative w-full aspect-[4/5] rounded-[1rem] overflow-hidden shadow-2xl">
+                <Image
+                  src={avatar}
+                  alt={data.name}
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  priority
+                />
+                {/* Dynamic Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
 
-                  {/* Floating ID Tag */}
-                  <div className="absolute bottom-10 left-10 p-4 glass rounded-2xl border border-border backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
-                    <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4 italic">
-                      Founder
-                    </div>
-                    <div className="text-xl font-black text-foreground italic">
-                      {data.name}
-                    </div>
+                {/* Floating ID Tag */}
+                <div className="absolute bottom-10 left-10 p-4 glass rounded-2xl border border-border backdrop-blur-xl translate-y-10 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
+                  <div className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1 underline decoration-accent/30 decoration-2 underline-offset-4 italic">
+                    Founder
+                  </div>
+                  <div className="text-xl font-black text-foreground italic">
+                    {data.name}
                   </div>
                 </div>
               </div>
-            </Tilt>
+            </div>
 
             {/* Floating Stats Badges */}
             <div className="absolute -bottom-10 right-0 md:-right-6 lg:-right-12 z-20 flex flex-col gap-4">
@@ -167,9 +170,6 @@ export default function About({ data, isHomePage = false }) {
                 delay={0.8}
               />
             </div>
-
-            {/* Decorations */}
-            <div className="absolute -top-10 -left-10 w-32 h-32 border-t-2 border-l-2 border-accent/20 rounded-tl-[3rem] -z-10" />
           </motion.div>
 
           {/* Right: Narrative & Info */}
@@ -178,11 +178,11 @@ export default function About({ data, isHomePage = false }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col pt-4 lg:pt-12 order-1 lg:order-2"
+            className="flex flex-col pt-0 lg:pt-12 order-2 lg:order-2"
           >
             {/* Typewriter Header */}
             <motion.div variants={itemVariants} className="mb-6">
-              <h3 className="text-2xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground italic uppercase">
+              <h3 className="text-2xl md:text-3xl font-black leading-[1.1] tracking-tight text-foreground italic uppercase">
                 Engineering{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient-flow bg-[length:200%_auto]">
                   {text}
@@ -263,9 +263,9 @@ export default function About({ data, isHomePage = false }) {
         </div>
 
         {!isHomePage && (
-          <div className="space-y-40">
+          <div className="space-y-20">
             {/* Experience Section */}
-            <div className="mt-40">
+            <div className="mt-20">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -554,7 +554,7 @@ export default function About({ data, isHomePage = false }) {
             </div>
 
             {/* Step 3: Contact Info & Support */}
-            <div className="mt-40 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -655,41 +655,53 @@ export default function About({ data, isHomePage = false }) {
               </motion.div>
             </div>
 
-            {/* Step 4: Call to Action */}
+            {/* Step 4: Call to Action (Simple & Attractive Redesign) */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-40 relative glass p-10 md:p-20 rounded-[4rem] border border-accent/20 overflow-hidden group text-center"
+              className="mt-32 relative glass p-10 md:p-24 rounded-[3rem] border border-white/5 overflow-hidden group shadow-2xl"
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-accent)_0%,transparent_50%)] opacity-[0.08]" />
-              <div className="absolute -top-[50%] -left-[50%] w-full h-full bg-accent/5 blur-[150px] rounded-full animate-pulse pointer-events-none" />
+              {/* Simple background glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-50" />
+              <div className="absolute -bottom-[30%] -right-[10%] w-[50%] h-[50%] bg-accent/10 blur-[100px] rounded-full animate-pulse-slow pointer-events-none" />
 
-              <div className="relative z-10 flex flex-col items-center gap-10">
-                <h3 className="text-4xl md:text-6xl font-black text-foreground max-w-4xl leading-[1.05] tracking-tight uppercase italic">
-                  Ready to bring your project to life? Let's build something{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient">
-                    amazing together!
+              <div className="relative z-10 flex flex-col items-center text-center">
+                {/* Clean Status Chip */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  <span className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">
+                    Open for new projects
+                  </span>
+                </div>
+
+                <h3 className="text-3xl md:text-5xl font-black text-foreground max-w-3xl leading-[1.1] tracking-tight uppercase italic mb-8">
+                  Ready to start? Let's build something{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/80 to-accent animate-gradient-flow bg-[length:200%_auto]">
+                    extraordinary.
                   </span>
                 </h3>
 
-                <p className="text-muted-foreground text-xl max-w-2xl font-medium leading-relaxed">
-                  We're currently accepting new projects and inquiries for
-                  Spring 2026. Reach out today for a consultation.
+                <p className="text-muted-foreground text-lg max-w-xl font-medium leading-relaxed mb-12">
+                  Have an idea? Let's discuss how we can bring it to life with
+                  high-performance code and premium design.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto">
+                <div className="flex flex-col sm:flex-row gap-5">
                   <Link href="/contact" className="w-full sm:w-auto">
-                    <Button className="w-full">
-                      Contact via Email
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <Button className="w-full px-8 h-14 text-sm font-black uppercase tracking-widest gap-3 group/btn">
+                      Start Collaboration
+                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
 
                   <a href={`tel:${data.phone}`} className="w-full sm:w-auto">
-                    <Button variant="outline" className="w-full">
-                      Call Now
-                      <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                    <Button
+                      variant="outline"
+                      className="w-full px-8 h-14 text-sm font-black uppercase tracking-widest gap-3 group/call"
+                    >
+                      Quick Call
+                      <Phone className="w-5 h-5 group-hover/call:rotate-12 transition-transform" />
                     </Button>
                   </a>
                 </div>
@@ -698,7 +710,6 @@ export default function About({ data, isHomePage = false }) {
           </div>
         )}
       </SectionWrapper>
-
       {/* Interactive Particles Background Component */}
       <div className="absolute inset-0 pointer-events-none -z-20">
         {[...Array(15)].map((_, i) => (

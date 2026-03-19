@@ -5,12 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Services from "@/components/Services";
 import { portfolioData } from "@/lib/data";
 import { SectionWrapper, Card, Button } from "@/components/ui";
-import {
-  Zap,
-  Rocket,
-  ArrowRight,
-} from "lucide-react";
+import { Zap, Rocket, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import EditorialBackground from "@/components/ui/EditorialBackground";
 
 const ServiceSlider = ({ services }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -142,11 +139,12 @@ export default function ServicesPage() {
   const { services, serviceFeatures, serviceProcess } = portfolioData;
 
   return (
-    <div className=" min-h-screen pt-20">
+    <div className="min-h-screen pt-0">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center pt-4 pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse" />
+      <section className="relative min-h-[80vh] flex items-center pt-14 pb-14 overflow-hidden">
+        <EditorialBackground text="SERVICES" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[80px] -mr-48 -mt-48 animate-pulse opacity-20" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse opacity-10" />
 
         <div className="max-w-7xl mx-auto px-4 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -184,9 +182,7 @@ export default function ServicesPage() {
                   Explore Services <ArrowRight className="w-5 h-5 inline" />
                 </Button>
                 <Link href="/contact">
-                  <Button variant="outline">
-                    Book a Call
-                  </Button>
+                  <Button variant="outline">Book a Call</Button>
                 </Link>
               </div>
 
@@ -272,10 +268,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-
       {/* Main Services Section */}
       <Services data={services} />
-
       {/* Why Choose Me Section */}
       <SectionWrapper
         title="What You Get"
@@ -303,7 +297,6 @@ export default function ServicesPage() {
           ))}
         </div>
       </SectionWrapper>
-
       {/* My Process Section */}
       <SectionWrapper title="How I Work" subtitle="The Process">
         <div className="relative">
@@ -334,9 +327,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </SectionWrapper>
-
       {/* Call to Action */}
-      <SectionWrapper className="pb-32">
+      <SectionWrapper className="pb-12">
         <Card className="p-12 md:p-20 text-center relative overflow-hidden border-accent/20">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -mr-32 -mt-32" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -ml-32 -mb-32" />
@@ -357,9 +349,7 @@ export default function ServicesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact" className="w-full sm:w-auto">
-                <Button className="w-full">
-                  Start Your Project
-                </Button>
+                <Button className="w-full">Start Your Project</Button>
               </Link>
               <Link href="/projects" className="w-full sm:w-auto">
                 <Button variant="outline" className="w-full">

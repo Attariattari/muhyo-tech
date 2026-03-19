@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { SectionWrapper, Button } from "./ui";
+import EditorialBackground from "./ui/EditorialBackground";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   FreeMode,
@@ -42,32 +43,9 @@ const EditorialHeader = ({
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
 
   return (
-    <header className="relative pt-12 pb-20 px-6 overflow-hidden">
+    <header className="relative py-30 px-6 overflow-hidden">
       {/* --- Premium Background Elements --- */}
-      <div className="absolute  z-0">
-        {/* Editorial Grid Pattern */}
-
-        {/* Large Faded "EDITORIAL" Text */}
-        <div className="absolute -top-10 -left-10 select-none pointer-events-none opacity-[0.02] dark:opacity-[0.03]">
-          <h2 className="text-[20rem] font-black tracking-tighter uppercase italic -rotate-12 translate-x-[-10%] translate-y-[-10%]">
-            BLOG
-          </h2>
-        </div>
-
-        {/* Floating Background Shapes */}
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-1/4 right-[5%] w-96 h-96 bg-accent/5 blur-[100px] rounded-full"
-        />
-      </div>
+      <EditorialBackground text="BLOG" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">

@@ -796,8 +796,9 @@ export const portfolioData = {
 };
 
 export const aboutData = {
-    features: [
-      {
+  avatar: "https://res.cloudinary.com/dg5gwixf1/image/upload/v1772736622/ChatGPT_Image_Mar_5_2026_11_36_42_AM_auw4uw.png",
+  features: [
+    {
         icon: Award,
         title: "Top Quality Work",
         desc: "Architecting high-performance systems with precision and scalability.",
