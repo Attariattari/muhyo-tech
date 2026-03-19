@@ -24,6 +24,7 @@ export const ADMIN_NAVIGATION_LINKS = [
   { name: "Blog", href: "/admin/blog", icon: "FileText" },
   { name: "Skills", href: "/admin/skills", icon: "Code2" },
   { name: "Resume", href: "/admin/resume", icon: "FileText" },
+  { name: "Users", href: "/admin/users", icon: "Users" },
   { name: "Messages", href: "/admin/messages", icon: "MessageSquare" },
   { name: "Settings", href: "/admin/settings", icon: "Settings" },
 ];

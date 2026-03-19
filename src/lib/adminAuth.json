@@ -1,0 +1,25 @@
+{
+  "superAdminEmail": "attariattari549@gmail.com",
+  "users": {
+    "attariattari549@gmail.com": {
+      "id": "root-001",
+      "name": "Super Admin",
+      "email": "attariattari549@gmail.com",
+      "passkey": "ZFIGAA4JEA",
+      "role": "super-admin",
+      "status": "approved",
+      "createdAt": "2026-03-19T11:21:41Z"
+    }
+  },
+  "notifications": [
+     {
+        "id": "notif-wel-001",
+        "type": "SYSTEM",
+        "title": "Nexus Initialized",
+        "message": "The administrative security nexus is online and secure.",
+        "status": "read",
+        "createdAt": "2026-03-19T11:21:41Z"
+     }
+  ],
+  "pendingCodes": {}
+}
