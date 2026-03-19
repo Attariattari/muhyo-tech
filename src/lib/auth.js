@@ -1,46 +1,17 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import path from "path";
-
+import dbConnect from "@/lib/dbConnect";
+import User, { Notification, PendingCode } from "@/models/AdminModels";
 import eventBus, { ADMIN_EVENTS } from "@/lib/eventBus";
+import { generateEmailTemplate } from "@/lib/emailTemplates";
 
 const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "fallback_muhyo_secret_32_chars_long_!!!"
 );
 
-const AUTH_FILE = path.join(process.cwd(), "src/lib/adminAuth.json");
-
-// Helper to interact with Mock DB
-const getAuthData = () => {
-  if (!fs.existsSync(AUTH_FILE)) {
-      const initial = { 
-          superAdminEmail: "attariattari549@gmail.com", 
-          users: {}, 
-          notifications: [
-              {
-                  id: "notif-001",
-                  type: "SYSTEM",
-                  title: "Nexus Initialized",
-                  message: "The administrative security nexus is online and secure.",
-                  status: "read",
-                  createdAt: new Date().toISOString()
-              }
-          ], 
-          pendingCodes: {} 
-      };
-      fs.writeFileSync(AUTH_FILE, JSON.stringify(initial, null, 2));
-      return initial;
-  }
-  return JSON.parse(fs.readFileSync(AUTH_FILE, "utf-8"));
-};
-
-const saveAuthData = (data) => {
-  fs.writeFileSync(AUTH_FILE, JSON.stringify(data, null, 2));
-};
-
-const generateId = () => Math.random().toString(36).slice(2, 11);
+// Super Admin Configuration
+const SUPER_ADMIN_EMAIL = "attariattari549@gmail.com";
 
 // NodeMailer Transporter
 const transporter = nodemailer.createTransport({
@@ -51,55 +22,63 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function addNotification(payload) {
-    const data = getAuthData();
-    const newNotif = {
-        id: generateId(),
+    await dbConnect();
+    const newNotif = await Notification.create({
         status: "unread",
-        createdAt: new Date().toISOString(),
         ...payload
-    };
-    data.notifications.unshift(newNotif);
-    saveAuthData(data);
+    });
     
     // Broadcast for real-time dashboards
     eventBus.emit(ADMIN_EVENTS.NOTIFICATION, newNotif);
-    
     return newNotif;
 }
 
 export async function sendVerificationCode(email, type = "setup") {
+  await dbConnect();
+  const normalizedEmail = email.toLowerCase();
   const code = Math.floor(100000 + Math.random() * 900000).toString();
-  const data = getAuthData();
-  data.pendingCodes[email] = { code, expiry: Date.now() + 5 * 60 * 1000, type };
-  saveAuthData(data);
+  
+  // Upsert pending code
+  await PendingCode.findOneAndUpdate(
+      { email: normalizedEmail },
+      { code, expiry: new Date(Date.now() + 5 * 60 * 1000), type },
+      { upsert: true, new: true }
+  );
 
   const subject = type === "setup" ? "Admin Identity Verification" : "Passkey Reset Verification";
   try {
     if (!process.env.SMTP_USER) {
-        console.warn(`DEV MODE - Email: ${email}, Code: ${code}`);
+        console.warn(`DEV MODE - Email: ${normalizedEmail}, Code: ${code}`);
         return { success: true, mocked: true, code };
     }
     await transporter.sendMail({
       from: `"Muhyo Nexus Security" <${process.env.SMTP_USER}>`,
-      to: email,
+      to: normalizedEmail,
       subject: `[Muhyo] ${subject}`,
-      html: `<h3>Identity Verification Code</h3><p>Your code is: <b>${code}</b></p><p>Expires in 5 minutes.</p>`,
+      html: generateEmailTemplate({
+          userName: normalizedEmail.split('@')[0],
+          type: "VERIFICATION",
+          actionData: { code },
+          ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+      }),
     });
     return { success: true };
   } catch (error) { return { success: false, error: error.message }; }
 }
 
 export async function verifyAndHandleRequest(email, code) {
-  const data = getAuthData();
-  const pending = data.pendingCodes[email];
-  if (!pending || pending.code !== code || Date.now() > pending.expiry) {
-    return { success: false, message: "Invalid or expired code." };
+  await dbConnect();
+  const normalizedEmail = email.toLowerCase();
+  const pending = await PendingCode.findOne({ email: normalizedEmail, code });
+  
+  if (!pending || new Date() > pending.expiry) {
+    return { success: false, message: "Invalid or expired token sequence." };
   }
 
-  const isSuperAdmin = email === data.superAdminEmail;
+  const isSuperAdmin = normalizedEmail === SUPER_ADMIN_EMAIL.toLowerCase();
   
   // Check Blacklist (24h for removed users)
-  const existingUser = data.users[email];
+  const existingUser = await User.findOne({ email: normalizedEmail });
   if (existingUser && existingUser.status === "removed") {
       const removedTime = new Date(existingUser.createdAt).getTime();
       const twentyFourHours = 24 * 60 * 60 * 1000;
@@ -109,59 +88,69 @@ export async function verifyAndHandleRequest(email, code) {
       }
   }
 
-  delete data.pendingCodes[email];
+  await PendingCode.deleteOne({ _id: pending._id });
 
   if (isSuperAdmin) {
     const passkey = Math.random().toString(36).slice(-10).toUpperCase();
-    const user = {
-        id: "root-001",
-        email,
-        name: "Super Admin",
-        passkey,
-        role: "super-admin",
-        status: "approved",
-        createdAt: new Date().toISOString()
-    };
-    data.users[email] = user;
-    saveAuthData(data);
+    const user = await User.findOneAndUpdate(
+        { email: normalizedEmail },
+        { 
+            name: "Super Admin",
+            passkey,
+            role: "super-admin",
+            status: "approved",
+            createdAt: new Date()
+        },
+        { upsert: true, new: true }
+    );
     // Auto-login on verification for Super Admin
-    await login(email, passkey);
+    await login(normalizedEmail, passkey);
     return { success: true, role: "super-admin", passkey };
   } else {
     // Check if user already exists
-    if (!data.users[email]) {
-        data.users[email] = {
-            id: generateId(),
-            email,
-            name: email.split('@')[0],
+    const isReverify = !!existingUser;
+    let user;
+    if (!existingUser) {
+        user = await User.create({
+            email: normalizedEmail,
+            name: normalizedEmail.split('@')[0],
             status: "pending",
             role: "user",
-            createdAt: new Date().toISOString()
-        };
+            createdAt: new Date()
+        });
     } else {
-        data.users[email].status = "pending"; 
-        data.users[email].createdAt = new Date().toISOString(); // Reset join date to current request time
+        existingUser.status = "pending";
+        existingUser.createdAt = new Date();
+        await existingUser.save();
+        user = existingUser;
     }
 
-    // Add Approval Notification for Super Admin
+    // Add REVERIFY_REQUEST or USER_REQUEST Notification for Super Admin
     await addNotification({
-        type: "USER_REQUEST",
-        title: "Access Authorization Required",
-        message: `${email} is requesting ${pending.type === 'setup' ? 'registration' : 'a passkey reset'}.`,
-        relatedUserId: data.users[email].id
+        type: isReverify ? "REVERIFY_REQUEST" : "USER_REQUEST",
+        title: isReverify ? "Re-Verification Pulse Detected" : "Access Authorization Required",
+        message: isReverify ? `${normalizedEmail} is requesting authority restoration.` : `${normalizedEmail} is requesting initial registration.`,
+        relatedUserId: user._id
     });
 
-    saveAuthData(data);
     return { success: true, role: "user", pendingApproval: true };
   }
 }
 
 export async function login(email, passkey) {
-  const data = getAuthData();
-  const user = data.users[email];
-  if (!user || user.passkey !== passkey || user.status !== "approved") return false;
+  await dbConnect();
+  const normalizedEmail = email.toLowerCase();
+  const user = await User.findOne({ email: normalizedEmail });
+  
+  if (!user || user.status === "removed") {
+      return { success: false, code: "NOT_FOUND", message: "Identity not recognized or purged." };
+  }
 
-  const token = await new SignJWT({ role: user.role, email, userId: user.id })
+  if (user.passkey !== passkey || user.status !== "approved") {
+      return { success: false, code: "INVALID", message: "Authority credentials mismatch or pending authorization." };
+  }
+
+  const token = await new SignJWT({ role: user.role, email: normalizedEmail, userId: user._id.toString() })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("8h")
@@ -170,28 +159,26 @@ export async function login(email, passkey) {
   (await cookies()).set("admin_auth_token", token, {
     httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", maxAge: 60 * 60 * 8, path: "/",
   });
-  return true;
+  return { success: true };
 }
 
 export async function logout() { (await cookies()).delete("admin_auth_token"); }
 
 export async function approveUser(email) {
-  const data = getAuthData();
-  const user = data.users[email];
+  await dbConnect();
+  const user = await User.findOne({ email });
   if (!user) return { success: false, message: "Identity not found." };
 
   const passkey = Math.random().toString(36).slice(-10).toUpperCase();
   user.passkey = passkey;
   user.status = "approved";
+  await user.save();
 
   // Mark related notifications as approved
-  data.notifications.forEach(n => {
-      if (n.relatedUserId === user.id && n.status === "unread") {
-          n.status = "approved";
-      }
-  });
-
-  saveAuthData(data);
+  await Notification.updateMany(
+      { relatedUserId: user._id, status: "unread" },
+      { $set: { status: "approved" } }
+  );
 
   // Broadcast for real-time dashboards
   eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'approved' });
@@ -201,22 +188,24 @@ export async function approveUser(email) {
     type: "USER_APPROVED",
     title: "Authority Extended",
     message: `Identity Authorized: ${email}. New access node established.`,
-    relatedUserId: user.id,
+    relatedUserId: user._id,
     status: "read"
   });
 
   // Send Passkey Email
   try {
       if (process.env.SMTP_USER) {
+          const isReverify = await Notification.exists({ relatedUserId: user._id, type: "REVERIFY_REQUEST" });
           await transporter.sendMail({
               from: `"Authority Nexus" <${process.env.SMTP_USER}>`,
               to: email,
-              subject: "[Muhyo Access] Identity Authorized",
-              html: `<div style="padding: 24px; font-family: sans-serif; background: #f9fafb;">
-                        <h3>Identity Authorized</h3>
-                        <p>Your administrative access has been granted. Use the following passkey to login:</p>
-                        <div style="background: #e5e7eb; padding: 16px; font-weight: bold; font-family: monospace; font-size: 24px;">${passkey}</div>
-                     </div>`,
+              subject: isReverify ? "Muhyo Tech — Authority Restored" : "Muhyo Tech — Account Verification Approved",
+              html: generateEmailTemplate({
+                  userName: user.name,
+                  type: isReverify ? "REVERIFY_APPROVED" : "APPROVED",
+                  actionData: { passkey },
+                  ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+              }),
           });
       }
   } catch (e) { console.warn("Approve email failed."); }
@@ -225,17 +214,16 @@ export async function approveUser(email) {
 }
 
 export async function denyUser(email) {
-  const data = getAuthData();
-  const user = data.users[email];
+  await dbConnect();
+  const user = await User.findOne({ email });
   if (user) {
       user.status = "denied";
-      data.notifications.forEach(n => {
-          if (n.relatedUserId === user.id && n.status === "unread") {
-              n.status = "denied";
-          }
-      });
+      await user.save();
       
-      saveAuthData(data);
+      await Notification.updateMany(
+          { relatedUserId: user._id, status: "unread" },
+          { $set: { status: "denied" } }
+      );
       
       // BROADCAST: FORCED LOGOUT (Deny)
       eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'denied', forceLogout: true });
@@ -244,8 +232,24 @@ export async function denyUser(email) {
           type: "USER_DENIED",
           title: "Identity Refused",
           message: `Authorization denied for: ${email}. Node restricted.`,
-          relatedUserId: user.id
+          relatedUserId: user._id
       });
+      
+      // Send Denial Email
+      try {
+          if (process.env.SMTP_USER) {
+              await transporter.sendMail({
+                  from: `"Authority Nexus" <${process.env.SMTP_USER}>`,
+                  to: email,
+                  subject: "Muhyo Tech — Identity Authorization Refused",
+                  html: generateEmailTemplate({
+                      userName: user.name,
+                      type: "DENIED",
+                      ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+                  }),
+              });
+          }
+      } catch (e) { console.warn("Deny email failed."); }
       
       return { success: true };
   }
@@ -253,13 +257,12 @@ export async function denyUser(email) {
 }
 
 export async function removeUser(email) {
-    const data = getAuthData();
-    const user = data.users[email];
+    await dbConnect();
+    const user = await User.findOne({ email });
     if (user) {
         user.status = "removed";
-        user.createdAt = new Date().toISOString(); // Using as 'removedAt' for 24h block
-        
-        saveAuthData(data);
+        user.createdAt = new Date(); // Using as 'removedAt' for 24h block
+        await user.save();
         
         // FORCED LOGOUT BROADCAST
         eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'removed', forceLogout: true });
@@ -268,8 +271,24 @@ export async function removeUser(email) {
             type: "USER_REMOVED",
             title: "Authority Revoked",
             message: `Identity purged from Nexus: ${email}. Node blacklisted for 24h.`,
-            relatedUserId: user.id
+            relatedUserId: user._id
         });
+
+        // Send Removal Email
+        try {
+            if (process.env.SMTP_USER) {
+                await transporter.sendMail({
+                    from: `"Authority Nexus" <${process.env.SMTP_USER}>`,
+                    to: email,
+                    subject: "Muhyo Tech — Administrative Access Revoked",
+                    html: generateEmailTemplate({
+                        userName: user.name,
+                        type: "REMOVED",
+                        ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+                    }),
+                });
+            }
+        } catch (e) { console.warn("Removal email failed."); }
         
         return { success: true };
     }
@@ -277,18 +296,17 @@ export async function removeUser(email) {
 }
 
 export async function deleteNotification(id) {
-    const data = getAuthData();
-    data.notifications = data.notifications.filter(n => n.id !== id);
-    saveAuthData(data);
+    await dbConnect();
+    await Notification.findByIdAndDelete(id);
     return true;
 }
 
 export async function updateNotificationStatus(id, status) {
-    const data = getAuthData();
-    const notif = data.notifications.find(n => n.id === id);
+    await dbConnect();
+    const notif = await Notification.findById(id);
     if (notif) {
         notif.status = status;
-        saveAuthData(data);
+        await notif.save();
         return true;
     }
     return false;
@@ -299,31 +317,39 @@ export async function getAuthSession() {
     if (!token) return null;
     try {
         const { payload } = await jwtVerify(token, SECRET);
-        
-        // SERVER-SIDE SESSION INVALIDATION
-        // Cross-reference with Authority Nexus to ensure status is still 'approved'
-        const data = getAuthData();
-        const user = data.users[payload.email];
+        await dbConnect();
+        const user = await User.findOne({ email: payload.email });
         
         if (!user || user.status !== "approved") {
-            // If status changed to denied/removed, invalidate session
             return null;
         }
-
         return payload;
     } catch (e) { return null; }
 }
 
-export async function getAllUsers() { return Object.values(getAuthData().users); }
-export async function getAllNotifications() { return getAuthData().notifications; }
-export async function isUserActive(email) { return getAuthData().users[email]?.status === "approved"; }
+export async function getAllUsers() { 
+    await dbConnect();
+    return await User.find({}).sort({ createdAt: -1 }).lean(); 
+}
+
+export async function getAllNotifications() { 
+    await dbConnect();
+    return await Notification.find({}).sort({ createdAt: -1 }).lean(); 
+}
+
+export async function isUserActive(email) { 
+    await dbConnect();
+    const user = await User.findOne({ email, status: "approved" });
+    return !!user;
+}
 
 export async function isSetupComplete() {
-    const data = getAuthData();
-    return Object.values(data.users).some(u => u.role === "super-admin");
+    await dbConnect();
+    const superAdmin = await User.findOne({ role: "super-admin" });
+    return !!superAdmin;
 }
 
 export async function getPendingApprovals() {
-    const data = getAuthData();
-    return Object.values(data.users).filter(u => u.status === "pending");
+    await dbConnect();
+    return await User.find({ status: "pending" }).lean();
 }

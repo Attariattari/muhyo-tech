@@ -4,10 +4,14 @@ import { login } from "@/lib/auth";
 export async function POST(request) {
   try {
     const { email, passkey } = await request.json();
-    const success = await login(email, passkey);
+    const result = await login(email, passkey);
 
-    if (!success) {
-       return NextResponse.json({ success: false, message: "Unauthorized credentials" }, { status: 401 });
+    if (!result.success) {
+       return NextResponse.json({ 
+           success: false, 
+           code: result.code, 
+           message: result.message 
+       }, { status: 401 });
     }
 
     return NextResponse.json({ success: true, message: "Authorized" });

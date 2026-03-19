@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Eye, EyeOff, Loader2, ShieldCheck, Mail, Key, CheckCircle2, Clock, ShieldAlert, UserX, RefreshCcw } from "lucide-react";
+import { Lock, Eye, EyeOff, Loader2, ShieldCheck, Mail, Key, CheckCircle2, Clock, ShieldAlert, UserX, RefreshCcw, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-  const [view, setView] = useState("login"); // login, setup, verify, pending, success, denied
+  const [view, setView] = useState("login"); // login, setup, verify, pending, success, denied, reverify
   const [email, setEmail] = useState("");
   const [passkey, setPasskey] = useState("");
   const [code, setCode] = useState("");
@@ -25,7 +25,7 @@ export default function LoginForm() {
 
     eventSource.addEventListener("user", (e) => {
         const data = JSON.parse(e.data);
-        if (data.email === email) {
+        if (data.email.toLowerCase() === email.toLowerCase()) {
             if (data.status === 'approved') {
                 toast.success("Identity Authorized. Access granted.");
                 playSuccessSound();
@@ -65,25 +65,30 @@ export default function LoginForm() {
   };
 
   const handleSendCode = async (e) => {
-    e.preventDefault();
-    if (!email) return setError("Email is required.");
+    if (e && e.preventDefault) e.preventDefault();
+    if (!email) return setError("Digital Signature (Email) is required.");
     setLoading(true);
     setError("");
 
     try {
-      const res = await fetch("/api/admin/verify-request", {
+      // Step 1: Identify if the user exists for proper routing
+      // If we are in 'reverify' view, it might be a new user or a recovery
+      
+      const setupRes = await fetch("/api/admin/verify-request", {
         method: "POST",
-        body: JSON.stringify({ email, type: view === "setup" || view === "denied" ? "setup" : "reset" }),
+        body: JSON.stringify({ email, type: "setup" }),
       });
-      const data = await res.json();
+      const data = await setupRes.json();
+      
       if (data.success) {
-        toast.info("Verification code sent to your email.");
+        toast.info("Verification stream initialized. Check your email.");
         setView("verify");
       } else {
-        setError(data.message || "Failed to send code.");
+        // If it's blocked or failed
+        setError(data.message || "Relay failure.");
       }
     } catch (err) {
-      setError("Network error.");
+      setError("Nexus connection error.");
     } finally {
       setLoading(false);
     }
@@ -91,7 +96,7 @@ export default function LoginForm() {
 
   const handleVerify = async (e) => {
     e.preventDefault();
-    if (code.length < 6) return setError("Enter code.");
+    if (code.length < 6) return setError("Token sequence required.");
     setLoading(true);
     setError("");
 
@@ -103,19 +108,19 @@ export default function LoginForm() {
       const data = await res.json();
       if (data.success) {
         if (data.pendingApproval) {
-            toast.success("Identity verified. Submitting for approval.");
+            toast.success("Identity captured. Submitting for authorization.");
             setLoading(false);
             setView("pending");
         } else {
             setNewPasskey(data.passkey);
-            toast.success("Welcome, Super Admin.");
+            toast.success("Super Admin Root Established.");
             setView("success");
         }
       } else {
-        setError(data.message || "Invalid code.");
+        setError(data.message || "Token mismatch.");
       }
     } catch (err) {
-      setError("Verification failed.");
+      setError("Verification sequence failed.");
     } finally {
       setLoading(false);
     }
@@ -133,13 +138,17 @@ export default function LoginForm() {
       });
       const data = await res.json();
       if (data.success) {
-        toast.success("Identity verified. Accessing Nexus...");
+        toast.success("Identity verified. Accessing Administrative Nexus...");
         router.push("/admin/dashboard");
       } else {
-        setError(data.message || "Access denied. Credentials mismatch or lack of approval.");
+        if (data.code === "NOT_FOUND") {
+            setView("reverify"); // Show the "Account Node Missing" view
+        } else {
+            setError(data.message || "Authorization refused. Node restricted or mismatch.");
+        }
       }
     } catch (err) {
-      setError("Login failed.");
+      setError("Gateway connection failure.");
     } finally {
       setLoading(false);
     }
@@ -163,38 +172,43 @@ export default function LoginForm() {
             <div className="w-20 h-20 bg-blue-600/10 border border-blue-500/20 rounded-3xl flex items-center justify-center mb-6 shadow-inner transition-transform hover:scale-110 duration-500">
                 {view === "pending" ? <Clock className="w-10 h-10 text-yellow-500 animate-pulse" /> : 
                  view === "denied" ? <UserX className="w-10 h-10 text-red-500" /> :
+                 view === "reverify" ? <UserPlus className="w-10 h-10 text-emerald-500" /> :
                  <ShieldCheck className="w-10 h-10 text-blue-500" />}
             </div>
             
-            <h1 className="text-4xl font-black italic tracking-tighter uppercase text-white mb-3">
-              Admin <span className="text-blue-500">Security</span>
+            <h1 className="text-4xl font-black italic tracking-tighter uppercase text-white mb-3 text-shadow-glow">
+              Admin <span className="text-blue-500">Nexus</span>
             </h1>
-            <p className="text-slate-400 text-sm font-medium tracking-tight px-4 opacity-70 uppercase tracking-[0.1em]">
-              {view === "setup" ? "Request Access Terminal" : 
-               view === "verify" ? "Identity Trace Active" :
-               view === "pending" ? "Awaiting Authority Approval" :
-               view === "success" ? "Super Admin Access Rooted" :
+            <p className="text-slate-400 text-[10px] font-black tracking-[0.2em] px-4 opacity-50 uppercase leading-relaxed">
+              {view === "setup" ? "Requesting Administrative Admission" : 
+               view === "verify" ? "Identity Trace Stream Active" :
+               view === "pending" ? "Awaiting Authority Authorization" :
+               view === "success" ? "Super Admin Root Node Established" :
                view === "denied" ? "Identity Authorization Refused" :
-               "Secure Gateway for Authorized Personnel"}
+               view === "reverify" ? "Account Admission Portal Initialized" :
+               "Secure Gateway for Authorized Personnel Only"}
             </p>
           </div>
 
           <form 
             onSubmit={
-                view === "setup" || view === "reset" || view === "denied" ? handleSendCode : 
+                view === "setup" || view === "denied" || view === "reverify" ? handleSendCode : 
                 view === "verify" ? handleVerify : 
                 handleLogin
             } 
             className="space-y-6"
           >
-            {view === "denied" ? (
+            {view === "denied" || view === "reverify" ? (
                 <div className="space-y-6">
-                    <div className="p-8 bg-red-500/5 border border-red-500/20 rounded-[2rem] text-center space-y-4">
-                        <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" />
+                    <div className={`p-8 border rounded-[2rem] text-center space-y-4 ${view === 'denied' ? 'bg-red-500/5 border-red-500/10' : 'bg-emerald-500/5 border-emerald-500/10'}`}>
+                        {view === 'denied' ? <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" /> : <UserPlus className="w-12 h-12 text-emerald-500 mx-auto" />}
                         <div>
-                            <p className="text-[10px] font-black uppercase text-red-400 tracking-[0.3em] mb-2 leading-tight">Access Node Restricted</p>
-                            <p className="text-slate-300 text-sm font-bold tracking-tight leading-relaxed opacity-70">
-                                Your previous identity request was reviewed and declined by the Super Admin.
+                            <p className={`text-[10px] font-black uppercase tracking-[0.3em] mb-2 leading-tight ${view === 'denied' ? 'text-red-400' : 'text-emerald-400'}`}>
+                                {view === 'denied' ? 'Access Node Restricted' : 'Account Node Missing'}
+                            </p>
+                            <p className="text-slate-300 text-sm font-bold tracking-tight leading-relaxed opacity-60">
+                                {view === 'denied' ? 'Your previous identity capture has been reviewed and declined. Restore authority through the re-verification stream.' : 
+                                 'This digital signature is not mapped within the Authority Nexus. Initialize admission to establish a new identity node.'}
                             </p>
                         </div>
                     </div>
@@ -202,42 +216,42 @@ export default function LoginForm() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-5 rounded-[2rem] bg-blue-600 text-[#030712] font-black uppercase text-xs tracking-[0.3em] shadow-2xl shadow-blue-600/20 hover:bg-blue-500 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                        className={`w-full py-5 rounded-[2rem] font-black uppercase text-xs tracking-[0.3em] shadow-2xl transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 ${view === 'denied' ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-emerald-600 text-[#030712] hover:bg-emerald-500 shadow-emerald-600/20'}`}
                     >
-                        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><RefreshCcw className="w-4 h-4" /> Resubmit Identification</>}
+                        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><RefreshCcw className="w-4 h-4" /> {view === 'denied' ? 'Initialize Recovery Stream' : 'Initialize Admission'}</>}
                     </button>
                     
-                    <button type="button" onClick={() => setView("login")} className="w-full text-[10px] font-black uppercase text-slate-600 hover:text-white transition-colors tracking-widest text-center mt-2 italic">Back to Security Gateway</button>
+                    <button type="button" onClick={() => setView("login")} className="w-full text-[9px] font-black uppercase text-slate-700 hover:text-white transition-colors tracking-widest text-center mt-2 italic opacity-50 hover:opacity-100">Back to Portal Gateway</button>
                 </div>
-            ) : view === "setup" || view === "reset" || view === "verify" ? (
+            ) : view === "setup" || view === "verify" ? (
                 <div className="space-y-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-blue-400 tracking-[0.2em] ml-2">Digital Signature (Email)</label>
+                        <label className="text-[10px] font-black uppercase text-blue-500 tracking-[0.2em] ml-2">Digital Signature (Email)</label>
                         <div className="relative group">
-                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 w-5 h-5 transition-colors" />
+                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 w-5 h-5 transition-colors" />
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={view === "verify"}
                                 placeholder="authority@muhyo.tech"
-                                className="w-full bg-[#1e293b]/40 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/30 backdrop-blur-md disabled:opacity-30"
+                                className="w-full bg-[#1e293b]/30 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/20 backdrop-blur-md disabled:opacity-30 transition-all shadow-inner"
                                 required
                             />
                         </div>
                     </div>
                     {view === "verify" && (
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase text-blue-400 tracking-[0.2em] ml-2">Verification Stream Token</label>
+                            <label className="text-[10px] font-black uppercase text-blue-500 tracking-[0.2em] ml-2">Verification Stream Token</label>
                             <div className="relative group">
-                                <Key className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 w-5 h-5 transition-colors" />
+                                <Key className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 w-5 h-5 transition-colors" />
                                 <input
                                     type="text"
                                     maxLength={6}
                                     value={code}
                                     onChange={(e) => setCode(e.target.value)}
                                     placeholder="000000"
-                                    className="w-full bg-[#1e293b]/40 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-lg tracking-[1em] outline-none focus:border-blue-500/30 backdrop-blur-md"
+                                    className="w-full bg-[#1e293b]/30 border border-white/5 p-5 pl-14 rounded-2xl text-white font-black text-lg tracking-[1em] outline-none focus:border-blue-500/20 backdrop-blur-md shadow-inner"
                                     required
                                 />
                             </div>
@@ -245,65 +259,66 @@ export default function LoginForm() {
                     )}
                 </div>
             ) : view === "pending" ? (
-                <div className="bg-yellow-500/5 border border-yellow-500/10 p-10 rounded-3xl text-center space-y-6">
-                    <div className="flex justify-center">
+                <div className="bg-yellow-500/5 border border-yellow-500/10 p-10 rounded-[3rem] text-center space-y-6 relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="flex justify-center relative">
                         <Clock className="w-16 h-16 text-yellow-500 animate-pulse" />
                     </div>
-                    <div>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 mb-2">Authority Review Required</p>
-                        <p className="text-slate-300 text-sm font-bold tracking-tight px-2 leading-relaxed opacity-70 italic">
-                            Your identity has been captured. The Super Admin must now manually authorize your terminal access.
+                    <div className="relative">
+                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-yellow-600 mb-2">Authority Review In Progress</p>
+                        <p className="text-slate-400 text-sm font-bold tracking-tight px-2 leading-relaxed opacity-80 italic">
+                            Your identity capture is waiting for manual authorization by a Super Admin Root node.
                         </p>
                     </div>
-                    <div className="h-px w-10 bg-white/5 mx-auto" />
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 animate-pulse">Monitoring Connection...</p>
-                    <button type="button" onClick={() => setView("login")} className="text-[9px] font-black uppercase text-slate-700 hover:text-white transition-colors tracking-widest mt-4">Abort Session</button>
+                    <div className="h-px w-10 bg-white/5 mx-auto relative" />
+                    <p className="text-[9px] font-black uppercase tracking-[0.6em] text-slate-700 animate-pulse relative">Trace Connection: Stable</p>
+                    <button type="button" onClick={() => setView("login")} className="text-[9px] font-black uppercase text-slate-800 hover:text-white transition-colors tracking-[0.4em] mt-4 relative">Abort Uplink</button>
                 </div>
             ) : view === "success" ? (
-                <div className="bg-blue-500/5 border border-blue-500/10 p-10 rounded-[3rem] text-center space-y-6 relative overflow-hidden">
+                <div className="bg-blue-600/5 border border-blue-600/10 p-10 rounded-[3rem] text-center space-y-8 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600/0 via-blue-600 to-blue-600/0 animate-ping" />
-                    <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto" />
-                    <div>
-                        <p className="text-[10px] font-black uppercase text-slate-500 mb-3 tracking-[0.3em] italic">Access Bypass: Active</p>
-                        <p className="text-4xl font-black italic text-white tracking-[0.3em] py-6 bg-blue-500/10 rounded-[2rem] border border-white/5 select-all shadow-inner">{newPasskey}</p>
+                    <CheckCircle2 className="w-20 h-20 text-emerald-500 mx-auto" />
+                    <div className="space-y-4">
+                        <p className="text-[10px] font-black uppercase text-blue-800 mb-1 tracking-[0.5em] italic">Access Bypass Token Active</p>
+                        <p className="text-5xl font-black italic text-white tracking-[0.2em] py-8 bg-[#1e293b]/40 rounded-[2rem] border border-white/5 select-all shadow-inner">{newPasskey}</p>
                     </div>
-                    <p className="text-[9px] text-yellow-500 font-bold uppercase tracking-[0.4em] mt-6 leading-relaxed opacity-80 uppercase italic">Security Warning: Master Key Revealed. Shred after use.</p>
+                    <p className="text-[9px] text-yellow-600 font-black uppercase tracking-[0.3em] mt-8 leading-relaxed opacity-70 italic">Security Warning: Master Root revealed. Shred digital signature immediately.</p>
                 </div>
             ) : (
                 <div className="space-y-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase text-blue-400 tracking-[0.2em] ml-2">Authority Identity</label>
+                        <label className="text-[10px] font-black uppercase text-blue-500 tracking-[0.2em] ml-2">Authority Identifier</label>
                         <div className="relative group">
-                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 w-5 h-5 transition-colors" />
+                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 w-5 h-5 transition-colors" />
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-[#1e293b]/40 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/30 backdrop-blur-md transition-all"
-                                placeholder="Identifier Hash"
+                                className="w-full bg-[#1e293b]/30 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/20 backdrop-blur-md transition-all shadow-inner"
+                                placeholder="Identifier Signature"
                                 required
                             />
                         </div>
                     </div>
                     <div className="space-y-2">
                         <div className="flex justify-between items-center px-1">
-                             <label className="text-[10px] font-black uppercase text-blue-400 tracking-[0.2em]">Secure Passkey</label>
-                             <button type="button" onClick={() => setView("reset")} className="text-[9px] font-black uppercase text-slate-500 hover:text-blue-500 transition-colors tracking-widest">Recalibrate Access?</button>
+                             <label className="text-[10px] font-black uppercase text-blue-500 tracking-[0.2em]">Secure Passkey</label>
+                             <button type="button" onClick={() => setView("setup")} className="text-[9px] font-black uppercase text-slate-700 hover:text-blue-400 transition-colors tracking-widest italic">Recalibrate Access?</button>
                         </div>
                         <div className="relative group">
-                            <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 w-5 h-5 transition-colors" />
+                            <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 w-5 h-5 transition-colors" />
                             <input
                                 type={showPasskey ? "text" : "password"}
                                 value={passkey}
                                 onChange={(e) => setPasskey(e.target.value)}
-                                className="w-full bg-[#1e293b]/40 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/30 backdrop-blur-md transition-all"
+                                className="w-full bg-[#1e293b]/30 border border-white/5 p-5 pl-14 rounded-2xl text-white font-bold text-sm outline-none focus:border-blue-500/20 backdrop-blur-md transition-all shadow-inner"
                                 placeholder="••••••••"
                                 required
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPasskey(!showPasskey)}
-                                className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors p-1"
+                                className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors p-1"
                             >
                                 {showPasskey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                             </button>
@@ -312,43 +327,49 @@ export default function LoginForm() {
                 </div>
             )}
 
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
                 {error && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="p-5 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-4">
-                        <ShieldAlert className="w-6 h-6 text-red-500 shrink-0" />
-                        <p className="text-[10px] font-black text-red-100 uppercase tracking-tight italic">{error}</p>
+                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="p-5 bg-red-600/10 border border-red-600/10 rounded-2xl flex items-center gap-4">
+                        <ShieldAlert className="w-6 h-6 text-red-600 shrink-0" />
+                        <p className="text-[10px] font-black text-red-200 uppercase tracking-tight italic opacity-70">{error}</p>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {view !== "denied" && (
+            {view !== "denied" && view !== "reverify" && (
                 <div className="flex flex-col gap-4 pt-4">
                     <button
                         type={view === "success" || view === "pending" ? "button" : "submit"}
                         onClick={() => (view === "success" || view === "pending") && (view === "success" ? router.push("/admin/dashboard") : setView("login"))}
                         disabled={loading}
-                        className="w-full py-5 rounded-[2rem] bg-blue-600 text-[#030712] font-black uppercase text-xs tracking-[0.3em] shadow-2xl shadow-blue-600/20 hover:bg-blue-500 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                        className="group w-full py-5 rounded-[2rem] bg-blue-600 text-[#030712] font-black uppercase text-xs tracking-[0.3em] shadow-[0_20px_50px_rgba(37,99,235,0.2)] hover:bg-blue-500 hover:scale-[1.01] transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
                     >
                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 
-                        view === "setup" || view === "reset" ? "Request Verification" : 
-                        view === "verify" ? "Authorize Identity" :
-                        view === "success" ? "Access Nexus Dashboard" : 
-                        view === "pending" ? "Back to Gateway" :
-                        "Initialize Authority"}
+                        view === "setup" ? "Initialize Admission" : 
+                        view === "verify" ? "Confirm Identity Trace" :
+                        view === "success" ? "Enter Nexus Dashboard" : 
+                        view === "pending" ? "Back to Security Gateway" :
+                        "Authorize Session"}
+                        <div className="w-1.5 h-1.5 bg-white/20 rounded-full animate-ping group-hover:bg-white" />
                     </button>
                     
                     {view === "login" && (
-                        <button type="button" onClick={() => setView("setup")} className="text-[10px] font-black uppercase text-slate-600 hover:text-white transition-colors tracking-widest text-center mt-2 italic opacity-50 hover:opacity-100">
-                            Missing Identity Node? Request Admission
+                        <button type="button" onClick={() => setView("setup")} className="text-[10px] font-black uppercase text-slate-700 hover:text-white transition-colors tracking-widest text-center mt-2 italic opacity-40 hover:opacity-100">
+                            No Identity Node? Request Admission
                         </button>
                     )}
                 </div>
             )}
           </form>
 
-          <p className="text-center mt-12 text-[9px] font-black text-slate-800 uppercase tracking-[0.6em] select-none italic">
-             Authority v2.8.5 • SECURE_GATE_ULTRA
-          </p>
+          <div className="mt-16 pt-8 border-t border-white/5 flex flex-col items-center">
+             <div className="flex gap-2 mb-4">
+                 {[1,2,3,4].map(i => <div key={i} className="w-1 h-1 bg-blue-600/20 rounded-full animate-pulse" style={{ animationDelay: `${i*0.2}s` }} />)}
+             </div>
+             <p className="text-[9px] font-black text-slate-800 uppercase tracking-[0.8em] select-none text-shadow-glow">
+                Nexus.v2.9_Secure
+             </p>
+          </div>
         </div>
       </motion.div>
     </div>

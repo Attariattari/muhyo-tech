@@ -1,0 +1,106 @@
+{
+  "superAdminEmail": "attariattari549@gmail.com",
+  "users": {
+    "attariattari549@gmail.com": {
+      "id": "root-001",
+      "name": "Super Admin",
+      "email": "attariattari549@gmail.com",
+      "passkey": "ZFIGAA4JEA",
+      "role": "super-admin",
+      "status": "approved",
+      "createdAt": "2026-03-19T11:21:41Z"
+    },
+    "muhyotech@gmail.com": {
+      "id": "c8p2262j8",
+      "email": "muhyotech@gmail.com",
+      "name": "muhyotech",
+      "status": "denied",
+      "role": "user",
+      "createdAt": "2026-03-19T18:54:57.926Z",
+      "passkey": "4KKTID340D"
+    },
+    "pirghulammuhyodin@gmail.com": {
+      "id": "lbbizxlx6",
+      "email": "pirghulammuhyodin@gmail.com",
+      "name": "pirghulammuhyodin",
+      "status": "denied",
+      "role": "user",
+      "createdAt": "2026-03-19T19:06:26.760Z",
+      "passkey": "C1WRHRFWLE"
+    }
+  },
+  "notifications": [
+    {
+      "id": "vnp3o7wkl",
+      "status": "unread",
+      "createdAt": "2026-03-19T19:36:26.414Z",
+      "type": "USER_DENIED",
+      "title": "Identity Refused",
+      "message": "Authorization denied for: pirghulammuhyodin@gmail.com. Node restricted.",
+      "relatedUserId": "lbbizxlx6"
+    },
+    {
+      "id": "kexaf0j0q",
+      "status": "read",
+      "createdAt": "2026-03-19T19:36:24.982Z",
+      "type": "USER_APPROVED",
+      "title": "Authority Extended",
+      "message": "Identity Authorized: pirghulammuhyodin@gmail.com. New access node established.",
+      "relatedUserId": "lbbizxlx6"
+    },
+    {
+      "id": "ke1b9p5a1",
+      "status": "unread",
+      "createdAt": "2026-03-19T19:36:15.413Z",
+      "type": "USER_DENIED",
+      "title": "Identity Refused",
+      "message": "Authorization denied for: muhyotech@gmail.com. Node restricted.",
+      "relatedUserId": "c8p2262j8"
+    },
+    {
+      "id": "rl5te1khk",
+      "status": "read",
+      "createdAt": "2026-03-19T19:27:11.937Z",
+      "type": "USER_APPROVED",
+      "title": "Authority Extended",
+      "message": "Identity Authorized: muhyotech@gmail.com. New access node established.",
+      "relatedUserId": "c8p2262j8"
+    },
+    {
+      "id": "bchffs5ox",
+      "status": "approved",
+      "createdAt": "2026-03-19T19:26:16.772Z",
+      "type": "USER_DENIED",
+      "title": "Identity Refused",
+      "message": "Authorization denied for: pirghulammuhyodin@gmail.com. Node restricted.",
+      "relatedUserId": "lbbizxlx6"
+    },
+    {
+      "id": "or0vj53vt",
+      "status": "approved",
+      "createdAt": "2026-03-19T19:25:17.627Z",
+      "type": "USER_DENIED",
+      "title": "Identity Refused",
+      "message": "Authorization denied for: muhyotech@gmail.com. Node restricted.",
+      "relatedUserId": "c8p2262j8"
+    },
+    {
+      "id": "kiqv35x50",
+      "status": "read",
+      "createdAt": "2026-03-19T19:06:39.003Z",
+      "type": "SYSTEM",
+      "title": "Authority Extended",
+      "message": "Identity Authorized: pirghulammuhyodin@gmail.com. New access node established.",
+      "relatedUserId": "lbbizxlx6"
+    },
+    {
+      "id": "notif-wel-001",
+      "type": "SYSTEM",
+      "title": "Nexus Initialized",
+      "message": "The administrative security nexus is online and secure.",
+      "status": "read",
+      "createdAt": "2026-03-19T11:21:41Z"
+    }
+  ],
+  "pendingCodes": {}
+}
