@@ -2,7 +2,7 @@
 
 import React from "react";
 import Contact from "@/components/Contact";
-import EditorialBackground from "@/components/EditorialBackground";
+import EditorialBackground from "@/components/ui/EditorialBackground";
 
 /**
  * Main Contact Page

@@ -5,6 +5,10 @@ import {
   Download,
   Briefcase,
   GraduationCap,
+  Mail,
+  Phone,
+  MapPin,
+  Award,
   Code,
   Layers,
   CheckCircle2,
@@ -12,7 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import EditorialBackground from "@/components/ui/EditorialBackground";
+import EditorialBackground from "@/components/EditorialBackground";
 import { resumeData } from "@/lib/data";
 
 export default function ResumePage() {
@@ -27,8 +31,7 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="relative pt-2 pb-2 overflow-hidden">
-      <EditorialBackground text="RESUME" />
+    <div className="pt-2 pb-2 ">
       <SectionWrapper subtitle="Professional Path" title="My Digital Legacy">
         {/* HERO SECTION */}
         <div className="relative mb-20 overflow-hidden">

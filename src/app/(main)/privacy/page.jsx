@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import EditorialBackground from "@/components/EditorialBackground";
+import EditorialBackground from "@/components/ui/EditorialBackground";
 import {
   Shield,
   Lock,
