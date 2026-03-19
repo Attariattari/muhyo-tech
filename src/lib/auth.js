@@ -97,6 +97,18 @@ export async function verifyAndHandleRequest(email, code) {
   }
 
   const isSuperAdmin = email === data.superAdminEmail;
+  
+  // Check Blacklist (24h for removed users)
+  const existingUser = data.users[email];
+  if (existingUser && existingUser.status === "removed") {
+      const removedTime = new Date(existingUser.createdAt).getTime();
+      const twentyFourHours = 24 * 60 * 60 * 1000;
+      if (Date.now() - removedTime < twentyFourHours) {
+          const remaining = Math.ceil((twentyFourHours - (Date.now() - removedTime)) / (60 * 60 * 1000));
+          return { success: false, message: `Access node blacklisted. Retry in ${remaining} hours.` };
+      }
+  }
+
   delete data.pendingCodes[email];
 
   if (isSuperAdmin) {
@@ -127,7 +139,8 @@ export async function verifyAndHandleRequest(email, code) {
             createdAt: new Date().toISOString()
         };
     } else {
-        data.users[email].status = "pending"; // For Reset requests
+        data.users[email].status = "pending"; 
+        data.users[email].createdAt = new Date().toISOString(); // Reset join date to current request time
     }
 
     // Add Approval Notification for Super Admin
@@ -185,7 +198,7 @@ export async function approveUser(email) {
 
   // LOG: Administrative Audit
   await addNotification({
-    type: "SYSTEM",
+    type: "USER_APPROVED",
     title: "Authority Extended",
     message: `Identity Authorized: ${email}. New access node established.`,
     relatedUserId: user.id,
@@ -221,10 +234,46 @@ export async function denyUser(email) {
               n.status = "denied";
           }
       });
+      
       saveAuthData(data);
+      
+      // BROADCAST: FORCED LOGOUT (Deny)
+      eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'denied', forceLogout: true });
+      
+      await addNotification({
+          type: "USER_DENIED",
+          title: "Identity Refused",
+          message: `Authorization denied for: ${email}. Node restricted.`,
+          relatedUserId: user.id
+      });
+      
       return { success: true };
   }
   return { success: false, message: "Identity not found." };
+}
+
+export async function removeUser(email) {
+    const data = getAuthData();
+    const user = data.users[email];
+    if (user) {
+        user.status = "removed";
+        user.createdAt = new Date().toISOString(); // Using as 'removedAt' for 24h block
+        
+        saveAuthData(data);
+        
+        // FORCED LOGOUT BROADCAST
+        eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'removed', forceLogout: true });
+        
+        await addNotification({
+            type: "USER_REMOVED",
+            title: "Authority Revoked",
+            message: `Identity purged from Nexus: ${email}. Node blacklisted for 24h.`,
+            relatedUserId: user.id
+        });
+        
+        return { success: true };
+    }
+    return { success: false, message: "Identity not found." };
 }
 
 export async function deleteNotification(id) {
@@ -250,6 +299,17 @@ export async function getAuthSession() {
     if (!token) return null;
     try {
         const { payload } = await jwtVerify(token, SECRET);
+        
+        // SERVER-SIDE SESSION INVALIDATION
+        // Cross-reference with Authority Nexus to ensure status is still 'approved'
+        const data = getAuthData();
+        const user = data.users[payload.email];
+        
+        if (!user || user.status !== "approved") {
+            // If status changed to denied/removed, invalidate session
+            return null;
+        }
+
         return payload;
     } catch (e) { return null; }
 }

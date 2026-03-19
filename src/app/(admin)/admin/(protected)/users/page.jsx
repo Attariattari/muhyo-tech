@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import useAdminStore from "@/lib/store/adminStore";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Search, Filter, ShieldCheck, Mail, Calendar, UserCheck, UserX, Loader2, MoreVertical, ShieldAlert } from "lucide-react";
+import { Users, Search, Filter, ShieldCheck, Mail, Calendar, UserCheck, UserX, Loader2, Trash2, ShieldAlert, AlertCircle, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 export default function UserManagementPage() {
     const { users, fetchUsers, updateUserStatus } = useAdminStore();
@@ -14,6 +15,13 @@ export default function UserManagementPage() {
 
     useEffect(() => {
         fetchUsers().then(() => setLoading(false));
+        
+        // Listen for real-time updates from Topbar SSE (via store refresh)
+        const eventSource = new EventSource("/api/admin/events");
+        eventSource.addEventListener("user", () => {
+             fetchUsers();
+        });
+        return () => eventSource.close();
     }, []);
 
     const filteredUsers = users.filter(u => {
@@ -22,6 +30,14 @@ export default function UserManagementPage() {
         const matchesStatus = statusFilter === "all" || u.status === statusFilter;
         return matchesSearch && matchesStatus;
     });
+
+    const handleAction = async (email, action) => {
+        toast.promise(updateUserStatus(email, action), {
+            loading: `Executing ${action} protocol...`,
+            success: `User authority recalibrated: ${action}`,
+            error: "Protocol failure. Nexus locked."
+        });
+    };
 
     if (loading) return (
         <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -44,6 +60,9 @@ export default function UserManagementPage() {
                 </div>
                 
                 <div className="flex items-center gap-4">
+                    <button onClick={() => fetchUsers()} className="p-4 bg-white/5 hover:bg-white/10 rounded-2xl text-slate-400 hover:text-white transition-all">
+                        <RefreshCw className="w-5 h-5" />
+                    </button>
                     <div className="px-5 py-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center gap-3">
                         <Users className="w-5 h-5 text-blue-500" />
                         <div>
@@ -66,12 +85,12 @@ export default function UserManagementPage() {
                         className="w-full bg-[#0f172a]/40 border border-white/5 p-4 pl-12 rounded-2xl text-white text-sm outline-none focus:border-blue-500/30 transition-all backdrop-blur-md"
                     />
                 </div>
-                <div className="flex gap-2">
-                    {['all', 'pending', 'approved', 'denied'].map((status) => (
+                <div className="flex flex-wrap gap-2">
+                    {['all', 'pending', 'approved', 'denied', 'removed'].map((status) => (
                         <button
                             key={status}
                             onClick={() => setStatusFilter(status)}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+                            className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                                 statusFilter === status 
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-600/20' 
                                 : 'bg-[#0f172a]/40 text-slate-500 border-white/5 hover:border-blue-500/30'
@@ -96,9 +115,14 @@ export default function UserManagementPage() {
                     </thead>
                     <tbody className="divide-y divide-white/5">
                         <AnimatePresence mode="popLayout">
-                            {filteredUsers.map((u) => (
+                            {filteredUsers.length === 0 ? (
+                                <motion.tr initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                    <td colSpan={4} className="p-20 text-center text-slate-600 italic uppercase font-black text-[10px] tracking-[0.5em]">No personnel records found in this sector.</td>
+                                </motion.tr>
+                            ) : filteredUsers.map((u) => (
                                 <motion.tr 
                                     key={u.id}
+                                    layout
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
@@ -106,21 +130,25 @@ export default function UserManagementPage() {
                                 >
                                     <td className="p-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
-                                                <Mail className="w-5 h-5 text-blue-500" />
+                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all ${
+                                                u.status === 'removed' ? 'bg-red-500/5 border-red-500/10 text-red-500/40' : 'bg-blue-500/10 border-blue-500/20 text-blue-500'
+                                            }`}>
+                                                <Mail className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="text-sm font-black text-white italic">{u.name}</p>
+                                                <p className={`text-sm font-black italic ${u.status === 'removed' ? 'text-slate-600 line-through' : 'text-white'}`}>{u.name}</p>
                                                 <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">{u.email}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="p-6">
-                                        <span className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border ${
+                                        <span className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border flex items-center gap-2 w-fit ${
                                             u.status === 'approved' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
                                             u.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20 animate-pulse' :
+                                            u.status === 'removed' ? 'bg-red-600/20 text-red-400 border-red-600/30 shadow-[0_0_15px_rgba(220,38,38,0.2)]' :
                                             'bg-red-500/10 text-red-500 border-red-500/20'
                                         }`}>
+                                            {u.status === 'removed' && <AlertCircle className="w-3 h-3" />}
                                             {u.status}
                                         </span>
                                     </td>
@@ -137,33 +165,45 @@ export default function UserManagementPage() {
                                     </td>
                                     <td className="p-6">
                                         <div className="flex items-center justify-end gap-3">
-                                            {u.status === 'pending' && (
-                                                <>
-                                                    <button 
-                                                        onClick={() => updateUserStatus(u.email, 'approve')}
-                                                        className="p-3 bg-blue-600/10 text-blue-500 border border-blue-600/20 rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-lg shadow-blue-600/5 group/btn"
-                                                        title="Authorize User"
-                                                    >
-                                                        <UserCheck className="w-5 h-5 group-active/btn:scale-90 transition-transform" />
-                                                    </button>
-                                                    <button 
-                                                        onClick={() => updateUserStatus(u.email, 'deny')}
-                                                        className="p-3 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/5 group/btn"
-                                                        title="Deny Access"
-                                                    >
-                                                        <UserX className="w-5 h-5 group-active/btn:scale-90 transition-transform" />
-                                                    </button>
-                                                </>
-                                            )}
-                                            {u.role === 'super-admin' && (
-                                                <div className="flex items-center gap-2 text-[10px] font-black uppercase text-blue-500 italic tracking-[0.2em] bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20">
+                                            {u.role === 'super-admin' ? (
+                                                <div className="flex items-center gap-2 text-[10px] font-black uppercase text-blue-500 italic tracking-[0.2em] bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20 select-none">
                                                     <ShieldCheck className="w-4 h-4" /> Root
                                                 </div>
-                                            )}
-                                            {u.status !== 'pending' && u.role !== 'super-admin' && (
-                                                <button className="p-3 text-slate-600 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                                                    <MoreVertical className="w-5 h-5" />
-                                                </button>
+                                            ) : (
+                                                <div className="flex gap-2">
+                                                    {u.status !== 'approved' && (
+                                                        <button 
+                                                            onClick={() => handleAction(u.email, 'approve')}
+                                                            className="p-3 bg-emerald-600/10 text-emerald-500 border border-emerald-600/20 rounded-xl hover:bg-emerald-600 hover:text-white transition-all shadow-lg group/btn"
+                                                            title="Authorize Personnel"
+                                                        >
+                                                            <UserCheck className="w-5 h-5 group-active/btn:scale-90 transition-transform" />
+                                                        </button>
+                                                    )}
+                                                    {u.status !== 'denied' && u.status !== 'removed' && (
+                                                        <button 
+                                                            onClick={() => handleAction(u.email, 'deny')}
+                                                            className="p-3 bg-orange-600/10 text-orange-500 border border-orange-600/20 rounded-xl hover:bg-orange-600 hover:text-white transition-all shadow-lg group/btn"
+                                                            title="Deny Access"
+                                                        >
+                                                            <UserX className="w-5 h-5 group-active/btn:scale-90 transition-transform" />
+                                                        </button>
+                                                    )}
+                                                    {u.status !== 'removed' && (
+                                                        <button 
+                                                            onClick={() => handleAction(u.email, 'remove')}
+                                                            className="p-3 bg-red-600/10 text-red-500 border border-red-600/20 rounded-xl hover:bg-red-600 hover:text-white transition-all shadow-lg group/btn"
+                                                            title="Blacklist User"
+                                                        >
+                                                            <Trash2 className="w-5 h-5 group-active/btn:scale-90 transition-transform" />
+                                                        </button>
+                                                    )}
+                                                    {u.status === 'removed' && (
+                                                        <span className="text-[9px] text-red-500 font-black uppercase tracking-widest border border-red-500/20 px-4 py-2 rounded-xl bg-red-500/5 select-none animate-pulse">
+                                                            Node Locked (24h)
+                                                        </span>
+                                                    )}
+                                                </div>
                                             )}
                                         </div>
                                     </td>
@@ -181,7 +221,7 @@ export default function UserManagementPage() {
                 </div>
                 <div>
                      <p className="text-[10px] font-black uppercase text-blue-400 tracking-[0.3em] mb-1">Administrative Protocol</p>
-                     <p className="text-sm text-slate-500 font-medium tracking-tight">Only authorized personnel can interact with the system nexus. Use extreme caution when delegating identity access.</p>
+                     <p className="text-sm text-slate-500 font-medium tracking-tight">Super Admin actions are final. Authorizing or removing personnel will broadcast immediately across the Authority Nexus.</p>
                 </div>
             </div>
         </div>

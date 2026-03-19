@@ -6,6 +6,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import useAdminStore from "@/lib/store/adminStore";
 import { formatDistanceToNow } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 export default function Topbar() {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -25,24 +26,33 @@ export default function Topbar() {
     // Authority Event Stream (Real-time SSE)
     const eventSource = new EventSource("/api/admin/events");
 
-    eventSource.onmessage = (event) => {
-        // SSE can send generic messages or named events
-        // But our route sends event: notification
-    };
-
     eventSource.addEventListener("notification", (e) => {
         const notif = JSON.parse(e.data);
-        // Sync Store (Add to top of list)
-        useAdminStore.getState().setData('notifications', [notif, ...useAdminStore.getState().notifications]);
-        
-        // Effects
-        playNotificationSound();
-        triggerBrowserNotification(notif);
-        toast.info(notif.title, { description: notif.message });
+        // Sync Store (Add to top of list if not exists)
+        const currentNotifs = useAdminStore.getState().notifications;
+        if (!currentNotifs.some(n => n.id === notif.id)) {
+            useAdminStore.getState().setData('notifications', [notif, ...currentNotifs]);
+            playNotificationSound();
+            triggerBrowserNotification(notif);
+            toast.info(notif.title, { description: notif.message });
+        }
+    });
+
+    eventSource.addEventListener("user", (e) => {
+        const data = JSON.parse(e.data);
+        if (data.forceLogout && session && data.email === session.email) {
+            playNotificationSound();
+            toast.error("Authority Revoked", { description: "Your access has been terminated by Super Admin." });
+            setTimeout(() => {
+                fetch("/api/admin/logout", { method: "POST" }).then(() => {
+                    window.location.href = "/admin/login";
+                });
+            }, 2000);
+        }
     });
 
     return () => eventSource.close();
-  }, []);
+  }, [session]);
 
   const playNotificationSound = () => {
     try {
@@ -58,7 +68,7 @@ export default function Topbar() {
         gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.3);
         oscillator.start();
         oscillator.stop(context.currentTime + 0.3);
-    } catch (e) { /* Audio policy might block until interaction */ }
+    } catch (e) { /* Audio policy */ }
   };
 
   const triggerBrowserNotification = (notif) => {

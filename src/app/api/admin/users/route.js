@@ -23,6 +23,9 @@ export async function POST(request) {
     } else if (action === "deny") {
       const result = await denyUser(email);
       return NextResponse.json(result);
+    } else if (action === "remove") {
+      const result = await removeUser(email);
+      return NextResponse.json(result);
     }
     return NextResponse.json({ success: false, message: "Invalid action" }, { status: 400 });
   } catch (err) {
