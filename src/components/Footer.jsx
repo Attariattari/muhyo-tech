@@ -127,7 +127,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-6">
               <a
-                href="mailto:muhyo.tech@gmail.com"
+                href="mailto:MuhyoTech@gmail.com"
                 className="flex items-center gap-4 group p-4 rounded-2xl border border-border/40 hover:border-accent/40 bg-muted/20 transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-background transition-colors">
@@ -138,7 +138,7 @@ export default function Footer() {
                     Email Me
                   </p>
                   <p className="text-sm font-semibold text-foreground">
-                    muhyo.tech@gmail.com
+                    MuhyoTech@gmail.com
                   </p>
                 </div>
                 <ExternalLink
