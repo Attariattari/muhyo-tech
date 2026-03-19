@@ -17,32 +17,48 @@ export default function LoginForm() {
   const [newPasskey, setNewPasskey] = useState("");
   const router = useRouter();
 
-  // Polling for Authorization Status (Simulated Real-time)
+  // Real-time Authority Tracing (SSE)
   useEffect(() => {
-    let poller;
-    if (view === "pending" && email) {
-      poller = setInterval(async () => {
-        try {
-          const res = await fetch(`/api/admin/status?email=${encodeURIComponent(email)}`);
-          const data = await res.json();
-          if (data.active) {
+    if (view !== "pending" || !email) return;
+
+    const eventSource = new EventSource("/api/admin/events");
+
+    eventSource.addEventListener("user", (e) => {
+        const data = JSON.parse(e.data);
+        if (data.email === email && data.status === 'approved') {
             toast.success("Identity Authorized. Access granted.");
+            playSuccessSound();
             
-            // Trigger browser notification for the user
             if ("Notification" in window && Notification.permission === "granted") {
                 new Notification("[Nexus Gateway] Identity Authorized", {
-                    body: "The Super Admin has approved your request. You are now being channeled to the Nexus."
+                    body: "The Super Admin has approved your request. Access node active."
                 });
             }
             
-            clearInterval(poller);
-            setView("login"); 
-          }
-        } catch (e) { /* silent fail */ }
-      }, 6000); 
-    }
-    return () => clearInterval(poller);
+            eventSource.close();
+            setView("login");
+        }
+    });
+
+    return () => eventSource.close();
   }, [view, email]);
+
+  const playSuccessSound = () => {
+    try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(1046.50, context.currentTime); // C6
+        gain.gain.setValueAtTime(0, context.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.1);
+        gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5);
+        oscillator.start();
+        oscillator.stop(context.currentTime + 0.5);
+    } catch (e) { /* Audio policy */ }
+  };
 
   const handleSendCode = async (e) => {
     e.preventDefault();

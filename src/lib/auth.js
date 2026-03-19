@@ -4,6 +4,8 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 
+import eventBus, { ADMIN_EVENTS } from "@/lib/eventBus";
+
 const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "fallback_muhyo_secret_32_chars_long_!!!"
 );
@@ -58,6 +60,10 @@ export async function addNotification(payload) {
     };
     data.notifications.unshift(newNotif);
     saveAuthData(data);
+    
+    // Broadcast for real-time dashboards
+    eventBus.emit(ADMIN_EVENTS.NOTIFICATION, newNotif);
+    
     return newNotif;
 }
 
@@ -173,6 +179,9 @@ export async function approveUser(email) {
   });
 
   saveAuthData(data);
+
+  // Broadcast for real-time dashboards
+  eventBus.emit(ADMIN_EVENTS.USER_UPDATE, { email, status: 'approved' });
 
   // LOG: Administrative Audit
   await addNotification({

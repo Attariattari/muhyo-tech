@@ -22,33 +22,53 @@ export default function Topbar() {
     // Initial Fetch
     fetchNotifications();
 
-    // Authority Polling (Simulated Real-time)
-    const pollInterval = setInterval(() => {
-      fetchNotifications();
-    }, 10000); // 10 seconds precision
+    // Authority Event Stream (Real-time SSE)
+    const eventSource = new EventSource("/api/admin/events");
 
-    // Request Browser Permission for Notifications
-    if ("Notification" in window && Notification.permission === "default") {
-        Notification.requestPermission();
-    }
+    eventSource.onmessage = (event) => {
+        // SSE can send generic messages or named events
+        // But our route sends event: notification
+    };
 
-    return () => clearInterval(pollInterval);
+    eventSource.addEventListener("notification", (e) => {
+        const notif = JSON.parse(e.data);
+        // Sync Store (Add to top of list)
+        useAdminStore.getState().setData('notifications', [notif, ...useAdminStore.getState().notifications]);
+        
+        // Effects
+        playNotificationSound();
+        triggerBrowserNotification(notif);
+        toast.info(notif.title, { description: notif.message });
+    });
+
+    return () => eventSource.close();
   }, []);
 
-  // Trigger browser notification on new unread log
-  useEffect(() => {
-      const lastNotif = notifications[0];
-      if (lastNotif && lastNotif.status === 'unread' && "Notification" in window && Notification.permission === "granted") {
-          const shownNotifs = JSON.parse(sessionStorage.getItem('shown_notifs') || '[]');
-          if (!shownNotifs.includes(lastNotif.id)) {
-              new Notification("[Nexus Alert] Security Event Traced", {
-                  body: lastNotif.message,
-                  icon: "/favicon.ico"
-              });
-              sessionStorage.setItem('shown_notifs', JSON.stringify([...shownNotifs, lastNotif.id]));
-          }
-      }
-  }, [notifications]);
+  const playNotificationSound = () => {
+    try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, context.currentTime);
+        gain.gain.setValueAtTime(0, context.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.3);
+        oscillator.start();
+        oscillator.stop(context.currentTime + 0.3);
+    } catch (e) { /* Audio policy might block until interaction */ }
+  };
+
+  const triggerBrowserNotification = (notif) => {
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification(`[Nexus Log] ${notif.title}`, {
+            body: notif.message,
+            icon: "/favicon.ico"
+        });
+    }
+  };
 
   const unreadCount = useMemo(() => notifications.filter(n => n.status === 'unread').length, [notifications]);
   const latestNotifications = useMemo(() => notifications.slice(0, 10), [notifications]);
