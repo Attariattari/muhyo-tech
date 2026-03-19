@@ -226,7 +226,7 @@ const Contact = ({ isHomePage = false }) => {
         {!isHomePage && (
           <>
             {/* What Happens Next Section */}
-            <section className="mt-12 space-y-16">
+            <section className="mt-32 space-y-16">
               <div className="text-center space-y-4">
                 <h2 className="text-4xl font-black tracking-tighter text-foreground uppercase italic tracking-tighter">
                   What happens <span className="text-accent italic">next?</span>
@@ -277,7 +277,7 @@ const Contact = ({ isHomePage = false }) => {
             </section>
 
             {/* FAQ Section */}
-            <section className="mt-12 mb-20">
+            <section className="mt-32 mb-20">
               <div className="grid lg:grid-cols-12 gap-16 items-start">
                 <div className="lg:col-span-5 sticky top-32">
                   <div className="space-y-6">
@@ -356,7 +356,7 @@ const Contact = ({ isHomePage = false }) => {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-12 relative h-[500px] glass p-2 rounded-[3.5rem] overflow-hidden group shadow-2xl"
+              className="mt-32 relative h-[500px] glass p-2 rounded-[3.5rem] overflow-hidden group shadow-2xl"
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13615.111956555135!2d74.1950337!3d31.4284542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3918ff06c9a3d767%3A0xe67195449552b75a!2sChung%2C%20Lahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1709800000000!5m2!1sen!2s"

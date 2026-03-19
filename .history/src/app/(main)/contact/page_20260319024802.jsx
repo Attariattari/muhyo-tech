@@ -18,7 +18,7 @@ export default function ContactPage({ isHomePage = false }) {
       <div className="absolute top-0 right-[-10%] w-[700px] h-[700px] bg-accent/5 rounded-full blur-[150px] pointer-events-none -z-10 animate-floating" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px]  rounded-full blur-[130px] pointer-events-none -z-10 animate-floating [animation-delay:3s]" />
 
-      <main className="max-w-7xl mx-auto relative z-10">
+      <main className="max-w-7xl mx-auto  relative z-10">
         <Contact />
       </main>
 
