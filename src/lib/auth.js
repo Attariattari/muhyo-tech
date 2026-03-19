@@ -317,3 +317,13 @@ export async function getAuthSession() {
 export async function getAllUsers() { return Object.values(getAuthData().users); }
 export async function getAllNotifications() { return getAuthData().notifications; }
 export async function isUserActive(email) { return getAuthData().users[email]?.status === "approved"; }
+
+export async function isSetupComplete() {
+    const data = getAuthData();
+    return Object.values(data.users).some(u => u.role === "super-admin");
+}
+
+export async function getPendingApprovals() {
+    const data = getAuthData();
+    return Object.values(data.users).filter(u => u.status === "pending");
+}
