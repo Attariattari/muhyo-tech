@@ -19,9 +19,36 @@ export default function Topbar() {
       .then(res => res.json())
       .then(data => setSession(data));
 
-    // Fetch Notifications
+    // Initial Fetch
     fetchNotifications();
+
+    // Authority Polling (Simulated Real-time)
+    const pollInterval = setInterval(() => {
+      fetchNotifications();
+    }, 10000); // 10 seconds precision
+
+    // Request Browser Permission for Notifications
+    if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission();
+    }
+
+    return () => clearInterval(pollInterval);
   }, []);
+
+  // Trigger browser notification on new unread log
+  useEffect(() => {
+      const lastNotif = notifications[0];
+      if (lastNotif && lastNotif.status === 'unread' && "Notification" in window && Notification.permission === "granted") {
+          const shownNotifs = JSON.parse(sessionStorage.getItem('shown_notifs') || '[]');
+          if (!shownNotifs.includes(lastNotif.id)) {
+              new Notification("[Nexus Alert] Security Event Traced", {
+                  body: lastNotif.message,
+                  icon: "/favicon.ico"
+              });
+              sessionStorage.setItem('shown_notifs', JSON.stringify([...shownNotifs, lastNotif.id]));
+          }
+      }
+  }, [notifications]);
 
   const unreadCount = useMemo(() => notifications.filter(n => n.status === 'unread').length, [notifications]);
   const latestNotifications = useMemo(() => notifications.slice(0, 10), [notifications]);

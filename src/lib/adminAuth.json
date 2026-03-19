@@ -9,17 +9,44 @@
       "role": "super-admin",
       "status": "approved",
       "createdAt": "2026-03-19T11:21:41Z"
+    },
+    "muhyotech@gmail.com": {
+      "id": "c8p2262j8",
+      "email": "muhyotech@gmail.com",
+      "name": "muhyotech",
+      "status": "approved",
+      "role": "user",
+      "createdAt": "2026-03-19T18:54:57.926Z",
+      "passkey": "TB4FT6F7Y7"
+    },
+    "pirghulammuhyodin@gmail.com": {
+      "id": "lbbizxlx6",
+      "email": "pirghulammuhyodin@gmail.com",
+      "name": "pirghulammuhyodin",
+      "status": "approved",
+      "role": "user",
+      "createdAt": "2026-03-19T19:06:26.760Z",
+      "passkey": "VKCK90WIMY"
     }
   },
   "notifications": [
-     {
-        "id": "notif-wel-001",
-        "type": "SYSTEM",
-        "title": "Nexus Initialized",
-        "message": "The administrative security nexus is online and secure.",
-        "status": "read",
-        "createdAt": "2026-03-19T11:21:41Z"
-     }
+    {
+      "id": "kiqv35x50",
+      "status": "read",
+      "createdAt": "2026-03-19T19:06:39.003Z",
+      "type": "SYSTEM",
+      "title": "Authority Extended",
+      "message": "Identity Authorized: pirghulammuhyodin@gmail.com. New access node established.",
+      "relatedUserId": "lbbizxlx6"
+    },
+    {
+      "id": "notif-wel-001",
+      "type": "SYSTEM",
+      "title": "Nexus Initialized",
+      "message": "The administrative security nexus is online and secure.",
+      "status": "read",
+      "createdAt": "2026-03-19T11:21:41Z"
+    }
   ],
   "pendingCodes": {}
 }

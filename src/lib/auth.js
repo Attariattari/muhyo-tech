@@ -13,7 +13,21 @@ const AUTH_FILE = path.join(process.cwd(), "src/lib/adminAuth.json");
 // Helper to interact with Mock DB
 const getAuthData = () => {
   if (!fs.existsSync(AUTH_FILE)) {
-      const initial = { superAdminEmail: "attariattari549@gmail.com", users: {}, notifications: [], pendingCodes: {} };
+      const initial = { 
+          superAdminEmail: "attariattari549@gmail.com", 
+          users: {}, 
+          notifications: [
+              {
+                  id: "notif-001",
+                  type: "SYSTEM",
+                  title: "Nexus Initialized",
+                  message: "The administrative security nexus is online and secure.",
+                  status: "read",
+                  createdAt: new Date().toISOString()
+              }
+          ], 
+          pendingCodes: {} 
+      };
       fs.writeFileSync(AUTH_FILE, JSON.stringify(initial, null, 2));
       return initial;
   }
@@ -92,6 +106,7 @@ export async function verifyAndHandleRequest(email, code) {
     };
     data.users[email] = user;
     saveAuthData(data);
+    // Auto-login on verification for Super Admin
     await login(email, passkey);
     return { success: true, role: "super-admin", passkey };
   } else {
@@ -159,6 +174,15 @@ export async function approveUser(email) {
 
   saveAuthData(data);
 
+  // LOG: Administrative Audit
+  await addNotification({
+    type: "SYSTEM",
+    title: "Authority Extended",
+    message: `Identity Authorized: ${email}. New access node established.`,
+    relatedUserId: user.id,
+    status: "read"
+  });
+
   // Send Passkey Email
   try {
       if (process.env.SMTP_USER) {
@@ -166,7 +190,11 @@ export async function approveUser(email) {
               from: `"Authority Nexus" <${process.env.SMTP_USER}>`,
               to: email,
               subject: "[Muhyo Access] Identity Authorized",
-              html: `<p>Your access has been authorized.</p><p>Passkey: <b>${passkey}</b></p>`,
+              html: `<div style="padding: 24px; font-family: sans-serif; background: #f9fafb;">
+                        <h3>Identity Authorized</h3>
+                        <p>Your administrative access has been granted. Use the following passkey to login:</p>
+                        <div style="background: #e5e7eb; padding: 16px; font-weight: bold; font-family: monospace; font-size: 24px;">${passkey}</div>
+                     </div>`,
           });
       }
   } catch (e) { console.warn("Approve email failed."); }
