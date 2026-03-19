@@ -30,12 +30,12 @@ export default function Footer() {
     resources: [
       { name: "Blog", href: "/blog" },
       { name: "Resume", href: "/resume" },
-      { name: "Skills", href: "/#skills" },
+      { name: "Skills", href: "/skills" },
       { name: "Contact", href: "/contact" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
+      { name: "Privacy Policy", href: "#" },
+      { name: "Terms of Service", href: "#" },
     ],
   };
 
@@ -79,7 +79,7 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground mb-8">
               Navigation
             </h4>
-            <ul className="flex flex-wrap lg:flex-col gap-x-6 gap-y-3 lg:gap-0 lg:space-y-4">
+            <ul className="space-y-4">
               {footerLinks.navigation.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -102,7 +102,7 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground mb-8">
               Resources
             </h4>
-            <ul className="flex flex-wrap lg:flex-col gap-x-6 gap-y-3 lg:gap-0 lg:space-y-4">
+            <ul className="space-y-4">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
