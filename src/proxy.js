@@ -5,7 +5,7 @@ const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "fallback_muhyo_secret_32_chars_long_!!!"
 );
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // Protect all /admin routes except /admin/login
@@ -31,7 +31,7 @@ export async function middleware(request) {
   return NextResponse.next();
 }
 
-// Ensure middleware runs on matching paths
+// Ensure proxy runs on matching paths
 export const config = {
   matcher: ["/admin/:path*"],
 };
