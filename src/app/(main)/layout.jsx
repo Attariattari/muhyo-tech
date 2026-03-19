@@ -1,14 +1,10 @@
 import { Inter } from "next/font/google";
-import "@/app/globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import InitialLoader from "@/components/InitialLoader";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollProgress from "@/components/ScrollProgress";
-
-import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,33 +15,9 @@ export const metadata = {
 
 export default function MainLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const savedTheme = localStorage.getItem('theme');
-                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body
+      <div
         className={`${inter.className} transition-colors duration-300 relative`}
       >
-        <ThemeProvider>
           <InitialLoader />
           <ScrollProgress />
           <Sidebar />
@@ -58,9 +30,6 @@ export default function MainLayout({ children }) {
             <main className="flex-grow">{children}</main>
             <Footer />
           </div>
-        </ThemeProvider>
-        <Analytics />
-      </body>
-    </html>
+      </div>
   );
 }
