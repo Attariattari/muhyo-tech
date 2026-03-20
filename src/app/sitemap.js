@@ -1,5 +1,7 @@
+import { SITE_URL } from "@/lib/config";
+
 export default function sitemap() {
-  const baseUrl = "https://muhyo.tech";
+  const baseUrl = SITE_URL;
   return [
     { url: baseUrl, lastModified: new Date() },
     { url: `${baseUrl}/about`, lastModified: new Date() },

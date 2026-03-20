@@ -5,6 +5,8 @@ import dbConnect from "@/lib/dbConnect";
 import User, { Notification, PendingCode } from "@/models/AdminModels";
 import eventBus, { ADMIN_EVENTS } from "@/lib/eventBus";
 import { generateEmailTemplate } from "@/lib/emailTemplates";
+import { SITE_URL } from "@/lib/config";
+
 
 const SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || "fallback_muhyo_secret_32_chars_long_!!!"
@@ -59,7 +61,7 @@ export async function sendVerificationCode(email, type = "setup") {
           userName: normalizedEmail.split('@')[0],
           type: "VERIFICATION",
           actionData: { code },
-          ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+          ctaUrl: `${SITE_URL}/admin/login`
       }),
     });
     return { success: true };
@@ -204,7 +206,7 @@ export async function approveUser(email) {
                   userName: user.name,
                   type: isReverify ? "REVERIFY_APPROVED" : "APPROVED",
                   actionData: { passkey },
-                  ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+                  ctaUrl: `${SITE_URL}/admin/login`
               }),
           });
       }
@@ -245,7 +247,7 @@ export async function denyUser(email) {
                   html: generateEmailTemplate({
                       userName: user.name,
                       type: "DENIED",
-                      ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+                      ctaUrl: `${SITE_URL}/admin/login`
                   }),
               });
           }
@@ -284,7 +286,7 @@ export async function removeUser(email) {
                     html: generateEmailTemplate({
                         userName: user.name,
                         type: "REMOVED",
-                        ctaUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/login`
+                        ctaUrl: `${SITE_URL}/admin/login`
                     }),
                 });
             }
